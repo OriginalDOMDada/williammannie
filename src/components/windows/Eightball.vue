@@ -9,8 +9,8 @@
       <span><h2>{{appData.applications.eightball.text}}</h2></span>
       </div>
       <div class="button-section">
-        <button v-on:click="explode" class="opt red" type="button" name="expand"><span>+</span></button>
-        <button class="opt green" type="button" name="close"><span>&#8853;</span></button>
+        <button v-touch:tap="explode" v-on:click="explode" class="opt red" type="button" name="expand"><svgicon v-on:click="appData.applications.eightball.openApp = false" name="close" height="6" width="6" :original="true"></svgicon></button>
+        <button class="opt green" type="button" name="fullSize" v-touch:tap="fullSize" v-on:click="fullSize" @mouseover="parentOn" @mouseleave="parentOff"><svgicon name="open" height="6" width="6" :original="true" v-on:click="fullSize"></svgicon></button>
       </div>
     </div>
   </div>
@@ -48,6 +48,8 @@ export default {
     return {
       appData,
       answer: '',
+      dragState: false,
+      parent: false,
       x: 0,
       y: 0,
       answers: ['Maybe.', 'Certainly not.', 'I hope so.', 'Not in your wildest dreams.']
@@ -84,6 +86,26 @@ export default {
         ball.classList.remove('answerShake')
       }
     },
+    fullSize: function () {
+      this.parent = true
+      var doubleClickEvent = document.createEvent('MouseEvents')
+      doubleClickEvent.initEvent('dblclick', true, true)
+      for (var i = 0; i < 1000; i++) {
+        this.$el.querySelector('#eightball').dispatchEvent(doubleClickEvent)
+      }
+    },
+    dragOn: function () {
+      this.dragState = true
+    },
+    dragOff: function () {
+      this.dragState = false
+    },
+    parentOn: function () {
+      this.parent = true
+    },
+    parentOff: function () {
+      this.parent = false
+    },
     high: function () {
       var activeApps = document.getElementsByClassName('app')
       var initalHi = 200
@@ -96,13 +118,12 @@ export default {
       if (initalHi <= largest) {
         appData.applications.eightball.z = largest + 1
       }
-      console.log(this.$el)
     },
     explode: function () {
-      this.appData.applications.eightball.openApp = false
       document.getElementsByClassName('panel')['0'].style.WebkitAnimation = 'inherit'
       document.getElementsByClassName('panel')['0'].style.backgroundImage = `url(${require('../../assets/gifs/explode.gif')})`
       document.getElementsByClassName('panel')['0'].style.backgroundSize = '100% 100%'
+      this.appData.applications.eightball.openApp = false
       setTimeout(function () {
         document.getElementsByClassName('panel')['0'].style.WebkitAnimation = 'inherit'
         document.getElementsByClassName('panel')['0'].style.backgroundImage = ''

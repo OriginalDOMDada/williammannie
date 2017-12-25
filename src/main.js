@@ -6,12 +6,14 @@ import router from './router'
 import VueDraggableResizable from 'vue-draggable-resizable'
 import VueSVGIcon from 'vue-svgicon'
 import VueTyperPlugin from 'vue-typer'
+import Vue2TouchEvents from 'vue2-touch-events'
 
 Vue.config.productionTip = false
 
 Vue.component('vue-draggable-resizable', VueDraggableResizable)
 Vue.use(VueSVGIcon)
 Vue.use(VueTyperPlugin)
+Vue.use(Vue2TouchEvents)
 
 /* eslint-disable no-new */
 new Vue({

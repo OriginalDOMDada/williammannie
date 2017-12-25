@@ -40,8 +40,10 @@
     "vue-router": "^3.0.1",
     "vue-svgicon": "^2.1.1",
     "vue-template-compiler": "^2.5.8",
+    "vue-touch": "^2.0.0-beta.4",
     "vue-typer": "^1.2.0",
     "vue-validator": "^3.0.0-alpha.2",
+    "vue2-touch-events": "^1.0.0",
     "vuex": "^3.0.1",
     "webticker": "^3.0.0"
   },

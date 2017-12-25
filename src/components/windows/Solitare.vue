@@ -1,7 +1,7 @@
 <template>
 <div style="height: 100vw; width: 100vw; position: absolute;" v-bind:class="{windowOpen :appData.applications.solitare.openApp}">
 <transition-group name="fade"  tag="div" class="windows">
-<vue-draggable-resizable :x.sync="x" :y.sync="y" :active="true" @activated="high" :h="400" :w="400" :z.sync="appData.applications.solitare.z" v-if="appData.applications.solitare.openApp" v-bind:name="appData.applications.solitare.text" v-bind:open="appData.applications.solitare.openApp" v-bind:key="1" id="solitare" class="box-md app" v-on:resizing="onResize">
+<vue-draggable-resizable :x.sync="x" :y.sync="y" :active="true" :draggable="dragState" @activated="high" :maximize="true" :z.sync="appData.applications.solitare.z" :parent="parent" :resizing="true" :h="400" :w="400" :minh="400" :minw="400" v-if="appData.applications.solitare.openApp" v-bind:name="appData.applications.solitare.text" v-bind:open="appData.applications.solitare.openApp" v-bind:key="1" id="solitare" class="box-md app">
 <div class="big-rap">
 <div class="box-header">
     <div class="title-box">
@@ -9,8 +9,8 @@
       <span><h2>{{appData.applications.solitare.text}}</h2></span>
       </div>
       <div class="button-section">
-        <button v-on:click="appData.applications.solitare.openApp = false" class="opt red" type="button" name="expand"></button>
-        <button class="opt green" type="button" name="close"></button>
+        <button v-touch:tap="explode" v-on:click="explode" class="opt red" type="button" name="expand"><svgicon v-on:click="appData.applications.solitare.openApp = false" name="close" height="6" width="6" :original="true"></svgicon></button>
+        <button class="opt green" type="button" name="fullSize" v-touch:tap="fullSize" v-on:click="fullSize" @mouseover="parentOn" @mouseleave="parentOff"><svgicon name="open" height="6" width="6" :original="true" v-on:click="fullSize"></svgicon></button>
       </div>
     </div>
   </div>
@@ -40,6 +40,8 @@
     data () {
       return {
         appData,
+        dragState: false,
+        parent: false,
         x: 0,
         y: 0
       }
@@ -102,6 +104,17 @@
             window.dispatchEvent(resizeEvent)
           }
         }
+      },
+      explode: function () {
+        document.getElementsByClassName('panel')['0'].style.WebkitAnimation = 'inherit'
+        document.getElementsByClassName('panel')['0'].style.backgroundImage = `url(${require('../../assets/gifs/explode.gif')})`
+        document.getElementsByClassName('panel')['0'].style.backgroundSize = '100% 100%'
+        this.appData.applications.solitare.openApp = false
+        setTimeout(function () {
+          document.getElementsByClassName('panel')['0'].style.WebkitAnimation = 'inherit'
+          document.getElementsByClassName('panel')['0'].style.backgroundImage = ''
+          document.getElementsByClassName('panel')['0'].style.backgroundSize = ''
+        }, 1000)
       },
       high: function () {
         var activeApps = document.getElementsByClassName('app')

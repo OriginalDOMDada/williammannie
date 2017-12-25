@@ -9,8 +9,8 @@
         <span><span class="two"><h2>{{appData.applications.music.text}}</h2></span></span>
         </div>
         <div class="button-section">
-        <button v-on:click="explode" class="opt red" type="button" name="expand"><svgicon v-on:click="explode" name="close" height="6" width="6" :original="true"></svgicon></button>
-        <button class="opt green" type="button" name="fullSize" v-on:click="fullSize" @mouseover="parentOn" @mouseleave="parentOff"><svgicon name="open" height="6" width="6" :original="true" v-on:click="fullSize"></svgicon></button>
+          <button v-touch:tap="explode" v-on:click="explode" class="opt red" type="button" name="expand"><svgicon v-on:click="appData.applications.music.openApp = false" name="close" height="6" width="6" :original="true"></svgicon></button>
+          <button class="opt green" type="button" name="fullSize" v-touch:tap="fullSize" v-on:click="fullSize" @mouseover="parentOn" @mouseleave="parentOff"><svgicon name="open" height="6" width="6" :original="true" v-on:click="fullSize"></svgicon></button>
         </div>
       </div>
     </div>

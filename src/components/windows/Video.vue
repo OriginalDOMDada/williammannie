@@ -9,8 +9,8 @@
       <span><h2>{{appData.applications.video.text}}</h2></span>
       </div>
       <div class="button-section">
-        <button v-on:click="appData.applications.video.openApp = false" class="opt red" type="button" name="expand"></button>
-        <button class="opt green" type="button" name="fullSize" v-on:click="fullSize" @mouseover="parentOn" @mouseleave="parentOff"></button>
+        <button v-touch:tap="explode" v-on:click="explode" class="opt red" type="button" name="expand"><svgicon v-on:click="appData.applications.video.openApp = false" name="close" height="6" width="6" :original="true"></svgicon></button>
+        <button class="opt green" type="button" name="fullSize" v-touch:tap="fullSize" v-on:click="fullSize" @mouseover="parentOn" @mouseleave="parentOff"><svgicon name="open" height="6" width="6" :original="true" v-on:click="fullSize"></svgicon></button>
       </div>
     </div>
   </div>
@@ -78,6 +78,17 @@ export default {
     },
     parentOff: function () {
       this.parent = false
+    },
+    explode: function () {
+      document.getElementsByClassName('panel')['0'].style.WebkitAnimation = 'inherit'
+      document.getElementsByClassName('panel')['0'].style.backgroundImage = `url(${require('../../assets/gifs/explode.gif')})`
+      document.getElementsByClassName('panel')['0'].style.backgroundSize = '100% 100%'
+      this.appData.applications.video.openApp = false
+      setTimeout(function () {
+        document.getElementsByClassName('panel')['0'].style.WebkitAnimation = 'inherit'
+        document.getElementsByClassName('panel')['0'].style.backgroundImage = ''
+        document.getElementsByClassName('panel')['0'].style.backgroundSize = ''
+      }, 1000)
     },
     high: function () {
       var activeApps = document.getElementsByClassName('app')

@@ -48,48 +48,48 @@ button, svg {
 
 body {
   overflow-x: hidden;
-  cursor: url("http://localhost:8081/static/colorwave-1.svg"), auto !important; }
+  cursor: url("http://localhost:8080/static/colorwave-1.svg"), auto !important; }
 
 .draggable {
-  cursor: url("http://localhost:8081/static/colorwave-1.svg"), auto !important; }
+  cursor: url("http://localhost:8080/static/colorwave-1.svg"), auto !important; }
 
 button {
-  cursor: url("http://localhost:8081/static/finger.svg"), auto; }
+  cursor: url("http://localhost:8080/static/finger.svg"), auto; }
   button.red {
-    cursor: url("http://localhost:8081/static/cursor/da-bomb.svg"), auto; }
+    cursor: url("http://localhost:8080/static/cursor/da-bomb.svg"), auto; }
   button.green {
-    cursor: url("http://localhost:8081/static/cursor/expand.svg"), auto; }
+    cursor: url("http://localhost:8080/static/cursor/expand.svg"), auto; }
   button svg {
     pointer-events: none; }
 
 .day {
-  cursor: url("http://localhost:8081/static/day.svg"), auto !important; }
+  cursor: url("http://localhost:8080/static/day.svg"), auto !important; }
 
 .night {
-  cursor: url("http://localhost:8081/static/night.svg"), auto !important; }
+  cursor: url("http://localhost:8080/static/night.svg"), auto !important; }
 
 a {
   animation: animate .25s infinite ease-in-out; }
 
 @keyframes animate {
   0% {
-    cursor: url("http://localhost:8081/static/cursor/star-1.svg"), auto; }
+    cursor: url("http://localhost:8080/static/cursor/star-1.svg"), auto; }
   25% {
-    cursor: url("http://localhost:8081/static/cursor/star-2.svg"), auto; }
+    cursor: url("http://localhost:8080/static/cursor/star-2.svg"), auto; }
   50% {
-    cursor: url("http://localhost:8081/static/cursor/star-3.svg"), auto; }
+    cursor: url("http://localhost:8080/static/cursor/star-3.svg"), auto; }
   75% {
-    cursor: url("http://localhost:8081/static/cursor/star-4.svg"), auto; }
+    cursor: url("http://localhost:8080/static/cursor/star-4.svg"), auto; }
   100% {
-    cursor: url("http://localhost:8081/static/cursor/star-5.svg"), auto; } }
+    cursor: url("http://localhost:8080/static/cursor/star-5.svg"), auto; } }
 .disco {
   animation: disco 1s infinite ease-in-out; }
 
 @keyframes disco {
   from {
-    cursor: url("http://localhost:8081/static/cursor/disco-1.svg"), auto; }
+    cursor: url("http://localhost:8080/static/cursor/disco-1.svg"), auto; }
   to {
-    cursor: url("http://localhost:8081/static/cursor/disco-2.svg"), auto; } }
+    cursor: url("http://localhost:8080/static/cursor/disco-2.svg"), auto; } }
 /* Let's get this party started */
 ::-webkit-scrollbar {
   width: 30px; }
@@ -119,13 +119,13 @@ a {
   display: none; }
 
 ::-webkit-scrollbar-button:start {
-  background-image: url("http://localhost:8081/static/arrow.svg");
+  background-image: url("http://localhost:8080/static/arrow.svg");
   background-size: 20px 20px;
   background-repeat: no-repeat;
   background-position: center; }
 
 ::-webkit-scrollbar-button:end {
-  background-image: url("http://localhost:8081/static/arrow-bottom.svg");
+  background-image: url("http://localhost:8080/static/arrow-bottom.svg");
   background-size: 20px 20px;
   background-repeat: no-repeat;
   background-position: center; }
@@ -182,7 +182,7 @@ a {
   -webkit-background-clip: padding-box;
   -moz-background-clip: padding-box;
   background-clip: padding-box;
-  background-image: url("http://localhost:8081/static/half.jpg");
+  background-image: url("http://localhost:8080/static/half.jpg");
   background-position: center -125px;
   background-size: 125%;
   background-repeat: no-repeat; }
@@ -217,7 +217,7 @@ a {
     opacity: 1; } }
   .share:after {
     content: "";
-    background-image: url("http://localhost:8081/static/box.jpg");
+    background-image: url("http://localhost:8080/static/box.jpg");
     opacity: .7;
     background-blend-mode: multiply;
     background-size: cover;
@@ -228,7 +228,7 @@ a {
     position: absolute;
     z-index: 999; }
   .share:hover {
-    background-image: url("http://localhost:8081/static/half2.jpg"); }
+    background-image: url("http://localhost:8080/static/half2.jpg"); }
     .share:hover .bink-text {
       -webkit-animation: shareblink 0.7s infinite linear alternate;
       animation: shareblink 0.7s infinite linear alternate; }
@@ -427,7 +427,7 @@ a {
 .button-section {
   padding: 14px;
   position: absolute;
-  cursor: url("http://localhost:8081/static/finger.svg"), auto !important;
+  cursor: url("http://localhost:8080/static/finger.svg"), auto !important;
   top: 0;
   left: 0; }
   .button-section button:hover.green {
@@ -554,15 +554,15 @@ button.opt {
   animation: icon .25s infinite ease-in-out; }
 @keyframes icon {
   0% {
-    cursor: url("http://localhost:8081/static/cursor/cursor-1.svg"), auto; }
+    cursor: url("http://localhost:8080/static/cursor/cursor-1.svg"), auto; }
   25% {
-    cursor: url("http://localhost:8081/static/cursor/cursor-2.svg"), auto; }
+    cursor: url("http://localhost:8080/static/cursor/cursor-2.svg"), auto; }
   50% {
-    cursor: url("http://localhost:8081/static/cursor/cursor-3.svg"), auto; }
+    cursor: url("http://localhost:8080/static/cursor/cursor-3.svg"), auto; }
   75% {
-    cursor: url("http://localhost:8081/static/cursor/cursor-4.svg"), auto; }
+    cursor: url("http://localhost:8080/static/cursor/cursor-4.svg"), auto; }
   100% {
-    cursor: url("http://localhost:8081/static/cursor/cursor-5.svg"), auto; } }
+    cursor: url("http://localhost:8080/static/cursor/cursor-5.svg"), auto; } }
   .desktop .desktop-icon {
     height: 50px;
     width: 50px;

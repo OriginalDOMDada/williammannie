@@ -9,8 +9,8 @@
       <span><span class="two"><h2>{{appData.applications.email.text}}</h2></span></span>
       </div>
       <div class="button-section">
-        <button v-on:click="explode" class="opt red" type="button" name="expand"><svgicon v-on:click="appData.applications.email.openApp = false" name="close" height="6" width="6" :original="true"></svgicon></button>
-        <button class="opt green" type="button" name="fullSize" v-on:click="fullSize" @mouseover="parentOn" @mouseleave="parentOff"><svgicon name="open" height="6" width="6" :original="true" v-on:click="fullSize"></svgicon></button>
+        <button v-touch:tap="explode" v-on:click="explode" class="opt red" type="button" name="expand"><svgicon v-on:click="appData.applications.email.openApp = false" name="close" height="6" width="6" :original="true"></svgicon></button>
+        <button class="opt green" type="button" name="fullSize" v-touch:tap="fullSize" v-on:click="fullSize" @mouseover="parentOn" @mouseleave="parentOff"><svgicon name="open" height="6" width="6" :original="true" v-on:click="fullSize"></svgicon></button>
       </div>
     </div>
   </div>
@@ -60,6 +60,17 @@ export default {
       for (var i = 0; i < 1000; i++) {
         this.$el.querySelector('#resume').dispatchEvent(doubleClickEvent)
       }
+    },
+    explode: function () {
+      document.getElementsByClassName('panel')['0'].style.WebkitAnimation = 'inherit'
+      document.getElementsByClassName('panel')['0'].style.backgroundImage = `url(${require('../../assets/gifs/explode.gif')})`
+      document.getElementsByClassName('panel')['0'].style.backgroundSize = '100% 100%'
+      this.appData.applications.email.openApp = false
+      setTimeout(function () {
+        document.getElementsByClassName('panel')['0'].style.WebkitAnimation = 'inherit'
+        document.getElementsByClassName('panel')['0'].style.backgroundImage = ''
+        document.getElementsByClassName('panel')['0'].style.backgroundSize = ''
+      }, 1000)
     },
     dragOn: function () {
       this.dragState = true
