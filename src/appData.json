@@ -1,0 +1,98 @@
+{
+  "applications": {
+    "aboutme": {
+      "text": "Info",
+      "classname": "desktop-icon",
+      "activeState": false,
+      "openApp": false,
+      "content": "",
+      "x": 0,
+      "y": 0,
+      "z": 200,
+      "h": 400,
+      "w": 400
+    },
+    "eightball": {
+      "text": "Maybe...",
+      "classname": "desktop-icon",
+      "activeState": false,
+      "openApp": false,
+      "active": true,
+      "content": "",
+      "x": 0,
+      "y": 102,
+      "z": 200
+    },
+    "solitare": {
+      "text": "Solitare",
+      "classname": "desktop-icon",
+      "activeState": false,
+      "openApp": false,
+      "content": "",
+      "x": 0,
+      "y": 204,
+      "z": 200
+    },
+    "skills": {
+      "text": "Skills",
+      "classname": "desktop-icon",
+      "activeState": false,
+      "openApp": false,
+      "content": "",
+      "x": 0,
+      "y": 306,
+      "z": 200
+    },
+    "resume": {
+      "text": "Resume",
+      "classname": "desktop-icon",
+      "activeState": false,
+      "openApp": false,
+      "content": "",
+      "x": 0,
+      "y": 408,
+      "z": 200
+    },
+    "email": {
+      "text": "E-Mail",
+      "classname": "desktop-icon",
+      "activeState": false,
+      "openApp": false,
+      "content": "",
+      "x": 90,
+      "y": 0,
+      "z": 200
+    },
+    "threedee": {
+      "text": "3-D",
+      "classname": "desktop-icon",
+      "activeState": false,
+      "openApp": false,
+      "content": "",
+      "x": 90,
+      "y": 102,
+      "z": 200
+    },
+    "video": {
+      "text": "Video",
+      "classname": "desktop-icon",
+      "activeState": false,
+      "openApp": false,
+      "content": "",
+      "x": 90,
+      "y": 306,
+      "z": 200
+    },
+    "music": {
+      "text": "Music",
+      "classname": "desktop-icon",
+      "activeState": false,
+      "openApp": false,
+      "content": "",
+      "x": 90,
+      "y": 204,
+      "z": 200,
+      "streaming": false
+    }
+  }
+}
