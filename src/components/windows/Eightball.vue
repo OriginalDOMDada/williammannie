@@ -24,9 +24,9 @@
           </div>
         </div>
         <div class="button-wrapper">
-          <p>{{answer}}</p>
+          <p id="ballanswer">{{answer}}</p>
           <div class="prebee">
-          <button id="answerButton" v-on:click="answerMe">Try Me</button>
+          <button id="answerButton" v-on:click.prevent="answerMe">Try Me</button>
           </div>
         </div>
         </div>
@@ -52,7 +52,8 @@ export default {
       parent: false,
       x: 0,
       y: 0,
-      answers: ['Maybe.', 'Certainly not.', 'I hope so.', 'Not in your wildest dreams.']
+      clickon: false,
+      answers: ['Maybe.', 'Certainly not.', 'I hope so.', 'Not in your wildest dreams.', 'There is a good chance.', 'Quite likely.', 'I think so.', 'I hope not.', 'I hope so.', 'Never!', 'Forget about it.', 'Ahaha! Really?!?', 'Pfft.', 'Sorry, bucko.', 'Hell, yes.', 'Hell to the no.', 'The future is bleak.', 'The future is uncertain.', 'I would rather not say.', 'Who cares?', 'Possibly.', 'Never, ever, ever.', 'There is a small chance.', 'Yes!']
     }
   },
   beforeUpdate () {
@@ -75,16 +76,30 @@ export default {
   },
   methods: {
     answerMe: function () {
-      this.answer = this.answers[Math.floor(Math.random() * this.answers.length)]
+      if (this.clickon) {
+        return false
+      }
+      var $this = this
+      $this.clickon = true
       var ball = document.getElementById('magic-move')
-      if (ball.classList.contains('answerShake')) {
-        ball.classList.remove('answerShake')
-      }
+      var daanswer = document.getElementById('ballanswer')
+      var innerball = this.$el.querySelector('.magic-triangle')
       ball.classList.add('answerShake')
-      setTimeout(answerReveal, 1000)
-      function answerReveal () {
+      innerball.classList.add('hide')
+      innerball.classList.remove('show')
+      innerball.classList.add('answerShake')
+      daanswer.classList.remove('show')
+      daanswer.classList.add('hide')
+      setTimeout(function () {
+        $this.answer = $this.answers[Math.floor(Math.random() * $this.answers.length)]
+        daanswer.classList.remove('hide')
+        daanswer.classList.add('show')
         ball.classList.remove('answerShake')
-      }
+        innerball.classList.remove('answerShake')
+        innerball.classList.add('show')
+        innerball.classList.remove('hide')
+        $this.clickon = false
+      }, 1500)
     },
     fullSize: function () {
       this.parent = true

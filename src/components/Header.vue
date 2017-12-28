@@ -10,8 +10,7 @@
         <a href='#'>Link 3</a>
       </div>
     </div>
-    <div class="marquee3k disco" data-speed="0.25" data-pausable="bool">
-      <p>Dreaming a thought... that could dream about a thought, that could think of the dreamer that thought, that could think of dreaming and getting a glimmer of God...</p>
+    <div class="marquee3k disco" data-speed="0.25" data-pausable="bool" id="example2">
     </div>
     <div id='todaysDate'></div>
   </div>
@@ -40,15 +39,7 @@
     <div class="soundcloud">
       <svgicon height="28" width="28" name="soundcloud"></svgicon>
     </div>
-  </div>
-  <div class="share">
-    <div class="share-wrapper">
-      <span class="bink-text">Share:</span>
-      <span class="under-blink">send domain to other users.</span>
-      <div class="share-twitter"></div>
-      <div class="share-facebook"></div>
-      <div class="share-text"></div>
-    </div>
+    <div id="example2"></div>
   </div>
 </div>
 </template>
@@ -56,6 +47,8 @@
 <script>
     import appData from '../appData.json'
     import Marquee3k from 'marquee3000'
+    import SunCalc from 'suncalc'
+    import twitterFetcher from 'twitter-fetcher'
     export default {
       data () {
         return {
@@ -64,7 +57,32 @@
         }
       },
       mounted () {
-        Marquee3k.init()
+        var config2 = {
+          'profile': {'screenName': 'tripleogstatus'},
+          'domId': 'example2',
+          'maxTweets': 3,
+          'enableLinks': true,
+          'showUser': true,
+          'showTime': false,
+          'showImages': false,
+          'showInteraction': false,
+          'lang': 'en'
+        }
+        twitterFetcher.fetch(config2)
+        function initmarkee () {
+          if (document.getElementById('example2').innerHTML !== '') {
+            console.log(document.getElementById('example2').innerHTML)
+            var users = document.querySelectorAll('[data-scribe="element:screen_name"]')
+            users.forEach(function (element) {
+              element.innerHTML = element.innerHTML + ':'
+              console.log(element.innerHTML)
+            })
+            Marquee3k.init()
+          } else {
+            setTimeout(initmarkee, 1000)
+          }
+        }
+        initmarkee()
       },
       methods: {
         expand (event) {
@@ -81,25 +99,40 @@
     }
     function doDate () {
       var str = ''
+      var lat = ''
+      var long = ''
       var days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
       var now = new Date()
       var hours = now.getHours()
       var minutes = now.getMinutes()
       var ampm = hours >= 12 ? 'PM' : 'AM'
       hours = hours % 12
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition)
+      } else {
+        console.log('Geolocation is not supported by this browser.')
+      }
       if (hours === 0) {
         hours = 12
       }
       minutes = minutes < 10 ? '0' + minutes : minutes
       str += days[now.getDay()] + ' ' + hours + ':' + minutes + ' ' + ampm
       document.getElementById('todaysDate').innerHTML = str
-      if (ampm === 'PM') {
-        document.getElementById('todaysDate').classList.add('night')
-        document.getElementById('todaysDate').classList.remove('day')
-      }
-      if (ampm === 'AM') {
-        document.getElementById('todaysDate').classList.add('day')
-        document.getElementById('todaysDate').classList.remove('night')
+      function showPosition (position) {
+        lat = position.coords.latitude
+        long = position.coords.longitude
+        var times = SunCalc.getTimes(new Date(), lat, long)
+        if (times.night.getMinutes() <= minutes) {
+          document.getElementById('todaysDate').classList.add('night')
+          document.getElementById('todaysDate').classList.remove('day')
+        }
+        if (times.dawn.getMinutes() <= minutes) {
+          document.getElementById('todaysDate').classList.add('day')
+          document.getElementById('todaysDate').classList.remove('night')
+        } else {
+          document.getElementById('todaysDate').classList.add('night')
+          document.getElementById('todaysDate').classList.remove('day')
+        }
       }
     }
     setInterval(doDate, 1000)
@@ -122,6 +155,33 @@
     font-size: 14px;
     right: 0;
     font-style: italic;
+  }
+
+  .marquee3k ul {
+    margin: 0;
+    padding: 0;
+  }
+  .marquee3k li {
+    display: table-cell;
+    padding-right: 15px;
+  }
+  .marquee3k p, .marquee3k div {
+    display: table-cell;
+  }
+
+  .marquee3k a {
+    color: yellow;
+  }
+
+  .marquee3k a span:nth-child(2) {
+    display: none;
+  }
+  .marquee3k .user {
+    padding-right: 5px;
+  }
+
+  .marquee3k ul img {
+    display: none;
   }
 
   @keyframes topspin {
