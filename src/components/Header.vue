@@ -10,7 +10,7 @@
         <a href='#'>Link 3</a>
       </div>
     </div>
-    <div class="marquee3k disco" data-speed="0.25" data-pausable="bool" id="example2">
+    <div class="marquee3k" data-speed="0.25" data-pausable="bool" id="example2">
     </div>
     <div id='todaysDate'></div>
   </div>
@@ -71,11 +71,9 @@
         twitterFetcher.fetch(config2)
         function initmarkee () {
           if (document.getElementById('example2').innerHTML !== '') {
-            console.log(document.getElementById('example2').innerHTML)
             var users = document.querySelectorAll('[data-scribe="element:screen_name"]')
             users.forEach(function (element) {
               element.innerHTML = element.innerHTML + ':'
-              console.log(element.innerHTML)
             })
             Marquee3k.init()
           } else {
@@ -122,11 +120,11 @@
         lat = position.coords.latitude
         long = position.coords.longitude
         var times = SunCalc.getTimes(new Date(), lat, long)
-        if (times.night.getMinutes() <= minutes) {
+        if (times.night.getTime() <= now.getTime()) {
           document.getElementById('todaysDate').classList.add('night')
           document.getElementById('todaysDate').classList.remove('day')
         }
-        if (times.dawn.getMinutes() <= minutes) {
+        if (times.dawn.getTime() <= now.getTime()) {
           document.getElementById('todaysDate').classList.add('day')
           document.getElementById('todaysDate').classList.remove('night')
         } else {

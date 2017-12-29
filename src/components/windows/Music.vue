@@ -14,13 +14,16 @@
         </div>
       </div>
     </div>
-      <div class="wrappa-da-rappa">
+      <div class="wrappa-da-rappa" v-bind:class="{'disco': isPlaying}">
           <div class="app-content" name="music">
             <div id="sound-image-wrap">
+              <p>{{currentTrackId}}</p>
               <div class="soundImage"></div>
             </div>
             <div class="tracklist">
-              <ol class="datracklist"></ol>
+              <ol class="datracklist">
+                <li v-for="(track, index) in trackList" v-on:click="seekTrack" v-bind:data-track="index" v-bind:class="{'activeTrack': index === 0}" :key="track.id">{{index + 1}}. {{track.title}}</li>
+              </ol>
             </div>
             <div class="ui container">
               <div class="ui segment">
@@ -30,13 +33,14 @@
                 <iframe id="soundcloud" width="100%" height="300" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/376667462&sharing=false&auto_play=false&font=Georgia&show_comments=false&theme_color=0000ff&color=0000ff&show_playcount=false&show_bpm=false"></iframe>
                 <div id="controls">
                   <div class="ui icon buttons">
-                    <button id="back-button" class="ui button">
+                    <button id="back-button" class="ui button" v-on:click="prevTrack">
                     <svgicon name="prev" height="20" width="20" :original="true"></svgicon>
                     </button>
-                    <button id="play-button" class="ui button">
-                    <svgicon name="play" height="20" width="20" :original="true"></svgicon>
+                    <button id="play-button" class="ui button" v-on:click="toggleplay">
+                      <svgicon v-if="isPlaying === false" name="play" height="20" width="20" :original="true"></svgicon>
+                      <svgicon v-if="isPlaying === true" name="next" height="20" width="20" :original="true"></svgicon>
                     </button>
-                    <button id="forward-button" class="ui button">
+                    <button id="forward-button" class="ui button" v-on:click="nextTrack">
                     <svgicon name="next" height="20" width="20" :original="true"></svgicon>
                     </button>
                     <button id="mute-button" class="ui button">
@@ -76,119 +80,14 @@
         parent: false,
         x: 0,
         y: 0,
-        songTitle: ''
+        isPlaying: false,
+        seek: false,
+        trackList: [],
+        songTitle: '',
+        currentTrackId: '',
+        widget: '',
+        SoundCloud: ''
       }
-    },
-    updated () {
-      var widget = new SoundcloudWidget('soundcloud')
-      var playBtn = document.getElementById('play-button')
-      /* var playIcon = playBtn.querySelector('i') */
-      var soundImagediv = document.querySelector('.soundImage')
-
-      var muteBtn = document.getElementById('mute-button')
-      var muteIcon = muteBtn.querySelector('i')
-
-      var backBtn = document.getElementById('back-button')
-      var forwardBtn = document.getElementById('forward-button')
-      var progressContainer = document.getElementById('progress-container')
-      var progressBar = document.getElementById('progress-bar')
-
-      widget.on(SoundcloudWidget.events.PLAY, function () {
-        soundImagediv.classList.add('soundPlaying')
-        /* playIcon.classList.add('pause') */
-        /* playIcon.classList.remove('play') */
-      })
-
-      widget.on(SoundcloudWidget.events.PAUSE, function () {
-        soundImagediv.classList.remove('soundPlaying')
-        /* playIcon.classList.add('play') */
-        /* playIcon.classList.remove('pause') */
-      })
-
-      widget.on(SoundcloudWidget.events.PLAY_PROGRESS, function (progress) {
-        var maxWidth = progressContainer.offsetWidth
-        var position = progress.relativePosition
-        var newWidth = Math.floor(maxWidth * position)
-
-        progressBar.style.width = newWidth + 'px'
-      })
-
-      muteBtn.addEventListener('click', function () {
-        widget.getVolume().then(function (volume) {
-          if (volume > 0) {
-            widget.setVolume(0)
-            muteIcon.classList.remove('mute')
-            muteIcon.classList.add('unmute')
-          } else {
-            widget.setVolume(100)
-            muteIcon.classList.add('mute')
-            muteIcon.classList.remove('unmute')
-          }
-        })
-      })
-
-      playBtn.addEventListener('click', function () {
-        widget.toggle()
-      })
-
-      forwardBtn.addEventListener('click', function () {
-        widget.seekTo(0)
-        widget.next()
-      })
-
-      backBtn.addEventListener('click', function () {
-        widget.seekTo(0)
-        widget.prev()
-      })
-
-      progressContainer.addEventListener('click', function (event) {
-        var el = progressContainer
-        var width = el.offsetWidth
-        var rect = el.getBoundingClientRect()
-        var position = event.clientX - rect.left + document.body.scrollLeft
-        var percent = position / width
-
-        widget.getDuration().then(function (duration) {
-          var newPosition = Math.floor(duration * percent)
-
-          widget.seekTo(newPosition)
-        })
-      })
-
-      widget.on(SoundcloudWidget.events.READY, function () {
-         /* var container = document.getElementById('loader') */
-        widget.getSounds().then(function (soundList) {
-          var thisList = soundList
-          var list = document.querySelector('.datracklist')
-          var nullFound = false
-          for (var i = 0; i < thisList.length; i++) {
-            if (thisList[i].title == null) {
-              nullFound = true
-              break
-            }
-          }
-          if (!nullFound) {
-            var listing = ''
-            for (var n = 0; n < thisList.length; n++) {
-              listing += '<li data-track="' + n + '"">' + '<span>' + (n + 1) + '.</span> ' + soundList[n].title + '</li>'
-              if (thisList.length === (n + 1)) {
-                list.innerHTML = listing
-                break
-              }
-            }
-            var seekTrack = document.querySelector('.datracklist')
-            seekTrack.addEventListener('click', function (event) {
-              if (event.target && event.target.nodeName === 'LI') {
-                widget.skip(event.target.dataset.track)
-              }
-            })
-          }
-        })
-        widget.getCurrentSound().then(function (soundObject) {
-          document.querySelector('.info-title').innerHTML = soundObject.title
-          document.querySelector('.soundImage').style.backgroundImage = 'url(' + soundObject.artwork_url + ')'
-        })
-      })
     },
     beforeUpdate () {
       var initalWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth
@@ -205,7 +104,96 @@
       this.x = initalX
       this.y = initalY
     },
+    updated () {
+      var $this = this
+      $this.widget = new SoundcloudWidget('soundcloud')
+      var soundImagediv = document.querySelector('.soundImage')
+
+      var muteBtn = document.getElementById('mute-button')
+      var muteIcon = muteBtn.querySelector('i')
+
+      var progressContainer = document.getElementById('progress-container')
+      var progressBar = document.getElementById('progress-bar')
+
+      $this.widget.on(SoundcloudWidget.events.PLAY, function () {
+        soundImagediv.classList.add('soundStart')
+        soundImagediv.classList.remove('paused')
+        $this.isPlaying = true
+      })
+
+      $this.widget.on(SoundcloudWidget.events.PAUSE, function () {
+        soundImagediv.classList.add('paused')
+        $this.isPlaying = false
+      })
+
+      $this.widget.on(SoundcloudWidget.events.PLAY_PROGRESS, function (progress) {
+        $this.currentTrackId = this.widget
+        var maxWidth = progressContainer.offsetWidth
+        var position = progress.relativePosition
+        var newWidth = Math.floor(maxWidth * position)
+
+        progressBar.style.width = newWidth + 'px'
+      })
+
+      muteBtn.addEventListener('click', function () {
+        $this.widget.getVolume().then(function (volume) {
+          if (volume > 0) {
+            $this.widget.setVolume(0)
+            muteIcon.classList.remove('mute')
+            muteIcon.classList.add('unmute')
+          } else {
+            $this.widget.setVolume(100)
+            muteIcon.classList.add('mute')
+            muteIcon.classList.remove('unmute')
+          }
+        })
+      })
+
+      progressContainer.addEventListener('click', function (event) {
+        var el = progressContainer
+        var width = el.offsetWidth
+        var rect = el.getBoundingClientRect()
+        var position = event.clientX - rect.left + document.body.scrollLeft
+        var percent = position / width
+
+        $this.widget.getDuration().then(function (duration) {
+          var newPosition = Math.floor(duration * percent)
+
+          $this.widget.seekTo(newPosition)
+        })
+      })
+
+      $this.widget.on(SoundcloudWidget.events.LOAD_PROGRESS, function () {
+        console.log($this.widget.getCurrentSound())
+      })
+
+      $this.widget.on(SoundcloudWidget.events.READY, function () {
+        $this.widget.getSounds().then(function (soundList) {
+          var thisList = soundList
+          var nullFound = false
+          for (var i = 0; i < thisList.length; i++) {
+            if (thisList[i].title == null) {
+              nullFound = true
+              break
+            }
+          }
+          if (!nullFound) {
+            $this.trackList = thisList
+          }
+        })
+        $this.widget.getCurrentSound().then(function (soundObject) {
+          /* document.querySelector('.activeTrack').classList.remove('activeTrack') */
+          console.log($this.widget)
+          document.querySelector('.info-title').innerHTML = soundObject.title
+          document.querySelector('.soundImage').style.backgroundImage = 'url(' + soundObject.artwork_url + ')'
+        })
+      })
+    },
     methods: {
+      toggleplay: function () {
+        this.isPlaying = !this.isPlaying
+        this.widget.toggle()
+      },
       fullSize: function () {
         this.parent = true
         var doubleClickEvent = document.createEvent('MouseEvents')
@@ -213,6 +201,21 @@
         for (var i = 0; i < 1000; i++) {
           this.$el.querySelector('#music').dispatchEvent(doubleClickEvent)
         }
+      },
+      seekTrack: function (event) {
+        var activelistitem = document.querySelector('.activeTrack')
+        this.widget.skip(event.target.dataset.track)
+        this.widget.seekTo(0)
+        activelistitem.classList.remove('activeTrack')
+        event.target.classList.add('activeTrack')
+      },
+      nextTrack: function (event) {
+        this.widget.seekTo(0)
+        this.widget.next()
+      },
+      prevTrack: function () {
+        this.widget.seekTo(0)
+        this.widget.prev()
       },
       dragOn: function () {
         this.dragState = true
@@ -240,6 +243,8 @@
         }
       },
       explode: function () {
+        this.widget.skip(0)
+        this.widget.pause()
         this.appData.applications.music.openApp = false
         document.getElementsByClassName('panel')['0'].style.WebkitAnimation = 'inherit'
         document.getElementsByClassName('panel')['0'].style.backgroundImage = `url(${require('../../assets/gifs/explode.gif')})`
@@ -313,6 +318,7 @@
   }
   .ui.button svg {
     fill: blue;
+    pointer-events: none;
   }
   .ui.button:hover {
     background-color: blue;
@@ -817,20 +823,46 @@
       font-weight: bold;
       transition: all linear .25s;
     }
+
+    .tracklist li.activeTrack:before {
+      content: ' ';
+      background-image: url('/static/stream.svg');
+      background-repeat: no-repeat;
+      height: 15px;
+      width: 15px;
+      display: block;
+      position: absolute;
+      left: 15px;
+      transition: all linear .25s;
+    }
+    .tracklist li.activeTrack:hover {
+      background-color: #dedede;
+      color: blue;
+    }
+
+    .tracklist li.activeTrack {
+      background-color: #dedede;
+      color: blue;
+    }
     .tracklist ol {
       padding: 0;
     }
     .tracklist li:hover {
       background-color: blue;
       color: white;
+      text-decoration: underline;
     }
     .tracklist li:not(:last-child) {
       border-bottom: 2px solid black;
     }
 
-    .soundPlaying {
+    .soundStart {
       transform-origin: 50% 50%;
-      animation: spinsong infinite 30s linear .25s;
+      animation: spinsong infinite 30s linear .25s forwards;
+    }
+
+    .soundStart.paused {
+      animation-play-state: paused;
     }
 
     @keyframes spinsong {
