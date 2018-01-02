@@ -122,7 +122,10 @@
 
   svg#eightball:hover, svg#eightball:hover .eightinner {
     transform-origin: 50%, 50%;
-    animation: ballshake .75s ease-in-out 1;
+    animation: ballshake 1.25s cubic-bezier(.36,.07,.19,.97) forwards;
+    transform: translate3d(0, 0, 0);
+    backface-visibility: hidden;
+    perspective: 1000px;
   }
 
   svg#resume:hover .lower {
@@ -459,23 +462,20 @@
   }
 
   @keyframes ballshake {
-    0%{
-      transform: translate(0px,-2px);
+    10%, 90% {
+      transform: translate3d(0px, 2px, 0);
     }
-    20%{
-      transform: translate(-2px,2px);
+
+    20%, 80% {
+      transform: translate3d(-1px, -1px, 0);
     }
-    40%{
-      transform: translate(-2px,-2px);
+
+    30%, 50%, 70% {
+      transform: translate3d(-1px, -2px, 2px);
     }
-    60%{
-      transform: translate(0px,0px);
-    }
-    80%{
-      transform: translate(0px,2px);
-    }
-    100%{
-      transform: translate(0px,0px);
+
+    40%, 60% {
+      transform: translate3d(0px, 4px, 0);
     }
   }
 

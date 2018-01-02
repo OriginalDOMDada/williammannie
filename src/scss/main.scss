@@ -1262,7 +1262,7 @@ button.opt {
   animation: hardShake 1s cubic-bezier(.36,.07,.19,.97) reverse forwards;
   transform: translate3d(0, 0, 0);
   backface-visibility: hidden;
-  perspective: 10000px;
+  perspective: 1000px;
 }
 
 #ballanswer, .magic-triangle  {

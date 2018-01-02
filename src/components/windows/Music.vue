@@ -22,7 +22,7 @@
             </div>
             <div class="tracklist">
               <ol class="datracklist">
-                <li v-for="(track, index) in trackList" v-on:click="seekTrack" v-bind:data-track="index" v-bind:class="{'activeTrack': index === 0}" :key="track.id">{{index + 1}}. {{track.title}}</li>
+                <li v-for="(track, index) in trackList" v-on:click="seekTrack" v-bind:data-track="index" v-bind:class="{'activeTrack': index === 0}" :key="track.id" v-bind:id="track.id">{{index + 1}}. {{track.title}}</li>
               </ol>
             </div>
             <div class="ui container">
@@ -38,12 +38,13 @@
                     </button>
                     <button id="play-button" class="ui button" v-on:click="toggleplay">
                       <svgicon v-if="isPlaying === false" name="play" height="20" width="20" :original="true"></svgicon>
-                      <svgicon v-if="isPlaying === true" name="next" height="20" width="20" :original="true"></svgicon>
+                      <svgicon v-if="isPlaying === true" name="pause" height="20" width="20" :original="true"></svgicon>
                     </button>
                     <button id="forward-button" class="ui button" v-on:click="nextTrack">
                     <svgicon name="next" height="20" width="20" :original="true"></svgicon>
                     </button>
-                    <button id="mute-button" class="ui button">
+                    <button id="mute-button" class="ui button" v-on:click="muteTrack">
+                      <svgicon name="mute" height="20" width="20" :original="true"></svgicon>
                     </button>
                   </div>
                 </div>
@@ -81,6 +82,7 @@
         x: 0,
         y: 0,
         isPlaying: false,
+        isMute: false,
         seek: false,
         trackList: [],
         songTitle: '',
@@ -109,9 +111,6 @@
       $this.widget = new SoundcloudWidget('soundcloud')
       var soundImagediv = document.querySelector('.soundImage')
 
-      var muteBtn = document.getElementById('mute-button')
-      var muteIcon = muteBtn.querySelector('i')
-
       var progressContainer = document.getElementById('progress-container')
       var progressBar = document.getElementById('progress-bar')
 
@@ -127,7 +126,6 @@
       })
 
       $this.widget.on(SoundcloudWidget.events.PLAY_PROGRESS, function (progress) {
-        $this.currentTrackId = this.widget
         var maxWidth = progressContainer.offsetWidth
         var position = progress.relativePosition
         var newWidth = Math.floor(maxWidth * position)
@@ -135,18 +133,12 @@
         progressBar.style.width = newWidth + 'px'
       })
 
-      muteBtn.addEventListener('click', function () {
-        $this.widget.getVolume().then(function (volume) {
-          if (volume > 0) {
-            $this.widget.setVolume(0)
-            muteIcon.classList.remove('mute')
-            muteIcon.classList.add('unmute')
-          } else {
-            $this.widget.setVolume(100)
-            muteIcon.classList.add('mute')
-            muteIcon.classList.remove('unmute')
-          }
-        })
+      $this.widget.getVolume().then(function (volume) {
+        if ($this.isMute === true) {
+          $this.widget.setVolume(0)
+        } else {
+          $this.widget.setVolume(100)
+        }
       })
 
       progressContainer.addEventListener('click', function (event) {
@@ -161,10 +153,6 @@
 
           $this.widget.seekTo(newPosition)
         })
-      })
-
-      $this.widget.on(SoundcloudWidget.events.LOAD_PROGRESS, function () {
-        console.log($this.widget.getCurrentSound())
       })
 
       $this.widget.on(SoundcloudWidget.events.READY, function () {
@@ -182,8 +170,10 @@
           }
         })
         $this.widget.getCurrentSound().then(function (soundObject) {
-          /* document.querySelector('.activeTrack').classList.remove('activeTrack') */
-          console.log($this.widget)
+          if (soundObject.id && document.querySelector('.activeTrack')) {
+            document.querySelector('.activeTrack').classList.remove('activeTrack')
+            document.getElementById(soundObject.id).classList.add('activeTrack')
+          }
           document.querySelector('.info-title').innerHTML = soundObject.title
           document.querySelector('.soundImage').style.backgroundImage = 'url(' + soundObject.artwork_url + ')'
         })
@@ -193,6 +183,9 @@
       toggleplay: function () {
         this.isPlaying = !this.isPlaying
         this.widget.toggle()
+      },
+      muteTrack: function () {
+        this.isMute = !this.isMute
       },
       fullSize: function () {
         this.parent = true
@@ -212,10 +205,22 @@
       nextTrack: function (event) {
         this.widget.seekTo(0)
         this.widget.next()
+        var upNext = document.querySelector('.activeTrack').nextSibling
+        if (upNext === null) {
+          this.widget.skip(0)
+          this.widget.seekTo(0)
+          this.widget.play()
+        }
       },
       prevTrack: function () {
         this.widget.seekTo(0)
         this.widget.prev()
+        var upPrev = document.querySelector('.activeTrack').previousSibling
+        if (upPrev === null) {
+          this.widget.skip(0)
+          this.widget.seekTo(0)
+          this.widget.pause()
+        }
       },
       dragOn: function () {
         this.dragState = true
@@ -840,9 +845,16 @@
       color: blue;
     }
 
-    .tracklist li.activeTrack {
-      background-color: #dedede;
-      color: blue;
+    .disco li.activeTrack {
+      background: linear-gradient(to right, #FF0080 20%, #0000ff 40%, #0000ff 60%, #FF0080 80%);
+      background-size: 200% auto;
+      color: #0000ff;
+      background-clip: text;
+      text-fill-color: transparent;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: shine 5s linear infinite alternate-reverse .25s;
+      z-index: 2;
     }
     .tracklist ol {
       padding: 0;
@@ -850,7 +862,6 @@
     .tracklist li:hover {
       background-color: blue;
       color: white;
-      text-decoration: underline;
     }
     .tracklist li:not(:last-child) {
       border-bottom: 2px solid black;
