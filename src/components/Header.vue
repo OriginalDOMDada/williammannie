@@ -40,7 +40,7 @@
       <svgicon height="28" width="28" name="soundcloud"></svgicon>
     </div>
   </div>
-  <div class="stage">
+  <div class="stage" @click="appState">
     <div class="spinning-circle-wrapper">
       <svgicon name="spintext" height="100" width="100" :original="true"></svgicon>
     </div>
@@ -86,22 +86,9 @@
       data () {
         return {
           appData,
+          shareOpen: false,
           topLogo: require('../assets/svg/top_logo.svg')
         }
-      },
-      created: function () {
-        function initmarkee () {
-          if (document.getElementById('example2').innerHTML !== '') {
-            var users = document.querySelectorAll('[data-scribe="element:screen_name"]')
-            users.forEach(function (element) {
-              element.innerHTML = element.innerHTML + ':'
-            })
-            Marquee3k.init()
-          } else {
-            setTimeout(initmarkee, 1000)
-          }
-        }
-        initmarkee()
       },
       mounted () {
         var config2 = {
@@ -116,26 +103,43 @@
           'lang': 'en'
         }
         twitterFetcher.fetch(config2)
-        document.addEventListener('click', closeapp)
-        function closeapp (event) {
-          if (event.target.closest('.box')) {
-            document.querySelector('.float-wrap').classList.add('paused')
-            document.querySelector('.stage').classList.add('open')
-            document.querySelector('.box').classList.add('open')
-            document.querySelectorAll('.pane').forEach(function (element) {
-              element.classList.add('open')
+        function initmarkee () {
+          if (document.getElementById('example2').innerHTML !== '') {
+            var users = document.querySelectorAll('[data-scribe="element:screen_name"]')
+            users.forEach(function (element) {
+              element.innerHTML = element.innerHTML + ':'
             })
+            Marquee3k.init()
           } else {
-            document.querySelector('.stage').classList.remove('open')
-            document.querySelector('.float-wrap').classList.remove('paused')
-            document.querySelector('.box').classList.remove('open')
-            document.querySelectorAll('.pane').forEach(function (element) {
-              element.classList.remove('open')
-            })
+            setTimeout(initmarkee, 1000)
           }
         }
+        initmarkee()
       },
       methods: {
+        appState (event) {
+          if (event.target.closest('.box')) {
+            document.querySelector('.stage').classList.add('open')
+            setTimeout(function () {
+              document.querySelectorAll('.pane').forEach(function (element) {
+                element.classList.add('open')
+                element.querySelector('.section').classList.add('open')
+              })
+            }, 225)
+            setTimeout(function () {
+              document.querySelector('.float-wrap').classList.add('paused')
+              document.querySelector('.box').classList.add('open')
+            }, 500)
+          } else {
+            document.querySelector('.box').classList.remove('open')
+            document.querySelector('.float-wrap').classList.remove('paused')
+            document.querySelectorAll('.pane').forEach(function (element) {
+              element.classList.remove('open')
+              element.querySelector('.section').classList.remove('open')
+            })
+            document.querySelector('.stage').classList.remove('open')
+          }
+        },
         expand (event) {
           var x = document.getElementById(event.target.id)
           if (x.nextSibling.nextSibling.style.display === 'none') {
@@ -277,24 +281,17 @@
     box-sizing: border-box;
   }
   .float-wrap {
-    position: absolute;
-    display: inline-block;
-    margin: auto;
-    left: 0;
-    right: 0;
-    top: -25px;
-    bottom: 0;
+    position: relative;
+    display: block;
+    margin: 0 auto;
     width: 20px;
     height: 20px;
-    animation: floatshare 2s linear alternate-reverse infinite;
+    top: calc(40% - 10px);
     transform-origin: 50% 50%;
   }
   .box.open {
     -webkit-animation: rotation 20s infinite linear;
      animation: rotation 20s infinite linear;
-     top: calc(50vh - 50px);
-     left: calc(50vw - 50px);
-     position: absolute;
      width: 100px;
      height: 100px;
   }
@@ -303,7 +300,7 @@
     width: 100%;
     height: 100%;
     display: block;
-    transition: all .5s linear;
+    margin: 0 auto;
   }
   .box > div.pane {
     position: absolute;
@@ -314,8 +311,10 @@
     width: 100%;
     height: 100%;
     margin: auto;
-    /*background: white;*/
-    transition: all 1s cubic-bezier(0.75, 0, 0.25, 1);
+    transition: all 1s ease;
+  }
+  .box > div.pane:not(.open) {
+    transition: all .5s linear;
   }
   .box > div.f {
     transform: translateZ(10px) rotateY(0);
@@ -369,14 +368,15 @@
     width: 100%;
     height: 100%;
     position: absolute;
-     -webkit-animation: backwards-rotation 20s infinite linear;
-     animation: backwards-rotation 20s infinite linear;
+     -webkit-animation: backwards-rotation 20s infinite ease-in;
+     animation: backwards-rotation 20s infinite ease-in;
      background-color: transparent;
      margin: 0;
      right: unset;
      left: unset;
      top: unset;
      bottom: unset;
+    transition: all 1.5s ease-in-out alternate forwards;
   }
 
   .box > div.pane.open.f{
@@ -409,14 +409,11 @@
     top: 145px;
   }
   .box:not(.open) {
-    -webkit-animation: closedrotation 20s linear infinite .2s;
-            animation: closedrotation 20s linear infinite .2s;
+    -webkit-animation: closedrotation 20s linear infinite;
+            animation: closedrotation 20s linear infinite;
   }
 
-  .box:not(.open) > div.pane,
-  .box:not(.open) > div.pane .section {
-    transition-delay: -.5s;
-  }
+
 
   @-webkit-keyframes rotation {
     from {
@@ -524,50 +521,65 @@
   .float-wrap.paused {
     animation-play-state: paused;
     position: relative;
-    width: auto;
-    height: auto;
-    left: inherit;
-    top: inherit;
+    height: 100%;
+    width: 100%;
   }
 
   .stage.open {
     width: 100vw;
     height: 100vh;
+    transform-origin: 50% 50%;
     bottom: 0;
-    transition: height,width -5s linear;
+    right: 0;
+    background-color: rgba(0,0,0,0);
+    animation: bgfade 1s ease-in-out forwards .5s;
   }
 
-  div.open.f .section {
+  @keyframes bgfade {
+    from {
+      background-color: rgba(0,0,0,0);
+    }
+    to {
+      background-color: rgba(0,0,0,.4);
+    }
+  }
+
+
+
+
+
+  div.open.pane.f .section.open {
     -webkit-animation-delay: -16.6666666667s;
             animation-delay: -16.6666666667s;
   }
-  div.open.r .section {
+  div.open.pane.r .section.open {
     -webkit-animation-delay: -20s;
             animation-delay: -20s;
   }
-  div.open.u .section {
+  div.open.pane.u .section.open {
     -webkit-animation-delay: -23.3333333333s;
             animation-delay: -23.3333333333s;
   }
-  div.open.l .section {
+  div.open.pane.l .section.open {
     -webkit-animation-delay: -26.6666666667s;
             animation-delay: -26.6666666667s;
   }
-  div.open.t .section {
+  div.open.pane.t .section.open {
     -webkit-animation-delay: -30s;
             animation-delay: -30s;
   }
-  div.open.b .section {
+  div.open.pane.b .section.open {
     -webkit-animation-delay: -33.3333333333s;
             animation-delay: -33.3333333333s;
   }
 
-  .open .section {
+  .open .section.open {
     display: inline-block;
     width: 80px;
     height: 80px;
     -webkit-animation: scadivng 20s infinite linear;
             animation: scadivng 20s infinite linear;
+    transition: all 1s linear;
   }
 
 
@@ -582,7 +594,6 @@
     position: absolute;
     height: 100px;
     width: 100px;
-    /*margin: 0 auto;*/
     transform-origin: 50% 50%;
     animation: spinning 60s linear infinite;
   }
@@ -593,9 +604,7 @@
     display: inline-block;
     margin: 0 auto;
     position: absolute;
-    margin-top: 7.5px;
-    /*stroke: black;
-    stroke-width: 5px;*/
+    margin-top: 7px;
     transform-origin: 50% 50%;
   }
 
