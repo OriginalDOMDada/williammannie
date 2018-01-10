@@ -608,7 +608,38 @@
     transform-origin: 50% 50%;
   }
 
-  .open .spinning-circle-wrapper, .open #handFloat {
+  .open .spinning-circle-wrapper,  .open .spinning-circle-wrapper svg {
+    height: 100%;
+    width: 100%;
+  }
+
+  .open .spinning-circle-wrapper svg {
+    padding: 10%;
+    transform-origin: 50% 50%;
+    animation: swang 100s infinite linear;
+  }
+  @keyframes swang {
+    0% {
+      transform: rotateX(-45deg) rotateY(-10deg) scale(2.2) rotateZ(0deg);
+    }
+    25% {
+      transform: rotateX(-45deg) rotateY(-10deg) scale(2.2) rotateZ(90deg);
+    }
+    50% {
+      transform: rotateX(-45deg) rotateY(-10deg) scale(2.2) rotateZ(180deg);
+    }
+    75% {
+      transform: rotateX(-45deg) rotateY(-10deg) scale(2.2) rotateZ(270deg);
+    }
+    100% {
+      transform:rotateX(-45deg) rotateY(-10deg) scale(2.2) rotateZ(360deg);
+    }
+  }
+  .open .spinning-circle-wrapper svg g {
+    stroke: black;
+    stroke-width: .2px;
+   }
+  .open #handFloat {
     display: none;
   }
 
