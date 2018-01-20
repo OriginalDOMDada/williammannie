@@ -105,18 +105,18 @@ a {
   }
 }
 
-.disco {
-  animation: disco 1s infinite ease-in-out;
-}
-
-@keyframes disco {
-  from{
-    cursor: url("http://localhost:8080/static/cursor/disco-1.svg"), auto;
-  }
-  to{
-    cursor: url("http://localhost:8080/static/cursor/disco-2.svg"), auto;
-  }
-}
+// .disco {
+//   animation: disco 1s infinite ease-in-out;
+// }
+//
+// @keyframes disco {
+//   from{
+//     cursor: url("http://localhost:8080/static/cursor/disco-1.svg"), auto;
+//   }
+//   to{
+//     cursor: url("http://localhost:8080/static/cursor/disco-2.svg"), auto;
+//   }
+// }
 
 /* Let's get this party started */
 ::-webkit-scrollbar {
@@ -204,7 +204,7 @@ a {
     color: white;
     font-family: "Arial", sans-serif;
     font-size: 16px;
-    padding: 17px 30px;
+    padding: 16px 30px 16px 20px;
     font-weight: bold;
     top: 0;
     right: 0;
@@ -1073,6 +1073,7 @@ button.opt {
         border: 1px solid #00ff80;
         margin: 5px auto;
         width: calc(100% - 75px);
+        height: 120%;
       }
       span {
         color: #00ff80;
@@ -1148,6 +1149,17 @@ button.opt {
           left: 0px;
         }
       }
+    }
+    .info-title:before {
+      content: '';
+      background-image: url('http://localhost:8080/static/current-song.svg');
+      height: 17px;
+      width: 17px;
+      display: block;
+      float: left;
+      padding-right: 7px;
+      background-repeat: no-repeat;
+      background-size: contain;
     }
   }
 }

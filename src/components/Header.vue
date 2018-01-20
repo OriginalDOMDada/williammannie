@@ -10,7 +10,9 @@
         <a href='#'>Link 3</a>
       </div>
     </div>
+    <div class="scrollwrap">
     <div class="marquee3k" data-speed="0.25" data-pausable="bool" id="example2">
+    </div>
     </div>
     <div id='todaysDate'></div>
   </div>
@@ -201,11 +203,31 @@
     width: 300px;
     overflow: hidden;
     position: absolute;
-    bottom: 0;
+    bottom: -2px;
     padding: 20px;
     font-size: 14px;
     right: 0;
     font-style: italic;
+  }
+
+  .scrollwrap {
+    width: 300px;
+    height: 100%;
+    display: inline-block;
+  }
+
+  .scrollwrap:before {
+    content: '';
+    display: inline-block;
+    height: 45px;
+    width: 20px;
+    background-image: url('http://localhost:8080/static/twitstream.svg');
+    right: 350px;
+    position: absolute;
+    overflow: visible !important;
+    background-repeat: no-repeat;
+    background-size: 15px;
+    background-position: 40% 55%;
   }
 
   .marquee3k ul {

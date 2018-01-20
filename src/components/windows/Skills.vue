@@ -17,37 +17,37 @@
     <div class="wrappa-da-rappa">
         <div class="app-content" name="skills">
           <div class="skills-wrapper">
-            <p class="skilltitle"><vue-typer text="William Mannie's Skills" :repeat="0" caret-animation="blink" pre-type-delay=1000 ></vue-typer></p>
+            <p class="skilltitle"><vue-typer text="William Mannie's Skills" :repeat="0" caret-animation="blink" @completed="skilltitle = true"></vue-typer></p>
             <div class="daskills">
               <ul>
-                <li><vue-typer text="Adobe Photoshop"  :repeat="0"></vue-typer></li>
-                <li><vue-typer text="Adobe Illustrator"  :repeat="0"></vue-typer></li>
-                <li><vue-typer text="Adobe XD"  :repeat="0"></vue-typer></li>
-                <li><vue-typer text="Adobe After Effects"  :repeat="0"></vue-typer></li>
-                <li><vue-typer text="HTML5"  :repeat="0"></vue-typer></li>
-                <li><vue-typer text="XML"  :repeat="0"></vue-typer></li>
+                <li><vue-typer v-if="skilltitle" text="Adobe Photoshop" :repeat="0" @completed="photoshop = true"></vue-typer></li>
+                <li><vue-typer v-if="photoshop" text="Adobe Illustrator" :repeat="0" @completed="illustrator = true"></vue-typer></li>
+                <li><vue-typer v-if="illustrator" text="Adobe XD"  :repeat="0" @completed="xd = true"></vue-typer></li>
+                <li><vue-typer v-if="xd" text="Adobe After Effects" :repeat="0" @completed="aftereffects = true"></vue-typer></li>
+                <li><vue-typer v-if="aftereffects" text="HTML5"  :repeat="0" @completed="html5 = true"></vue-typer></li>
+                <li><vue-typer v-if="html5" text="XML"  :repeat="0" @completed="xml = true"></vue-typer></li>
                 <ul>
-                  <li><vue-typer text="SVG's"  :repeat="0"></vue-typer></li>
+                  <li><vue-typer v-if="xml" text="SVG's"  :repeat="0" @completed="svg = true"></vue-typer></li>
                 </ul>
-                <li><vue-typer text="CSS"  :repeat="0"></vue-typer></li>
+                <li><vue-typer v-if="svg" text="CSS"  :repeat="0" @completed="css = true"></vue-typer></li>
                   <ul>
-                    <li><vue-typer text="CSS3"  :repeat="0"></vue-typer></li>
-                    <li><vue-typer text="SASS"  :repeat="0"></vue-typer></li>
+                    <li><vue-typer v-if="css" text="CSS3"  :repeat="0" @completed="css3 = true"></vue-typer></li>
+                    <li><vue-typer v-if="css3" text="SASS"  :repeat="0" @completed="sass = true"></vue-typer></li>
                   </ul>
-                <li><vue-typer text="Javascript"  :repeat="0"></vue-typer></li>
+                <li><vue-typer v-if="sass" text="Javascript"  :repeat="0" @completed="javascript = true"></vue-typer></li>
                   <ul>
-                    <li><vue-typer text="Vue.js"  :repeat="0"></vue-typer></li>
-                    <li><vue-typer text="Node"  :repeat="0"></vue-typer></li>
-                    <li><vue-typer text="D3"  :repeat="0"></vue-typer></li>
-                    <li><vue-typer text="Angular"  :repeat="0"></vue-typer></li>
-                    <li><vue-typer text="Ajax"  :repeat="0"></vue-typer></li>
-                    <li><vue-typer text="Api's"  :repeat="0"></vue-typer></li>
+                    <li><vue-typer v-if="javascript" text="Vue.js"  :repeat="0" @completed="vue = true"></vue-typer></li>
+                    <li><vue-typer v-if="vue" text="Node"  :repeat="0" @completed="node = true"></vue-typer></li>
+                    <li><vue-typer v-if="node" text="D3"  :repeat="0" @completed="d3 = true"></vue-typer></li>
+                    <li><vue-typer v-if="d3" text="Angular"  :repeat="0" @completed="angular = true"></vue-typer></li>
+                    <li><vue-typer v-if="angular" text="Ajax"  :repeat="0" @completed="ajax = true"></vue-typer></li>
+                    <li><vue-typer v-if="ajax" text="Api's"  :repeat="0" @completed="apis = true"></vue-typer></li>
                   </ul>
-                <li><vue-typer text="Php"  :repeat="0"></vue-typer></li>
+                <li><vue-typer v-if="apis" text="Php"  :repeat="0" @completed="php = true"></vue-typer></li>
                   <ul>
-                    <li><vue-typer text="PHP5"  :repeat="0"></vue-typer></li>
-                    <li><vue-typer text="Wordpress"  :repeat="0"></vue-typer></li>
-                    <li><vue-typer text="Drupal 7 & 8"  :repeat="0"></vue-typer></li>
+                    <li><vue-typer v-if="php" text="PHP5"  :repeat="0" @completed="php5 = true"></vue-typer></li>
+                    <li><vue-typer v-if="php5" text="Wordpress"  :repeat="0" @completed="wordpress = true"></vue-typer></li>
+                    <li><vue-typer v-if="wordpress" text="Drupal 7 & 8"  :repeat="0" @completed="drupal = true"></vue-typer></li>
                   </ul>
               </ul>
             </div>
@@ -71,7 +71,28 @@ export default {
       dragState: false,
       parent: false,
       x: 0,
-      y: 0
+      y: 0,
+      skilltitle: false,
+      photoshop: false,
+      illustrator: false,
+      xd: false,
+      aftereffects: false,
+      html5: false,
+      xml: false,
+      svg: false,
+      css: false,
+      css3: false,
+      sass: false,
+      javascript: false,
+      vue: false,
+      node: false,
+      d3: false,
+      angular: false,
+      ajax: false,
+      php: false,
+      php5: false,
+      apis: false,
+      wordpress: false
     }
   },
   beforeUpdate () {
@@ -133,6 +154,27 @@ export default {
         document.getElementsByClassName('panel')['0'].style.backgroundImage = ''
         document.getElementsByClassName('panel')['0'].style.backgroundSize = ''
       }, 1000)
+      this.skilltitle = false
+      this.photoshop = false
+      this.illustrator = false
+      this.xd = false
+      this.aftereffects = false
+      this.html5 = false
+      this.xml = false
+      this.svg = false
+      this.css = false
+      this.css3 = false
+      this.sass = false
+      this.javascript = false
+      this.vue = false
+      this.node = false
+      this.d3 = false
+      this.angular = false
+      this.ajax = false
+      this.php = false
+      this.php5 = false
+      this.apis = false
+      this.wordpress = false
     }
   }
 }

@@ -22,14 +22,19 @@
             </div>
             <div class="tracklist">
               <ol class="datracklist">
-                <li v-for="(track, index) in trackList" v-on:click="seekTrack" v-bind:data-track="index" v-bind:class="{'activeTrack': index === 0}" :key="track.id" v-bind:id="track.id">{{index + 1}}. {{track.title}}</li>
+                <li v-for="(track, index) in trackList" v-on:click="seekTrack" v-bind:data-track="index" v-bind:class="{'activeTrack': index === 0}" :key="track.id" v-bind:id="track.id">{{index + 1}}. {{track.title}} <a v-bind:src="track.uri" class="sc-link"></a></li>
               </ol>
             </div>
+            <transition name="fade" tag="div">
+              <div id="loader" class="ui inverted dimmer" v-if="loading">
+                <img v-bind:src="loadicon" height="100" width="100" id="loadspin">
+                <div class="glow-rap">
+                  <span class="glow">Loading...</span>
+                </div>
+              </div>
+            </transition>
             <div class="ui container">
               <div class="ui segment">
-                <!-- <div id="loader" class="ui active inverted dimmer">
-                  <div class="ui text loader">Loading</div>
-                </div>  -->
                 <iframe id="soundcloud" width="100%" height="300" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/376667462&sharing=false&auto_play=false&font=Georgia&show_comments=false&theme_color=0000ff&color=0000ff&show_playcount=false&show_bpm=false"></iframe>
                 <div id="controls">
                   <div class="ui icon buttons">
@@ -47,9 +52,21 @@
                       <svgicon name="mute" height="20" width="20" :original="true"></svgicon>
                     </button>
                   </div>
+                  <div class="wmsound">
+                    <a href="www.soundcloud.com">
+                      <svgicon height="60" width="60" name="wmsound" :original="true"></svgicon>
+                      <img v-if="isPlaying === true" height="50" width="40" style="position: absolute; top: 0; left: 40px;" v-bind:src="justdance"></img>
+                    </a>
+                  </div>
+                  <div class="powerdbysc">
+                    <a href="www.soundcloud.com">
+                      <svgicon height="50" width="50" name="soundcloud"></svgicon>
+                      <span>Powered by<br>SoundCloud</span>
+                    </a>
+                  </div>
                 </div>
                 <div class="progress-rap">
-                  <div id="progress-container" class="ui orange progress">
+                  <div id="progress-container" class="ui orange progress" v-on:click="changetime" v-touch:tap="changetime">
                     <div id="progress-bar" class="bar"></div>
                   </div>
                 </div>
@@ -86,9 +103,13 @@
         seek: false,
         trackList: [],
         songTitle: '',
+        songArtist: '',
         currentTrackId: '',
         widget: '',
-        SoundCloud: ''
+        SoundCloud: '',
+        loadicon: require('../../assets/svg/loader.svg'),
+        loading: true,
+        justdance: require('../../assets/gifs/justdance.gif')
       }
     },
     beforeUpdate () {
@@ -110,10 +131,8 @@
       var $this = this
       $this.widget = new SoundcloudWidget('soundcloud')
       var soundImagediv = document.querySelector('.soundImage')
-
       var progressContainer = document.getElementById('progress-container')
       var progressBar = document.getElementById('progress-bar')
-
       $this.widget.on(SoundcloudWidget.events.PLAY, function () {
         soundImagediv.classList.add('soundStart')
         soundImagediv.classList.remove('paused')
@@ -140,21 +159,6 @@
           $this.widget.setVolume(100)
         }
       })
-
-      progressContainer.addEventListener('click', function (event) {
-        var el = progressContainer
-        var width = el.offsetWidth
-        var rect = el.getBoundingClientRect()
-        var position = event.clientX - rect.left + document.body.scrollLeft
-        var percent = position / width
-
-        $this.widget.getDuration().then(function (duration) {
-          var newPosition = Math.floor(duration * percent)
-
-          $this.widget.seekTo(newPosition)
-        })
-      })
-
       $this.widget.on(SoundcloudWidget.events.READY, function () {
         $this.widget.getSounds().then(function (soundList) {
           var thisList = soundList
@@ -167,6 +171,7 @@
           }
           if (!nullFound) {
             $this.trackList = thisList
+            $this.loading = false
           }
         })
         $this.widget.getCurrentSound().then(function (soundObject) {
@@ -175,9 +180,16 @@
             document.getElementById(soundObject.id).classList.add('activeTrack')
           }
           document.querySelector('.info-title').innerHTML = soundObject.title
+          document.querySelector('.info-artist').innerHTML = soundObject.user.username
           document.querySelector('.soundImage').style.backgroundImage = 'url(' + soundObject.artwork_url + ')'
         })
       })
+      if (this.isPlaying) {
+        document.getElementsByClassName('panel')['0'].style.WebkitAnimation = 'inherit'
+        document.getElementsByClassName('panel')['0'].style.backgroundImage = `url(${require('../../assets/gifs/disco.gif')})`
+        document.getElementsByClassName('panel')['0'].style.backgroundSize = '100% 100%'
+        document.getElementsByClassName('hello')['0'].style.opacity = '0'
+      }
     },
     methods: {
       toggleplay: function () {
@@ -186,6 +198,18 @@
       },
       muteTrack: function () {
         this.isMute = !this.isMute
+      },
+      changetime: function (event) {
+        var el = this.$el.querySelector('.progress')
+        var width = el.offsetWidth
+        var rect = el.getBoundingClientRect()
+        var position = event.clientX - rect.left + document.body.scrollLeft
+        var percent = position / width
+        var $this = this
+        this.widget.getDuration().then(function (duration) {
+          var newPosition = Math.floor(duration * percent)
+          $this.widget.seekTo(newPosition)
+        })
       },
       fullSize: function () {
         this.parent = true
@@ -284,6 +308,49 @@
     bottom: 0;
     left: 0;
   }
+
+  #loader {
+    height: 100%;
+    width: 100%;
+    background: #0000ff; /* Old browsers */
+    background: -moz-linear-gradient(left,  #ff0080 0%, #0000ff 50%,#ff0080 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, right top, color-stop(0%,#ff0080),color-stop(50%,#0000ff), color-stop(100%,#ff0080)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(left,  #ff0080 0%, #0000ff 50%,#ff0080 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(left,  #ff0080 0%, #0000ff 50%,#ff0080 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(left,  #ff0080 0%, #0000ff 50%,#ff0080 100%); /* IE10+ */
+    background: linear-gradient(to right,  #ff0080 0%,#0000ff 50%,#ff0080 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ff0080', endColorstr='#ff0080',GradientType=1 ); /* IE6-9 */
+    background-size: 50vw 50vh;
+
+    -webkit-animation: slide 15s linear infinite;
+    -moz-animation: slide 15s linear infinite;
+    -o-animation: slide 15s linear infinite;
+
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 15;
+    display: block;
+  }
+
+  #loadspin {
+    position: absolute;
+    display: block;
+    top: calc(50% - 50px);
+    left: calc(50% - 50px);
+    transform-origin: 50% 50%;
+    animation: spinloading 1.25s linear infinite;
+  }
+
+  @keyframes spinloading {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
   .ui.buttons:before {
     content: "";
     width: 200px;
@@ -340,6 +407,40 @@
     height: 100px;
   }
 
+  .powerdbysc {
+    height: 100px;
+    width: 80px;
+    position: absolute;
+    right: 0px;
+    top: 4px;
+    font-size: 8px;
+    text-align: center;
+  }
+
+  .powerdbysc a {
+    text-decoration: none;
+  }
+
+  .powerdbysc  svg {
+    margin: 0 auto;
+    display: block;
+    fill: blue;
+  }
+
+  .powerdbysc span {
+    margin-top: -12px;
+    display: block;
+    font-family: Arial;
+  }
+
+  .wmsound {
+    height: 100px;
+    width: 100px;
+    position: absolute;
+    left: 10px;
+    top: 7.5px;
+  }
+
 
   /* Activity Bar */
     .ui.progress .bar {
@@ -391,41 +492,6 @@
       transition: color 0.4s ease;
     }
 
-    /*******************************
-                Types
-    *******************************/
-
-    /* Indicating */
-
-    .ui.indicating.progress[data-percent^="1"] .bar,
-    .ui.indicating.progress[data-percent^="2"] .bar {
-      background-color: #D95C5C;
-    }
-
-    .ui.indicating.progress[data-percent^="3"] .bar {
-      background-color: #EFBC72;
-    }
-
-    .ui.indicating.progress[data-percent^="4"] .bar,
-    .ui.indicating.progress[data-percent^="5"] .bar {
-      background-color: #E6BB48;
-    }
-
-    .ui.indicating.progress[data-percent^="6"] .bar {
-      background-color: #DDC928;
-    }
-
-    .ui.indicating.progress[data-percent^="7"] .bar,
-    .ui.indicating.progress[data-percent^="8"] .bar {
-      background-color: #B4D95C;
-    }
-
-    .ui.indicating.progress[data-percent^="9"] .bar,
-    .ui.indicating.progress[data-percent^="100"] .bar {
-      background-color: #66DA81;
-    }
-
-    /* Indicating Label */
 
     .ui.indicating.progress[data-percent^="1"] .label,
     .ui.indicating.progress[data-percent^="2"] .label {
@@ -454,100 +520,6 @@
     .ui.indicating.progress[data-percent^="100"] .label {
       color: rgba(0, 0, 0, 0.87);
     }
-
-    /* Single Digits */
-
-    .ui.indicating.progress[data-percent="1"] .bar,
-    .ui.indicating.progress[data-percent="2"] .bar,
-    .ui.indicating.progress[data-percent="3"] .bar,
-    .ui.indicating.progress[data-percent="4"] .bar,
-    .ui.indicating.progress[data-percent="5"] .bar,
-    .ui.indicating.progress[data-percent="6"] .bar,
-    .ui.indicating.progress[data-percent="7"] .bar,
-    .ui.indicating.progress[data-percent="8"] .bar,
-    .ui.indicating.progress[data-percent="9"] .bar {
-      background-color: #D95C5C;
-    }
-
-    .ui.indicating.progress[data-percent="1"] .label,
-    .ui.indicating.progress[data-percent="2"] .label,
-    .ui.indicating.progress[data-percent="3"] .label,
-    .ui.indicating.progress[data-percent="4"] .label,
-    .ui.indicating.progress[data-percent="5"] .label,
-    .ui.indicating.progress[data-percent="6"] .label,
-    .ui.indicating.progress[data-percent="7"] .label,
-    .ui.indicating.progress[data-percent="8"] .label,
-    .ui.indicating.progress[data-percent="9"] .label {
-      color: rgba(0, 0, 0, 0.87);
-    }
-
-    /* Indicating Success */
-
-    .ui.indicating.progress.success .label {
-      color: #1A531B;
-    }
-
-    /*******************************
-                 States
-    *******************************/
-
-    /*--------------
-         Success
-    ---------------*/
-
-    .ui.progress.success .bar {
-      background-color: #21BA45 !important;
-    }
-
-    .ui.progress.success .bar,
-    .ui.progress.success .bar::after {
-      -webkit-animation: none !important;
-      animation: none !important;
-    }
-
-    .ui.progress.success > .label {
-      color: #1A531B;
-    }
-
-    /*--------------
-         Warning
-    ---------------*/
-
-    .ui.progress.warning .bar {
-      background-color: #F2C037 !important;
-    }
-
-    .ui.progress.warning .bar,
-    .ui.progress.warning .bar::after {
-      -webkit-animation: none !important;
-      animation: none !important;
-    }
-
-    .ui.progress.warning > .label {
-      color: #794B02;
-    }
-
-    /*--------------
-         Error
-    ---------------*/
-
-    .ui.progress.error .bar {
-      background-color: #DB2828 !important;
-    }
-
-    .ui.progress.error .bar,
-    .ui.progress.error .bar::after {
-      -webkit-animation: none !important;
-      animation: none !important;
-    }
-
-    .ui.progress.error > .label {
-      color: #912D2B;
-    }
-
-    /*--------------
-         Active
-    ---------------*/
 
     .ui.active.progress .bar {
       position: relative;
@@ -760,7 +732,7 @@
 
     #sound-image-wrap .soundImage {
       display: block;
-      margin: 2.5% auto 0;
+      margin: 1% auto 0;
       border-radius: 50%;
       border: 2px solid black;
       height: 100px;
@@ -775,10 +747,10 @@
       width: 100px;
       border-radius: 50%;
       margin: 0 auto;
-      background-color: black;
-      mix-blend-mode: screen;
+      mix-blend-mode: normal;
       position:absolute;
       opacity: 1;
+      background-image: url('http://localhost:8080/static/cd.svg');
     }
     #sound-image-wrap .soundImage::after {
       content: "";
@@ -801,7 +773,23 @@
     .currentsong {
       white-space: nowrap;
       position: absolute;
-      top: 0;
+      bottom: 50%;
+      height: 75px;
+      width: 100%;
+      border-top: 2px solid black;
+      background-color: rgba(0,0,0,.8);
+      color: white;
+      font-family: Arial;
+      padding: 0 10px;
+    }
+    .currentsong span {
+      padding: 10px 0px;
+      display: inline-block;
+      font-size: 14px;
+    }
+
+    .info-artist {
+      color: yellow;
     }
 
     .tracklist {
@@ -811,7 +799,7 @@
       position: absolute;
       bottom: 100px;
       color: blue;
-      z-index: 50;
+      z-index: 14;
       border-top: 2px solid black;
       border-bottom: 2px solid black;
       padding: 0;
@@ -821,11 +809,26 @@
     .tracklist li {
       padding:  15px 40px;
       display: block;
-      width: 100%;
+      width: calc(100% - 80px);
       white-space: nowrap;
       overflow: hidden;
       background-color: rgba(255, 255, 255, .25);
       font-weight: bold;
+      transition: all linear .25s;
+      position: relative;
+    }
+
+    .sc-link {
+      position: absolute;
+      background-size: 10px;
+      background-repeat: no-repeat;
+      background-position: center;
+      top: 10px;
+      right: 10px;
+      height: 25px;
+      width: 25px;
+      background-color: black;
+      background-image: url('/static/link.svg');
       transition: all linear .25s;
     }
 
@@ -840,12 +843,8 @@
       left: 15px;
       transition: all linear .25s;
     }
-    .tracklist li.activeTrack:hover {
-      background-color: #dedede;
-      color: blue;
-    }
 
-    .disco li.activeTrack {
+    .disco li.activeTrack:not(:hover) {
       background: linear-gradient(to right, #FF0080 20%, #0000ff 40%, #0000ff 60%, #FF0080 80%);
       background-size: 200% auto;
       color: #0000ff;
@@ -859,9 +858,24 @@
     .tracklist ol {
       padding: 0;
     }
-    .tracklist li:hover {
+    .tracklist li:hover, .disco li.activeTrack:hover  {
       background-color: blue;
       color: white;
+    }
+
+    .tracklist li:hover:before {
+      background-image: url('/static/streamwhite.svg');
+    }
+
+
+    .tracklist li:hover .sc-link {
+      background-color: white;
+      background-image: url('/static/link2.svg');
+    }
+    .tracklist li:hover .sc-link:hover {
+      background-color: yellow !important;
+      background-image: url('/static/link3.svg');
+      transition: none;
     }
     .tracklist li:not(:last-child) {
       border-bottom: 2px solid black;
