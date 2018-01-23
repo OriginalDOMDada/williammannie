@@ -42,8 +42,6 @@ export default {
   },
   beforeUpdate () {
     var initalWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth
-    var initalHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight
-    console.log(initalHeight)
     var initalX = (initalWidth / 2) - 200
     var initalY = 50
     var activeApps = document.getElementsByClassName('app')
@@ -54,7 +52,6 @@ export default {
     }
     initalY = 50 + (50 * appArray.length)
     initalX = initalX + (50 * appArray.length)
-    console.log(appArray)
     this.x = initalX
     this.y = initalY
   },

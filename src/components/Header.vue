@@ -11,35 +11,75 @@
       </div>
     </div>
     <div class="scrollwrap">
-    <div class="marquee3k" data-speed="0.25" data-pausable="bool" id="example2">
+    <div class="marquee3k example2" data-speed="0.25" data-pausable="bool" id="example2">
     </div>
     </div>
     <div id='todaysDate'></div>
   </div>
   <div class="social">
-    <div class="twitter">
-      <svgicon height="28" width="28" name="twitter"></svgicon>
+    <div class="twitter smcube">
+      <div class="smpanel panel1"></div>
+      <div class="smpanel panel2">
+        <a target="_blank" href="https://twitter.com/tripleOGstatus">
+          <svgicon height="28" width="28" name="twitter"></svgicon>
+        </a>
+      </div>
     </div>
-    <div class="dribble">
-      <svgicon height="28" width="28" name="dribble"></svgicon>
+    <div class="dribble smcube">
+      <div class="smpanel panel1"></div>
+      <div class="smpanel panel2">
+        <a target="_blank" href="https://dribbble.com/tripleOGstatus">
+          <svgicon height="28" width="28" name="dribble"></svgicon>
+        </a>
+      </div>
     </div>
-    <div class="instagram">
-      <svgicon height="28" width="28" name="instagram"></svgicon>
+    <div class="instagram smcube">
+      <div class="smpanel panel1"></div>
+      <div class="smpanel panel2">
+        <a target="_blank" href="https://www.instagram.com/manfordthagreat/">
+          <svgicon height="28" width="28" name="instagram"></svgicon>
+        </a>
+      </div>
     </div>
-    <div class="facebook">
-      <svgicon height="28" width="28" name="facebook"></svgicon>
+    <div class="facebook smcube">
+      <div class="smpanel panel1"></div>
+      <div class="smpanel panel2">
+        <a target="_blank" href="https://www.facebook.com/crankdatmannie">
+          <svgicon height="28" width="28" name="facebook"></svgicon>
+        </a>
+      </div>
     </div>
-    <div class="github">
-      <svgicon height="28" width="28" name="github"></svgicon>
+    <div class="github smcube">
+      <div class="smpanel panel1"></div>
+      <div class="smpanel panel2">
+        <a target="_blank" href="https://github.com/chieflotsadoe">
+          <svgicon height="28" width="28" name="github"></svgicon>
+        </a>
+      </div>
     </div>
-    <div class="linkedin">
-      <svgicon height="28" width="28" name="linkedin"></svgicon>
+    <div class="linkedin smcube">
+      <div class="smpanel panel1"></div>
+      <div class="smpanel panel2">
+        <a target="_blank" href="https://www.linkedin.com/in/william-mannie-b1b20160/">
+          <svgicon height="28" width="28" name="linkedin"></svgicon>
+        </a>
+      </div>
     </div>
-    <div class="pocket">
-      <svgicon height="28" width="28" name="pocket"></svgicon>
+    <div class="pocket smcube">
+      <div class="smpanel panel1"></div>
+      <div class="smpanel panel2">
+        <a target="_blank" href="https://getpocket.com/@fR4TbA2agqK0xp7a2dd117fdf8p7gn0Z06dG93i8f7Q314f943b63as7Ba9yY2d4">
+          <svgicon height="28" width="28" name="pocket"></svgicon>
+        </a>
+      </div>
     </div>
-    <div class="soundcloud">
-      <svgicon height="28" width="28" name="soundcloud"></svgicon>
+    <div class="soundcloud smcube">
+      <div class="smpanel panel1"></div>
+      <div class="smpanel panel2">
+        <a target="_blank" href="https://soundcloud.com/william-e-mannie">
+          <svgicon height="28" width="28" name="soundcloud"></svgicon>
+        </a>
+      </div>
     </div>
   </div>
   <div class="stage" @click="appState">
@@ -50,26 +90,44 @@
       <div class="box">
           <div class="f pane">
             <div class="section"data-id="1">
+              <a target="_black" href="https://twitter.com/home?status=williammannie.com">
+                <svgicon height="40" width="40" name="twitter"></svgicon>
+              </a>
             </div>
           </div>
           <div class="r pane">
             <div class="section" data-id="2">
+              <a target="_black" href="https://plus.google.com/share?url=williammannie.com">
+                <svgicon height="40" width="40" name="googleplus"></svgicon>
+              </a>
             </div>
           </div>
           <div class="u pane">
             <div class="section" data-id="3">
+              <a target="_black" href="https://www.linkedin.com/shareArticle?mini=true&url=williammannie.com&title=&summary=&source=">
+                <svgicon height="40" width="40" name="linkedin"></svgicon>
+              </a>
             </div>
           </div>
           <div class="l pane">
             <div class="section" data-id="4">
+              <a target="_black" href="https://www.facebook.com/sharer/sharer.php?u=williammannie.com">
+                <svgicon height="40" width="40" name="facebook"></svgicon>
+              </a>
             </div>
           </div>
           <div class="t pane">
             <div class="section" data-id="5">
+              <a href="mailto:?&body=williammannie.com">
+                <svgicon height="40" width="40" name="sharemail"></svgicon>
+              </a>
             </div>
           </div>
           <div class="b pane">
             <div class="section" data-id="6">
+              <a target="_black" href="sms:?&body=https://www.williammannie.com">
+                <svgicon height="40" width="40" name="link"></svgicon>
+              </a>
             </div>
           </div>
       </div>
@@ -111,7 +169,9 @@
             users.forEach(function (element) {
               element.innerHTML = element.innerHTML + ':'
             })
-            Marquee3k.init()
+            Marquee3k.init({
+              selector: 'example2'
+            })
           } else {
             setTimeout(initmarkee, 1000)
           }
@@ -196,7 +256,7 @@
     animation: topspin 1.5s ease-in-out 1 alternate .25s;
     transform-origin: 50% 50%;
   }
-  .marquee3k {
+  .header .marquee3k {
     color: white;
     font-family: Arial;
     display: inline-block;
@@ -219,41 +279,87 @@
   .scrollwrap:before {
     content: '';
     display: inline-block;
-    height: 45px;
-    width: 20px;
     background-image: url('http://localhost:8080/static/twitstream.svg');
     right: 350px;
+    top: 10px;
     position: absolute;
     overflow: visible !important;
     background-repeat: no-repeat;
-    background-size: 15px;
-    background-position: 40% 55%;
   }
 
-  .marquee3k ul {
+  .panel1 {
+    transform: translateZ( 15px );
+    z-index: 1;
+    position: absolute;
+    transition: transform 0.5s;
+  }
+
+  .panel2 {
+    transform: rotateY( 90deg ) translateZ( 15px );
+    z-index: 0;
+    position: absolute;
+    transition: transform 0.5s;
+  }
+
+  .smcube:hover .panel1 {
+    transform: translateX( -10px ) rotateY( -90deg );
+  }
+  .smcube:hover .panel2 {
+    transform: rotateY( 0deg );
+  }
+
+.scrollwrap:before {
+  background-image: url("http://minimalmonkey.com/lab/css3-animations/twitter-bird-sprite.png");
+  animation: tweet 1s steps(4) infinite;
+  height: 25px;
+  width: 25px;
+  background-size: 100px;
+  background-color: black;
+  transiton: all 2s ease;
+}
+
+.scrollwrap:hover:before {
+  background-blend-mode: hard-light;
+  animation-play-state: paused;
+}
+
+@keyframes tweet{
+  100%{
+    background-position:-100px 0;
+  }
+}
+
+  .header.marquee3k ul {
     margin: 0;
     padding: 0;
   }
-  .marquee3k li {
+  .header .marquee3k li {
     display: table-cell;
     padding-right: 15px;
   }
-  .marquee3k p, .marquee3k div {
-    display: table-cell;
+  .header .marquee3k p, .marquee3k div {
+    display: inline-block;
+    white-space: nowrap;
   }
 
-  .marquee3k a {
+  .header .marquee3k p br {
+    display: inline;
+    content: ' ';
+    clear:none;
+  }
+
+  .header .marquee3k a {
     color: yellow;
   }
 
-  .marquee3k a span:nth-child(2) {
+  .header .marquee3k a span:nth-child(2) {
     display: none;
   }
-  .marquee3k .user {
-    padding-right: 5px;
+  .header .marquee3k .user {
+    margin-right: 5px;
   }
 
-  .marquee3k ul img {
+  .header .marquee3k ul img {
     display: none;
   }
 
@@ -312,6 +418,8 @@
     transform-origin: 50% 50%;
   }
   .box.open {
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
     -webkit-animation: rotation 20s infinite linear;
      animation: rotation 20s infinite linear;
      width: 100px;
@@ -372,6 +480,23 @@
     cursor: pointer;
     display: block;
   }
+
+
+  .section a, .section a svg {
+    display: none;
+    opacity: 0;
+  }
+
+  .paused .section a, .paused .section a svg  {
+    display: inline-block;
+    opacity: 1;
+    transition: all 10s linear forwards;
+  }
+
+  .paused .section a svg {
+    margin: 20px;
+  }
+
   .section.current {
     cursor: default;
   }
@@ -390,8 +515,8 @@
     width: 100%;
     height: 100%;
     position: absolute;
-     -webkit-animation: backwards-rotation 20s infinite ease-in;
-     animation: backwards-rotation 20s infinite ease-in;
+     -webkit-animation: backwards-rotation 20s infinite linear;
+     animation: backwards-rotation 20s infinite linear;
      background-color: transparent;
      margin: 0;
      right: unset;
@@ -404,35 +529,37 @@
   .box > div.pane.open.f{
     bottom: -60px;
     left: -110px;
+    transform: rotate(0deg);
   }
 
   .box > div.pane.open.r {
     top: -60px;
     left: -110px;
+    transform: rotate(0deg);
   }
 
   .box > div.pane.open.u {
     left: 10px;
     bottom: 145px;
+    transform: rotate(0deg);
   }
 
   .box > div.pane.open.l {
     top: -60px;
     right: -110px;
+    transform: rotate(0deg);
   }
 
   .box > div.pane.open.t {
     bottom: -60px;
     right: -110px;
+    transform: rotate(0deg);
   }
 
   .box > div.pane.open.b {
     left: 10px;
     top: 145px;
-  }
-  .box:not(.open) {
-    -webkit-animation: closedrotation 20s linear infinite;
-            animation: closedrotation 20s linear infinite;
+    transform: rotate(0deg);
   }
 
 
@@ -457,20 +584,7 @@
               transform: rotate(360deg);
     }
   }
-  @keyframes closedrotation {
-    0% {
-      -webkit-transform: rotateX(180deg) rotateY(360deg) rotateZ(270deg) translate3d(0px, 0px, 0px);
-              transform: rotateX(180deg) rotateY(360deg) rotateZ(270deg) translate3d(0px, 0px, 0px);
-    }
-    50% {
-      -webkit-transform: rotateX(180deg) rotateY(0deg) rotateZ(0deg)  translate3d(0px, 0px, 0px);
-              transform: rotateX(180deg) rotateY(0deg) rotateZ(0deg) translate3d(0px, 0px, 0px);
-    }
-    100% {
-      -webkit-transform: rotateX(180deg) rotateY(-360deg) rotateZ(-270deg) translate3d(0px, 0px, 0px);
-              transform: rotateX(180deg) rotateY(-360deg) rotateZ(-270deg) translate3d(0px, 0px, 0px);
-    }
-  }
+
   @-webkit-keyframes backwards-rotation {
     from {
       -webkit-transform: rotate(0deg);
@@ -596,7 +710,7 @@
   }
 
   .open .section.open {
-    display: inline-block;
+    display: block;
     width: 80px;
     height: 80px;
     -webkit-animation: scadivng 20s infinite linear;
@@ -629,38 +743,23 @@
     margin-top: 7px;
     transform-origin: 50% 50%;
   }
-
-  .open .spinning-circle-wrapper,  .open .spinning-circle-wrapper svg {
-    height: 100%;
-    width: 100%;
+  .spinning-circle-wrapper {
+    top: calc( 50% - 50px);
+    left: calc( 50% - 50px);
+  }
+  .open .spinning-circle-wrapper {
+    animation-play-state: paused;
+    transiton: all 2s linear;
+  }
+  .open .spinning-circle-wrapper svg {
+    visibility: hidden;
+    top: 0;
+    right: 0;
   }
 
   .open .spinning-circle-wrapper svg {
-    padding: 10%;
     transform-origin: 50% 50%;
-    animation: swang 100s infinite linear;
   }
-  @keyframes swang {
-    0% {
-      transform: rotateX(-45deg) rotateY(-10deg) scale(2.2) rotateZ(0deg);
-    }
-    25% {
-      transform: rotateX(-45deg) rotateY(-10deg) scale(2.2) rotateZ(90deg);
-    }
-    50% {
-      transform: rotateX(-45deg) rotateY(-10deg) scale(2.2) rotateZ(180deg);
-    }
-    75% {
-      transform: rotateX(-45deg) rotateY(-10deg) scale(2.2) rotateZ(270deg);
-    }
-    100% {
-      transform:rotateX(-45deg) rotateY(-10deg) scale(2.2) rotateZ(360deg);
-    }
-  }
-  .open .spinning-circle-wrapper svg g {
-    stroke: black;
-    stroke-width: .2px;
-   }
   .open #handFloat {
     display: none;
   }

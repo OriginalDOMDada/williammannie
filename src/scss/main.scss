@@ -43,11 +43,11 @@ button, svg, {
   padding: 0;
 }
 
-::-moz-selection {
+p::-moz-selection, a::-moz-selection {
   background: #0000ff;
   color: white;
 }
-::selection {
+p::selection, a::selection {
   background: #0000ff;
   color: white;
 }
@@ -701,6 +701,14 @@ button.opt {
       cursor: url("http://localhost:8080/static/cursor/cursor-5.svg"), auto;
     }
   }
+  .nest .name {
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none;
+  }
   .desktop-icon {
     height: 50px;
     width: 50px;
@@ -725,15 +733,7 @@ button.opt {
     font-weight: bold;
     font-style: italic;
     font-family: "Arial", sans-serif;
-    // font-family: Georgia;
     font-size: 14px;
-    -webkit-touch-callout: none; /* iOS Safari */
-    -webkit-user-select: none; /* Safari */
-     -khtml-user-select: none; /* Konqueror HTML */
-       -moz-user-select: none; /* Firefox */
-        -ms-user-select: none; /* Internet Explorer/Edge */
-            user-select: none;
-
   }
   &:focus {
     outline: 0;
@@ -923,6 +923,13 @@ button.opt {
         bottom: 0px;
         left: 0px;
       }
+      &.active:hover {
+        background-color: #00ff80;
+        border: 4px solid #0000ff;
+        color: #0000ff;
+        bottom: -4px;
+        left: 4px;
+      }
     }
     .magic-8-ball {
       height: 250px;
@@ -1033,7 +1040,7 @@ button.opt {
            left: 4px;
          }
        }
-       .throwsum {
+       #throwsum {
          width: 150px;
          height: 50px;
          display: block;
@@ -1053,6 +1060,13 @@ button.opt {
            color: white;
            bottom: 0px;
            left: 0px;
+         }
+         &.active:hover {
+           background-color: #00ff80;
+           border: 4px solid #0000ff;
+           color: #0000ff;
+           bottom: -4px;
+           left: 4px;
          }
        }
 
@@ -1150,8 +1164,9 @@ button.opt {
         }
       }
     }
-    .info-title:before {
+    .titlemarq:before {
       content: '';
+      background: black;
       background-image: url('http://localhost:8080/static/current-song.svg');
       height: 17px;
       width: 17px;
@@ -1160,6 +1175,7 @@ button.opt {
       padding-right: 7px;
       background-repeat: no-repeat;
       background-size: contain;
+      margin-top: 10px;
     }
   }
 }

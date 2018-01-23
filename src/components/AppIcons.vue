@@ -4,7 +4,7 @@
         <div tabindex="0" class="desktop" @dblclick ="openSesemie" @click="topActive">
           <svgicon v-for="(icon, iconName) in icons" v-if="iconName === name" v-bind:class="app.classname" width="50" height="50" :original="true"  v-bind:id="name" v-bind:name="name" :key="app.id"></svgicon>
           <div class="nest">
-            <p>{{app.text}}</p>
+            <p class="name">{{app.text}}</p>
           </div>
         </div>
       </vue-draggable-resizable>
@@ -73,10 +73,14 @@
     methods: {
       openSesemie: function (event) {
         var highApp = event.target.closest('.application').id
-        if (appData.applications[highApp].openApp === false) {
-          appData.applications[highApp].openApp = true
+        if (highApp === 'email') {
+          window.location.href = 'mailto:willmannie@gmail.com'
+        } else {
+          if (appData.applications[highApp].openApp === false) {
+            appData.applications[highApp].openApp = true
+          }
+          this.topActive()
         }
-        this.topActive()
       },
       topActive: function () {
         var highApp = event.target.closest('.application').id

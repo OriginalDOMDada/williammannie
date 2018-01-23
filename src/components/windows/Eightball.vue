@@ -26,7 +26,7 @@
         <div class="button-wrapper">
           <p id="ballanswer">{{answer}}</p>
           <div class="prebee">
-          <button id="answerButton" v-on:click.prevent="answerMe">Try Me</button>
+          <button id="answerButton" v-on:click.prevent="answerMe" @mousedown="buttonpress" @mouseup="buttonup" v-bind:class="{ active: isActive }">Try Me</button>
           </div>
         </div>
         </div>
@@ -50,6 +50,7 @@ export default {
       answer: '',
       dragState: false,
       parent: false,
+      isActive: false,
       x: 0,
       y: 0,
       clickon: false,
@@ -58,8 +59,6 @@ export default {
   },
   beforeUpdate () {
     var initalWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth
-    var initalHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight
-    console.log(initalHeight)
     var initalX = (initalWidth / 2) - 200
     var initalY = 50
     var activeApps = document.getElementsByClassName('app')
@@ -70,7 +69,6 @@ export default {
     }
     initalY = 50 + (50 * appArray.length)
     initalX = initalX + (50 * appArray.length)
-    console.log(appArray)
     this.x = initalX
     this.y = initalY
   },
@@ -100,6 +98,12 @@ export default {
         innerball.classList.remove('hide')
         $this.clickon = false
       }, 1500)
+    },
+    buttonpress: function () {
+      this.isActive = true
+    },
+    buttonup: function () {
+      this.isActive = false
     },
     fullSize: function () {
       this.parent = true

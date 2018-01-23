@@ -16,13 +16,20 @@
     </div>
       <div class="wrappa-da-rappa" v-bind:class="{'disco': isPlaying}">
           <div class="app-content" name="music">
+            <div class="needle-wrap">
+              <img v-bind:src="needle" class="needle"></img>
+            </div>
+            <div class="speakers">
+              <img v-bind:src="speaker" class="speaker-left"></img>
+              <img v-bind:src="speaker" class="speaker-right"></img>
+            </div>
             <div id="sound-image-wrap">
               <p>{{currentTrackId}}</p>
               <div class="soundImage"></div>
             </div>
             <div class="tracklist">
               <ol class="datracklist">
-                <li v-for="(track, index) in trackList" v-on:click="seekTrack" v-bind:data-track="index" v-bind:class="{'activeTrack': index === 0}" :key="track.id" v-bind:id="track.id">{{index + 1}}. {{track.title}} <a v-bind:src="track.uri" class="sc-link"></a></li>
+                <li v-for="(track, index) in trackList" v-on:click="seekTrack" v-bind:data-track="index" v-bind:class="{'activeTrack': index === 0}" :key="track.id" v-bind:id="track.id">{{index + 1}}. {{track.title}} <a target="_blank" v-bind:src="track.permalink_url" class="sc-link" v-on:click="linktosong"></a></li>
               </ol>
             </div>
             <transition name="fade" tag="div">
@@ -53,14 +60,15 @@
                     </button>
                   </div>
                   <div class="wmsound">
-                    <a href="www.soundcloud.com">
+                    <a href="https://www.soundcloud.com" target="_blank">
                       <svgicon height="60" width="60" name="wmsound" :original="true"></svgicon>
                       <img v-if="isPlaying === true" height="50" width="40" style="position: absolute; top: 0; left: 40px;" v-bind:src="justdance"></img>
                     </a>
                   </div>
                   <div class="powerdbysc">
-                    <a href="www.soundcloud.com">
-                      <svgicon height="50" width="50" name="soundcloud"></svgicon>
+                    <a href="https://www.soundcloud.com" target="_blank">
+                      <svgicon height="50" width="50" name="soundcloud">
+                      </svgicon>
                       <span>Powered by<br>SoundCloud</span>
                     </a>
                   </div>
@@ -72,8 +80,12 @@
                 </div>
               </div>
               <div class="currentsong">
-                <span class='info-title'></span>
-                <span class='info-artist'></span>
+                <div v-for="(track, index) in trackList" class="titlemarq marquee3k" v-if="track.title === currentTitle" :key="track.id" data-speed="0.25" data-pausable="bool">
+                  <span>
+                    <span class='info-title'>{{currentTitle}}</span>
+                    <span class='info-artist'>{{currentName}}</span>
+                  </span>
+                </div>
               </div>
             </div>
           </div>
@@ -88,6 +100,7 @@
   import appData from '../../appData.json'
   import '../../compiled-icons'
   import SoundcloudWidget from 'soundcloud-widget'
+  import Marquee3k from 'marquee3000'
 
   export default {
     name: 'Music',
@@ -105,11 +118,15 @@
         songTitle: '',
         songArtist: '',
         currentTrackId: '',
+        currentTitle: '',
+        currentName: '',
         widget: '',
         SoundCloud: '',
         loadicon: require('../../assets/svg/loader.svg'),
         loading: true,
-        justdance: require('../../assets/gifs/justdance.gif')
+        justdance: require('../../assets/gifs/justdance.gif'),
+        speaker: require('../../assets/svg/speaker.svg'),
+        needle: require('../../assets/svg/needle.svg')
       }
     },
     beforeUpdate () {
@@ -179,8 +196,8 @@
             document.querySelector('.activeTrack').classList.remove('activeTrack')
             document.getElementById(soundObject.id).classList.add('activeTrack')
           }
-          document.querySelector('.info-title').innerHTML = soundObject.title
-          document.querySelector('.info-artist').innerHTML = soundObject.user.username
+          $this.currentTitle = soundObject.title
+          $this.currentName = soundObject.user.username
           document.querySelector('.soundImage').style.backgroundImage = 'url(' + soundObject.artwork_url + ')'
         })
       })
@@ -211,6 +228,11 @@
           $this.widget.seekTo(newPosition)
         })
       },
+      linktosong: function (event) {
+        var url = event.target.attributes.src.value
+        var win = window.open(url, '_blank')
+        win.focus()
+      },
       fullSize: function () {
         this.parent = true
         var doubleClickEvent = document.createEvent('MouseEvents')
@@ -225,6 +247,9 @@
         this.widget.seekTo(0)
         activelistitem.classList.remove('activeTrack')
         event.target.classList.add('activeTrack')
+        Marquee3k.init({
+          selector: 'titlemarq'
+        })
       },
       nextTrack: function (event) {
         this.widget.seekTo(0)
@@ -294,6 +319,38 @@
     visibility: hidden;
     height: 0;
   }
+  .needle-wrap {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+  }
+  .needle {
+    position: relative;
+    height: 100px;
+    width: auto;
+    display: block;
+    margin: 0 auto;
+    top: 0px;
+    left: -45px;
+    z-index: 3;
+  }
+  .speaker-left, .speaker-right {
+    height: 100px;
+    width: auto;
+    position: absolute;
+    z-index: 1;
+  }
+
+  .speaker-left {
+    top: 60px;
+    left: 3%;
+  }
+
+  .speaker-right {
+    top: 60px;
+    right: 3%;
+  }
+
   .sc-font-light {
     font-family: Georgia !important;
   }
@@ -424,7 +481,6 @@
   .powerdbysc  svg {
     margin: 0 auto;
     display: block;
-    fill: blue;
   }
 
   .powerdbysc span {
@@ -781,15 +837,20 @@
       color: white;
       font-family: Arial;
       padding: 0 10px;
+      z-index: 2;
     }
     .currentsong span {
-      padding: 10px 0px;
       display: inline-block;
       font-size: 14px;
     }
 
     .info-artist {
       color: yellow;
+      padding: 10px 0px;
+    }
+
+    .info-title {
+      padding: 10px 0px;
     }
 
     .tracklist {
