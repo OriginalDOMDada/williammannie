@@ -93,6 +93,16 @@
       "y": 204,
       "z": 200,
       "streaming": false
+    },
+    "wammie": {
+      "text": "Wammie!",
+      "classname": "desktop-icon",
+      "activeState": false,
+      "openApp": false,
+      "content": "",
+      "x": 90,
+      "y": 408,
+      "z": 200
     }
   }
 }

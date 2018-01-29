@@ -200,83 +200,116 @@ a {
   -webkit-background-clip: padding-box;
   -moz-background-clip: padding-box;
   background-clip: padding-box; }
-  .social .twitter {
+  .social .smpanel {
+    height: 28px;
+    width: 28px;
+    display: block; }
+    .social .smpanel a {
+      display: block;
+      height: 100%;
+      width: 100%;
+      border: 2px solid blue;
+      margin: -8px;
+      background-color: white; }
+    .social .smpanel svg path {
+      fill: white;
+      transition: all 1s linear both; }
+  .social .twitter .smpanel {
     border: 2px solid #0000ff;
     background: #0000ff; }
-    .social .twitter svg path {
-      fill: #0000ff; }
-    .social .twitter:hover {
+    .social .twitter .smpanel:hover svg path {
+      fill: white; }
+    .social .twitter .smpanel:hover a {
+      background-color: blue !important;
       border: 2px solid white; }
-      .social .twitter:hover svg path {
-        fill: white; }
-  .social .dribble {
+  .social .dribble .smpanel {
     border: 2px solid #ff0080;
     background: #ff0080; }
-    .social .dribble svg path {
-      fill: #ff0080; }
-    .social .dribble:hover {
+    .social .dribble .smpanel:hover svg path {
+      fill: white; }
+    .social .dribble .smpanel:hover a {
+      background-color: blue !important;
       border: 2px solid white; }
-      .social .dribble:hover svg path {
-        fill: white; }
-  .social .instagram {
+  .social .instagram .smpanel {
     border: 2px solid #ffff00;
     background: #ffff00; }
-    .social .instagram svg path, .social .instagram svg circle {
-      fill: #ffff00; }
-    .social .instagram:hover {
-      border: 2px solid black; }
-      .social .instagram:hover svg path, .social .instagram:hover svg circle {
-        fill: black; }
-  .social .facebook {
+    .social .instagram .smpanel:hover svg path {
+      fill: white; }
+    .social .instagram .smpanel:hover a {
+      background-color: blue !important;
+      border: 2px solid white; }
+  .social .facebook .smpanel {
     border: 2px solid #00ff80;
     background: #00ff80; }
-    .social .facebook svg path {
-      fill: #00ff80; }
-    .social .facebook:hover {
+    .social .facebook .smpanel:hover svg path {
+      fill: white; }
+    .social .facebook .smpanel:hover a {
+      background-color: blue !important;
       border: 2px solid white; }
-      .social .facebook:hover svg path {
-        fill: white; }
-  .social .github {
+  .social .github .smpanel {
     border: 2px solid black;
     background: black; }
-    .social .github svg path {
-      fill: #000000; }
-    .social .github:hover {
+    .social .github .smpanel:hover svg path {
+      fill: white; }
+    .social .github .smpanel:hover a {
+      background-color: blue !important;
       border: 2px solid white; }
-      .social .github:hover svg path {
-        fill: white; }
-  .social .linkedin {
+  .social .linkedin .smpanel {
     border: 2px solid #5D5D5D;
     background: #5D5D5D; }
-    .social .linkedin svg path {
-      fill: #5D5D5D; }
-    .social .linkedin:hover {
-      border: 2px solid white; }
-      .social .linkedin:hover svg path {
-        fill: white; }
-  .social .pocket {
+    .social .linkedin .smpanel:hover svg path {
+      fill: white; }
+    .social .linkedin .smpanel:hover a {
+      background-color: blue !important; }
+  .social .pocket .smpanel {
     border: 2px solid #DEDEDE;
     background: #DEDEDE; }
-    .social .pocket svg path {
-      fill: #DEDEDE; }
-    .social .pocket:hover {
-      border: 2px solid black; }
-      .social .pocket:hover svg path {
-        fill: black; }
-  .social .soundcloud {
+    .social .pocket .smpanel:hover svg path {
+      fill: white; }
+    .social .pocket .smpanel:hover a {
+      background-color: blue !important;
+      border: 2px solid white; }
+  .social .soundcloud .smpanel {
     border: 2px solid white;
     background: white; }
-    .social .soundcloud svg path {
-      fill: #ffffff; }
-    .social .soundcloud:hover {
-      border: 2px solid #0000ff; }
-      .social .soundcloud:hover svg path {
-        fill: #0000ff; }
+    .social .soundcloud .smpanel:hover svg path {
+      fill: white; }
+    .social .soundcloud .smpanel:hover a {
+      background-color: blue !important;
+      border: 2px solid white; }
+  .social.active svg path {
+    fill: blue; }
+  .social.active .twitter .smpanel,
+  .social.active .dribble .smpanel,
+  .social.active .github .smpanel,
+  .social.active .linkedin .smpanel {
+    animation: boxinwhite .5s ease-in-out both; }
+  .social.active .pocket .smpanel,
+  .social.active .facebook .smpanel,
+  .social.active .instagram .smpanel {
+    animation: boxinblack .5s ease-in-out both; }
+  .social.active .soundcloud .smpanel {
+    animation: boxinblue .5s ease-in-out both; }
+  .social:not(.active) a {
+    background-color: transparent;
+    border: 2px solid transparent; }
 
+@keyframes boxinwhite {
+  100% {
+    border-color: blue;
+    background-color: blue; } }
+@keyframes boxinblack {
+  100% {
+    border-color: blue;
+    background-color: blue; } }
+@keyframes boxinblue {
+  100% {
+    border-color: blue;
+    background-color: blue; } }
 .social > div {
   display: block;
-  height: 28px;
-  width: 28px; }
+  height: 32px;
+  width: 32px; }
   .social > div svg {
     display: inline-block; }
 

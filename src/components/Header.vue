@@ -16,7 +16,7 @@
     </div>
     <div id='todaysDate'></div>
   </div>
-  <div class="social">
+  <div class="social" @mouseover="boxspin" v-bind:class="{ active: isflipped }" @mouseout="isflipped = false" >
     <div class="twitter smcube">
       <div class="smpanel panel1"></div>
       <div class="smpanel panel2">
@@ -147,6 +147,7 @@
         return {
           appData,
           shareOpen: false,
+          isflipped: false,
           topLogo: require('../assets/svg/top_logo.svg')
         }
       },
@@ -201,6 +202,9 @@
             })
             document.querySelector('.stage').classList.remove('open')
           }
+        },
+        boxspin: function () {
+          this.isflipped = true
         },
         expand (event) {
           var x = document.getElementById(event.target.id)
@@ -291,35 +295,62 @@
     transform: translateZ( 15px );
     z-index: 1;
     position: absolute;
-    transition: transform 0.5s;
+    transition: transform 0.25s ease-in-out;
   }
 
   .panel2 {
     transform: rotateY( 90deg ) translateZ( 15px );
     z-index: 0;
     position: absolute;
-    transition: transform 0.5s;
+    transition: transform 0.25s ease-in-out;
   }
 
-  .smcube:hover .panel1 {
+  .active .smcube .panel1 {
     transform: translateX( -10px ) rotateY( -90deg );
   }
-  .smcube:hover .panel2 {
+  .active .smcube .panel2 {
     transform: rotateY( 0deg );
   }
 
+  .active div:nth-child(2) .panel1, .active div:nth-child(2) .panel2 {
+    -webkit-transition-delay: .1s;
+            transition-delay: .1s;
+  }
+  .active div:nth-child(3) .panel1, .active div:nth-child(3) .panel2 {
+    -webkit-transition-delay: .2s;
+            transition-delay: .2s;
+  }
+  .active div:nth-child(4) .panel1, .active div:nth-child(4) .panel2 {
+    -webkit-transition-delay: .3s;
+            transition-delay: .3s;
+  }
+  .active div:nth-child(5) .panel1, .active div:nth-child(5) .panel2 {
+    -webkit-transition-delay: .4s;
+            transition-delay: .4s;
+  }
+  .active div:nth-child(6) .panel1, .active div:nth-child(6) .panel2 {
+    -webkit-transition-delay: .5s;
+            transition-delay: .5s;
+  }
+  .active div:nth-child(7) .panel1, .active div:nth-child(7) .panel2 {
+    -webkit-transition-delay: .6s;
+            transition-delay: .6s;
+  }
+  .active div:nth-child(8) .panel1, .active div:nth-child(8) .panel2 {
+    -webkit-transition-delay: .7s;
+            transition-delay: .7s;
+  }
+
 .scrollwrap:before {
-  background-image: url("http://minimalmonkey.com/lab/css3-animations/twitter-bird-sprite.png");
-  animation: tweet 1s steps(4) infinite;
+  background-image: url("/static/twitter-bird-sprite.png");
+  animation: tweet 1.5s steps(4) infinite;
   height: 25px;
   width: 25px;
   background-size: 100px;
-  background-color: black;
   transiton: all 2s ease;
 }
 
 .scrollwrap:hover:before {
-  background-blend-mode: hard-light;
   animation-play-state: paused;
 }
 

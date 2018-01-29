@@ -11,6 +11,7 @@ import Email from '@/components/windows/Email'
 import Threedee from '@/components/windows/Threedee'
 import Video from '@/components/windows/Video'
 import Music from '@/components/windows/Music'
+import Wammie from '@/components/windows/Wammie'
 import LoadingScreen from '@/components/LoadingScreen'
 
 import VueDraggableResizable from 'vue-draggable-resizable'
@@ -35,7 +36,8 @@ export default new Router({
         email: Email,
         threedee: Threedee,
         video: Video,
-        music: Music
+        music: Music,
+        wammie: Wammie
       }
     }
   ]

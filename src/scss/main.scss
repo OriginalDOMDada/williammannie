@@ -339,116 +339,182 @@ a {
   -webkit-background-clip: padding-box;
   -moz-background-clip: padding-box;
   background-clip: padding-box;
-  .twitter {
+  .smpanel {
+    height: 28px;
+    width: 28px;
+    display: block;
+    a {
+      display: block;
+      height: 100%;
+      width: 100%;
+      border: 2px solid blue;
+      margin: -8px;
+      background-color: white;
+    }
+    svg path {
+      fill: white;
+      transition: all 1s linear both;
+    }
+  }
+  .twitter .smpanel {
     border: 2px solid #0000ff;
     background: #0000ff;
-    svg path {
-      fill: #0000ff;
-    }
     &:hover {
-      border: 2px solid white;
       svg path {
         fill: white;
       }
+      a {
+        background-color: blue !important;
+        border: 2px solid white;
+      }
     }
   }
-  .dribble {
+  .dribble .smpanel {
     border: 2px solid #ff0080;
     background: #ff0080;
-    svg path {
-      fill: #ff0080;
-    }
     &:hover {
-      border: 2px solid white;
       svg path {
         fill: white;
       }
+      a {
+        background-color: blue !important;
+        border: 2px solid white;
+      }
     }
   }
-  .instagram {
+  .instagram .smpanel {
     border: 2px solid #ffff00;
     background: #ffff00;
-    svg path, svg circle {
-      fill: #ffff00;
-    }
     &:hover {
-      border: 2px solid black;
-      svg path, svg circle {
-        fill: black;
+      svg path {
+        fill: white;
+      }
+      a {
+        background-color: blue !important;
+        border: 2px solid white;
       }
     }
   }
-  .facebook {
+  .facebook .smpanel {
     border: 2px solid #00ff80;
     background: #00ff80;
-    svg path {
-      fill: #00ff80;
-    }
     &:hover {
-      border: 2px solid white;
       svg path {
         fill: white;
       }
+      a {
+        background-color: blue !important;
+        border: 2px solid white;
+      }
     }
   }
-  .github {
+  .github .smpanel {
     border: 2px solid black;
     background: black;
-    svg path {
-      fill: #000000;
-    }
     &:hover {
-      border: 2px solid white;
       svg path {
         fill: white;
       }
+      a {
+        background-color: blue !important;
+        border: 2px solid white;
+      }
     }
   }
-  .linkedin {
+  .linkedin .smpanel {
     border: 2px solid #5D5D5D;
     background: #5D5D5D;
-    svg path {
-      fill: #5D5D5D;
-    }
     &:hover {
-      border: 2px solid white;
       svg path {
         fill: white;
       }
+      a {
+        background-color: blue !important;
+      }
     }
   }
-  .pocket {
+  .pocket .smpanel {
     border: 2px solid #DEDEDE;
     background: #DEDEDE;
-    svg path {
-      fill: #DEDEDE;
-    }
     &:hover {
-      border: 2px solid black;
       svg path {
-        fill: black;
+        fill: white;
+      }
+      a {
+        background-color: blue !important;
+        border: 2px solid white;
       }
     }
   }
-  .soundcloud {
+  .soundcloud .smpanel {
     border: 2px solid white;
     background: white;
-    svg path {
-      fill: #ffffff;
-    }
     &:hover {
-      border: 2px solid #0000ff;
       svg path {
-        fill: #0000ff;
+        fill: white;
+      }
+      a {
+        background-color: blue !important;
+        border: 2px solid white;
       }
     }
+  }
+  &.active {
+    svg path {
+      fill: blue;
+    }
+    .twitter,
+    .dribble,
+    .github,
+    .linkedin {
+      .smpanel {
+        animation: boxinwhite .5s ease-in-out both;
+      }
+    }
+    .pocket,
+    .facebook,
+    .instagram {
+      .smpanel {
+        animation: boxinblack .5s ease-in-out both;
+      }
+    }
+    .soundcloud {
+      .smpanel {
+        animation: boxinblue .5s ease-in-out both;
+      }
+    }
+  }
+  &:not(.active) a {
+    background-color: transparent;
+    border: 2px solid transparent;
+  }
+}
+
+@keyframes boxinwhite {
+  100% {
+    border-color: blue;
+    background-color: blue;
+  }
+}
+
+@keyframes boxinblack {
+  100% {
+    border-color: blue;
+    background-color: blue;
+  }
+}
+
+@keyframes boxinblue {
+  100% {
+    border-color: blue;
+    background-color: blue;
   }
 }
 
 .social > div {
   display: block;
-  height: 28px;
-  width: 28px;
+  height: 32px;
+  width: 32px;
   svg {
     display: inline-block;
   }

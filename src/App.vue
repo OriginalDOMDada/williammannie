@@ -14,6 +14,7 @@
           <router-view name="threedee"></router-view>
           <router-view name="video"></router-view>
           <router-view name="music"></router-view>
+          <router-view name="wammie"></router-view>
         </div>
         <img class="computer-bounce" src="./assets/svg/dummy.svg">
         <div class="hello-wrap" data-tilt data-tilt-reset="false" data-tilt-reverse="true">

@@ -1,7 +1,7 @@
 <template>
    <div class="my-applications">
       <vue-draggable-resizable :resizable="false" :w="w" :h="h" :z="200" class="application" v-for="(app, name) in appData.applications" :x="app.x" :y="app.y" v-bind:id="name" :key="app.id" :parent="true" :grid="[25,25]">
-        <div tabindex="0" class="desktop" @dblclick ="openSesemie" @click="topActive">
+        <div tabindex="0" class="desktop" @dblclick="openSesemie" @click="topActive" v-touch:tap="openSesemie">
           <svgicon v-for="(icon, iconName) in icons" v-if="iconName === name" v-bind:class="app.classname" width="50" height="50" :original="true"  v-bind:id="name" v-bind:name="name" :key="app.id"></svgicon>
           <div class="nest">
             <p class="name">{{app.text}}</p>
@@ -66,6 +66,11 @@
             svg: require('../assets/svg/icons-09.svg'),
             x: 100,
             y: 234
+          },
+          wammie: {
+            svg: require('../assets/svg/icons-09.svg'),
+            x: 100,
+            y: 351
           }
         }
       }
