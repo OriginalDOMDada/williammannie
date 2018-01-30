@@ -27,7 +27,8 @@
                 <p class="tally">Your Score: {{score}}</p>
                 <div class="sharescore">
                   <p>Share your score with the hashtag #wammie for a chance to win!</p>
-                  <a>Twitter</a><a>Instagram</a>
+                  <a v-on:click="downloadscore" id="download">Download</a>
+                   <canvas id='canvas' width='400' height='400'></canvas>
                 </div>
               </div>
               <div class="button-wrapper">
@@ -41,7 +42,7 @@
             <div class="gametime"><p v-if="gameRunning">seconds: {{defaultTimerLength}}</p></div>
             <div class="gamescore"><p v-if="gameRunning">score: {{score}}</p></div>
           </div>
-          <div class="main-grid main-cell">
+          <div class="main-grid main-cell" @mousedown="swing" @mouseup="release">
             <div id="grid">
               <table class="zombiegrid" v-bind:height="defaultGridHeight" v-bind:width="defaultGridWidth">
                 <tr>
@@ -147,6 +148,24 @@ export default {
         this.$el.querySelector('#wammie').dispatchEvent(doubleClickEvent)
       }
     },
+    downloadscore: function (event) {
+      var $this = this
+      var canvas = document.getElementById('canvas')
+      var ctx = canvas.getContext('2d')
+      function doCanvas () {
+        /* draw something */
+        ctx.fillStyle = '#00000'
+        ctx.fillRect(0, 0, canvas.width, canvas.height)
+        ctx.fillStyle = 'yellow'
+        ctx.font = '60px Georgia'
+        ctx.fillText('My Score: ' + $this.score, 10, canvas.height / 2 - 15)
+        ctx.font = '26px sans-serif'
+        ctx.fillText('www.williammannie.com', 15, canvas.height / 2 + 35)
+      }
+      doCanvas()
+      event.target.href = document.getElementById('canvas').toDataURL()
+      event.target.download = 'score.png'
+    },
     start: function () {
       var $this = this
       $this.gameRunning = true
@@ -220,17 +239,30 @@ export default {
           $this.gameRunning = false
         }
         if ($this.gameRunning === false && $this.defaultTimerLength > 0) {
-          this.defaultTimerLength = 30
+          $this.defaultTimerLength = 30
           clearInterval(myVar)
         }
       }
     },
+    swing: function () {
+      this.$el.querySelector('.main-grid').classList.add('swing')
+    },
+    release: function () {
+      this.$el.querySelector('.main-grid').classList.remove('swing')
+    },
     wack: function (item, event, zombie) {
+      var $this = this
       if (item === true) {
         this.score = this.score + 1
+        this.$el.querySelector('.main-grid').classList.add('land')
         var zombiewacked = document.getElementById(zombie).querySelector('.zombieman')
         zombiewacked.classList.remove('scream')
         zombiewacked.classList.add('wacked')
+        $this.$el.querySelector('.app-content').classList.add('flash')
+        setTimeout(function () {
+          $this.$el.querySelector('.app-content').classList.remove('flash')
+          $this.$el.querySelector('.main-grid').classList.remove('land')
+        }, 100)
         setTimeout(function () {
           zombiewacked.classList.remove('wacked')
           this[zombie] = false
@@ -297,6 +329,12 @@ export default {
     position: absolute;
     bottom: 100px;
   }
+  #canvas {
+    position: absolute;
+    z-index: 0;
+    visibility: hidden;
+  }
+
 
   .gamelogobox p:first-child {
     color: #DEDEDE;
@@ -336,7 +374,8 @@ export default {
     height: 120px;
     background: url('/static/bg-zombie.svg');
     background-size: cover;
-    backgroud-repeat: repeat;
+    // do a media query that switches from cont to cover
+    background-repeat: repeat;
     position: absolute;
   }
   .start-screen {
@@ -436,6 +475,35 @@ export default {
     left: calc(50% - 225px);
     bottom: 0;
     position: relative;
+  }
+
+  #wammie .main-grid {
+    cursor: url('/static/hammer-default.svg') 32 32, auto;
+    transition: all ease .5s;
+  }
+
+  #wammie .main-grid.swing {
+    cursor: url('/static/hammer-swing.svg') 32 32, auto;
+  }
+
+  #wammie .main-grid.land {
+    cursor: url('/static/hammer-land.svg') 32 32, auto;
+    transition: all ease .5s;
+  }
+
+  .app-content.flash {
+    animation: flashHit linear .2s forwards;
+  }
+  @keyframes flashHit {
+    0% {
+      background: white;
+    }
+    50% {
+      background: black;
+    }
+    100% {
+      background: white;
+    }
   }
 
   #wammie .wrappa-da-rappa {
