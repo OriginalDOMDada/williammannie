@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 22.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 64 64" enable-background="new 0 0 64 64" xml:space="preserve">
+<g>
+	<g id="movedown">
+		<g>
+			<g>
+				<g>
+					<g>
+						<g>
+							<g>
+								<g>
+									<defs>
+										<polygon id="SVGID_1_" points="16,7.4 16,53.6 50.2,53.6 50.2,20.2 37.5,7.4 										"/>
+									</defs>
+									<clipPath id="SVGID_2_">
+										<use xlink:href="#SVGID_1_"  overflow="visible"/>
+									</clipPath>
+									<g clip-path="url(#SVGID_2_)">
+										<rect x="-8" y="-30" fill="#FFFFFF" width="62.8" height="62.8"/>
+									</g>
+								</g>
+							</g>
+						</g>
+						<g>
+							<g>
+								<g>
+									<defs>
+										<polygon id="SVGID_3_" points="16,7.4 16,53.6 50.2,53.6 50.2,20.2 37.5,7.4 										"/>
+									</defs>
+									<clipPath id="SVGID_4_">
+										<use xlink:href="#SVGID_3_"  overflow="visible"/>
+									</clipPath>
+									<g clip-path="url(#SVGID_4_)">
+										<rect x="-8" y="32.8" fill="#FFFFFF" width="62.8" height="62.8"/>
+									</g>
+								</g>
+							</g>
+						</g>
+					</g>
+					<path d="M50.7,54.1H15.5V6.9h22.2L50.8,20v34.1C50.8,54.1,50.7,54.1,50.7,54.1z M16.5,53.1h33.3V20.4L37.3,7.9H16.5V53.1z"/>
+				</g>
+				<g>
+					<rect x="43.3" y="4.9" transform="matrix(0.7071 -0.7071 0.7071 0.7071 2.9961 35.0417)" width="1" height="18.1"/>
+				</g>
+			</g>
+			<g>
+				<path d="M50.2,20.7H37.4L37,20.2V7.4L37.9,7l12.8,12.8L50.2,20.7z M38,19.7h11.1L38,8.6V19.7z"/>
+			</g>
+			<g>
+				<g>
+					<path fill="#0000FF" d="M46,36.5H20.4c-0.3,0-0.5-0.2-0.5-0.5s0.2-0.5,0.5-0.5H46c0.3,0,0.5,0.2,0.5,0.5S46.3,36.5,46,36.5z"/>
+				</g>
+				<g>
+					<path fill="#0000FF" d="M46,39.8H20.4c-0.3,0-0.5-0.2-0.5-0.5s0.2-0.5,0.5-0.5H46c0.3,0,0.5,0.2,0.5,0.5S46.3,39.8,46,39.8z"/>
+				</g>
+				<g>
+					<path fill="#0000FF" d="M46,43.1H20.4c-0.3,0-0.5-0.2-0.5-0.5s0.2-0.5,0.5-0.5H46c0.3,0,0.5,0.2,0.5,0.5S46.3,43.1,46,43.1z"/>
+				</g>
+				<g>
+					<path fill="#0000FF" d="M46,46.4H20.4c-0.3,0-0.5-0.2-0.5-0.5s0.2-0.5,0.5-0.5H46c0.3,0,0.5,0.2,0.5,0.5S46.3,46.4,46,46.4z"/>
+				</g>
+				<g>
+					<path fill="#0000FF" d="M46,26.6H20.4c-0.3,0-0.5-0.2-0.5-0.5s0.2-0.5,0.5-0.5H46c0.3,0,0.5,0.2,0.5,0.5S46.3,26.6,46,26.6z"/>
+				</g>
+				<g>
+					<path fill="#0000FF" d="M46,29.9H20.4c-0.3,0-0.5-0.2-0.5-0.5s0.2-0.5,0.5-0.5H46c0.3,0,0.5,0.2,0.5,0.5S46.3,29.9,46,29.9z"/>
+				</g>
+				<g>
+					<path fill="#0000FF" d="M46,33.2H20.4c-0.3,0-0.5-0.2-0.5-0.5s0.2-0.5,0.5-0.5H46c0.3,0,0.5,0.2,0.5,0.5S46.3,33.2,46,33.2z"/>
+				</g>
+				<g>
+					<path fill="#0000FF" d="M46,49.7H20.4c-0.3,0-0.5-0.2-0.5-0.5s0.2-0.5,0.5-0.5H46c0.3,0,0.5,0.2,0.5,0.5S46.3,49.7,46,49.7z"/>
+				</g>
+			</g>
+		</g>
+	</g>
+</g>
+<rect x="20.8" y="12.2" transform="matrix(0.9927 0.1204 -0.1204 0.9927 2.211 -2.9491)" fill="none" stroke="#00FF80" stroke-width="0.9" stroke-linejoin="round" stroke-miterlimit="10" width="9.3" height="9.3"/>
+<text transform="matrix(0.9927 0.1204 -0.1204 0.9927 22.2419 18.6545)" fill="#FF0080" font-family="'Georgia-Bold'" font-size="7.1511px">B</text>
+<g>
+	<polygon fill="#FFFFFF" stroke="#000000" stroke-width="0.75" stroke-linejoin="round" stroke-miterlimit="10" points="24.2,42 
+		22.5,39 18.9,40.8 20.4,44 25.3,49.1 	"/>
+	
+		<rect x="13.6" y="16.5" transform="matrix(0.8871 -0.4616 0.4616 0.8871 -12.3159 10.7494)" fill="#FFFF00" stroke="#000000" stroke-width="0.75" stroke-linejoin="round" stroke-miterlimit="10" width="4.5" height="28"/>
+	<polygon points="24.9,45.6 22.9,46.6 25.2,48.8 	"/>
+	
+		<rect x="6.5" y="15.6" transform="matrix(0.8871 -0.4616 0.4616 0.8871 -6.8286 5.9399)" fill="#FFFFFF" stroke="#000000" stroke-width="0.75" stroke-linejoin="round" stroke-miterlimit="10" width="4.5" height="2.7"/>
+	
+		<rect x="5.2" y="13.2" transform="matrix(0.8871 -0.4616 0.4616 0.8871 -5.8706 5.1002)" fill="#FF0080" stroke="#000000" stroke-width="0.75" stroke-linejoin="round" stroke-miterlimit="10" width="4.5" height="2.7"/>
+</g>
+</svg>

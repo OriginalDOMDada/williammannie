@@ -105,6 +105,24 @@ a {
   }
 }
 
+@-webkit-keyframes animate{
+  0%{
+    cursor: url("http://localhost:8080/static/cursor/star-1.svg"), auto;
+  }
+  25%{
+    cursor: url("http://localhost:8080/static/cursor/star-2.svg"), auto;
+  }
+  50%{
+    cursor: url("http://localhost:8080/static/cursor/star-3.svg"), auto;
+  }
+  75%{
+    cursor: url("http://localhost:8080/static/cursor/star-4.svg"), auto;
+  }
+  100%{
+    cursor: url("http://localhost:8080/static/cursor/star-5.svg"), auto;
+  }
+}
+
 // .disco {
 //   animation: disco 1s infinite ease-in-out;
 // }
@@ -319,7 +337,7 @@ a {
 	background-size: 10px 10px;
 	background-position:0px 0px, 5px 5px;
   transition: background-image .2s ease-out;
-
+  -webkit-transition: background-image .2s ease-out;
 
   &>.windows {
     z-index: 101;
@@ -354,6 +372,7 @@ a {
     svg path {
       fill: white;
       transition: all 1s linear both;
+      -webkit-transition: all 1s linear both;
     }
   }
   .twitter .smpanel {
@@ -496,6 +515,12 @@ a {
     background-color: blue;
   }
 }
+@-webkit-keyframes boxinwhite {
+  100% {
+    border-color: blue;
+    background-color: blue;
+  }
+}
 
 @keyframes boxinblack {
   100% {
@@ -504,7 +529,21 @@ a {
   }
 }
 
+@-webkit-keyframes boxinblack {
+  100% {
+    border-color: blue;
+    background-color: blue;
+  }
+}
+
 @keyframes boxinblue {
+  100% {
+    border-color: blue;
+    background-color: blue;
+  }
+}
+
+@-webkit-keyframes boxinblue {
   100% {
     border-color: blue;
     background-color: blue;
@@ -767,6 +806,24 @@ button.opt {
       cursor: url("http://localhost:8080/static/cursor/cursor-5.svg"), auto;
     }
   }
+
+  @-webkit-keyframes icon{
+    0%{
+      cursor: url("http://localhost:8080/static/cursor/cursor-1.svg"), auto;
+    }
+    25%{
+      cursor: url("http://localhost:8080/static/cursor/cursor-2.svg"), auto;
+    }
+    50%{
+      cursor: url("http://localhost:8080/static/cursor/cursor-3.svg"), auto;
+    }
+    75%{
+      cursor: url("http://localhost:8080/static/cursor/cursor-4.svg"), auto;
+    }
+    100%{
+      cursor: url("http://localhost:8080/static/cursor/cursor-5.svg"), auto;
+    }
+  }
   .nest .name {
     -webkit-touch-callout: none; /* iOS Safari */
     -webkit-user-select: none; /* Safari */
@@ -830,6 +887,11 @@ button.opt {
           background-position: 200% center;
         }
       }
+      @-webkit-keyframes shine {
+        to {
+          background-position: 200% center;
+        }
+      }
     }
   }
 }
@@ -864,6 +926,7 @@ button.opt {
           color: white !important;
           padding: 0 5px;
           transition: all .2s;
+          -webkit-transition: all .2s;
         }
       }
     }
@@ -930,6 +993,14 @@ button.opt {
       }
 
       @keyframes animStar {
+        from {
+          transform: translateY(0px);
+        }
+        to {
+          transform: translateY(-2000px);
+        }
+      }
+      @-webkit-keyframes animStar {
         from {
           transform: translateY(0px);
         }
@@ -1248,6 +1319,7 @@ button.opt {
 
 .fade-enter-active, .fade-leave-active {
   transition: opacity .75s;
+  -webkit-transition: opacity .75s;
 }
 .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
   opacity: 0;
@@ -1259,6 +1331,17 @@ button.opt {
   animation: bounce-in .5s reverse;
 }
 @keyframes bounce-in {
+  0% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@-webkit-keyframes bounce-in {
   0% {
     transform: scale(0);
   }
@@ -1361,6 +1444,7 @@ button.opt {
 
 #ballanswer, .magic-triangle  {
   transition: all .5s ease-in;
+  -webkit-transition: all .5s ease-in;
   &.hide {
     // display: none;
     opacity: 0;
@@ -1389,6 +1473,24 @@ button.opt {
   }
 }
 
+@-webkit-keyframes hardShake {
+  10%, 90% {
+    transform: translate3d(-4px, 4px, 0);
+  }
+
+  20%, 80% {
+    transform: translate3d(-2px, -8px, 0);
+  }
+
+  30%, 50%, 70% {
+    transform: translate3d(8px, -8px, 32px);
+  }
+
+  40%, 60% {
+    transform: translate3d(-8px, 8px, 0);
+  }
+}
+
 .magic-8-ball:hover, {
   animation: shake 0.82s cubic-bezier(.36,.07,.19,.97) both;
   transform: translate3d(0, 0, 0);
@@ -1398,6 +1500,24 @@ button.opt {
 
 
 @keyframes shake {
+  10%, 90% {
+    transform: translate3d(-1px, 0, 0);
+  }
+
+  20%, 80% {
+    transform: translate3d(2px, 0, 0);
+  }
+
+  30%, 50%, 70% {
+    transform: translate3d(-4px, 0, 0);
+  }
+
+  40%, 60% {
+    transform: translate3d(4px, 0, 0);
+  }
+}
+
+@-webkit-keyframes shake {
   10%, 90% {
     transform: translate3d(-1px, 0, 0);
   }

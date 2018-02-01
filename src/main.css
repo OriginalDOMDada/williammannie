@@ -82,6 +82,17 @@ a {
     cursor: url("http://localhost:8080/static/cursor/star-4.svg"), auto; }
   100% {
     cursor: url("http://localhost:8080/static/cursor/star-5.svg"), auto; } }
+@-webkit-keyframes animate {
+  0% {
+    cursor: url("http://localhost:8080/static/cursor/star-1.svg"), auto; }
+  25% {
+    cursor: url("http://localhost:8080/static/cursor/star-2.svg"), auto; }
+  50% {
+    cursor: url("http://localhost:8080/static/cursor/star-3.svg"), auto; }
+  75% {
+    cursor: url("http://localhost:8080/static/cursor/star-4.svg"), auto; }
+  100% {
+    cursor: url("http://localhost:8080/static/cursor/star-5.svg"), auto; } }
 /* Let's get this party started */
 ::-webkit-scrollbar {
   width: 30px; }
@@ -183,7 +194,8 @@ a {
   background-image: linear-gradient(45deg, white 25%, transparent 25%, transparent 75%, white 75%, white), linear-gradient(45deg, white 25%, transparent 25%, transparent 75%, white 75%, white);
   background-size: 10px 10px;
   background-position: 0px 0px, 5px 5px;
-  transition: background-image .2s ease-out; }
+  transition: background-image .2s ease-out;
+  -webkit-transition: background-image .2s ease-out; }
   .panel > .windows {
     z-index: 101; }
 
@@ -213,7 +225,8 @@ a {
       background-color: white; }
     .social .smpanel svg path {
       fill: white;
-      transition: all 1s linear both; }
+      transition: all 1s linear both;
+      -webkit-transition: all 1s linear both; }
   .social .twitter .smpanel {
     border: 2px solid #0000ff;
     background: #0000ff; }
@@ -298,11 +311,23 @@ a {
   100% {
     border-color: blue;
     background-color: blue; } }
+@-webkit-keyframes boxinwhite {
+  100% {
+    border-color: blue;
+    background-color: blue; } }
 @keyframes boxinblack {
   100% {
     border-color: blue;
     background-color: blue; } }
+@-webkit-keyframes boxinblack {
+  100% {
+    border-color: blue;
+    background-color: blue; } }
 @keyframes boxinblue {
+  100% {
+    border-color: blue;
+    background-color: blue; } }
+@-webkit-keyframes boxinblue {
   100% {
     border-color: blue;
     background-color: blue; } }
@@ -538,6 +563,17 @@ button.opt {
     cursor: url("http://localhost:8080/static/cursor/cursor-4.svg"), auto; }
   100% {
     cursor: url("http://localhost:8080/static/cursor/cursor-5.svg"), auto; } }
+@-webkit-keyframes icon {
+  0% {
+    cursor: url("http://localhost:8080/static/cursor/cursor-1.svg"), auto; }
+  25% {
+    cursor: url("http://localhost:8080/static/cursor/cursor-2.svg"), auto; }
+  50% {
+    cursor: url("http://localhost:8080/static/cursor/cursor-3.svg"), auto; }
+  75% {
+    cursor: url("http://localhost:8080/static/cursor/cursor-4.svg"), auto; }
+  100% {
+    cursor: url("http://localhost:8080/static/cursor/cursor-5.svg"), auto; } }
   .desktop .nest .name {
     -webkit-touch-callout: none;
     /* iOS Safari */
@@ -594,6 +630,9 @@ button.opt {
 @keyframes shine {
   to {
     background-position: 200% center; } }
+@-webkit-keyframes shine {
+  to {
+    background-position: 200% center; } }
 .wrappa-da-rappa {
   height: 100%;
   background-color: rgba(255, 255, 255, 0.5); }
@@ -622,7 +661,8 @@ button.opt {
         background-color: blue;
         color: white !important;
         padding: 0 5px;
-        transition: all .2s; }
+        transition: all .2s;
+        -webkit-transition: all .2s; }
 
 #eightball .wrappa-da-rappa {
   background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
@@ -671,6 +711,11 @@ button.opt {
     background: transparent;
     box-shadow: 1702px 903px #FFF, 300px 1377px #FFF, 1827px 177px #FFF, 1993px 160px #FFF, 1139px 1405px #FFF, 767px 1383px #FFF, 1799px 387px #FFF, 564px 73px #FFF, 1021px 234px #FFF, 1718px 370px #FFF, 1874px 1509px #FFF, 767px 810px #FFF, 321px 1301px #FFF, 542px 1688px #FFF, 855px 818px #FFF, 1612px 948px #FFF, 1887px 1990px #FFF, 1271px 1858px #FFF, 398px 31px #FFF, 1819px 774px #FFF, 864px 611px #FFF, 1406px 446px #FFF, 300px 157px #FFF, 1072px 1084px #FFF, 1857px 282px #FFF, 949px 1268px #FFF, 1673px 686px #FFF, 1267px 575px #FFF, 158px 1056px #FFF, 1739px 1222px #FFF, 11px 349px #FFF, 426px 957px #FFF, 1979px 1076px #FFF, 349px 1748px #FFF, 1731px 1190px #FFF, 965px 1396px #FFF, 382px 1627px #FFF, 48px 768px #FFF, 157px 443px #FFF, 1394px 1443px #FFF, 1147px 72px #FFF, 1169px 1687px #FFF, 1872px 1232px #FFF, 1361px 731px #FFF, 11px 66px #FFF, 1451px 992px #FFF, 446px 829px #FFF, 746px 266px #FFF, 1075px 1801px #FFF, 1382px 1416px #FFF, 1174px 1027px #FFF, 1951px 1829px #FFF, 153px 988px #FFF, 1855px 85px #FFF, 1112px 1736px #FFF, 806px 817px #FFF, 976px 732px #FFF, 1984px 1491px #FFF, 1551px 738px #FFF, 1867px 508px #FFF, 250px 1711px #FFF, 889px 1458px #FFF, 1953px 119px #FFF, 1468px 1603px #FFF, 1510px 1831px #FFF, 1505px 667px #FFF, 63px 1669px #FFF, 475px 1758px #FFF, 1874px 1117px #FFF, 1758px 1438px #FFF, 1344px 1936px #FFF, 1881px 1706px #FFF, 1150px 432px #FFF, 1410px 1744px #FFF, 1122px 599px #FFF, 151px 1654px #FFF, 1042px 67px #FFF, 1785px 126px #FFF, 1328px 1607px #FFF, 773px 343px #FFF, 556px 904px #FFF, 798px 330px #FFF, 1590px 1800px #FFF, 519px 484px #FFF, 196px 381px #FFF, 253px 1561px #FFF, 1141px 1067px #FFF, 269px 1390px #FFF, 1466px 1116px #FFF, 1821px 1993px #FFF, 546px 221px #FFF, 1264px 1955px #FFF, 1818px 434px #FFF, 1301px 1809px #FFF, 1751px 1357px #FFF, 1774px 205px #FFF, 675px 122px #FFF, 1051px 1219px #FFF, 1238px 369px #FFF, 1076px 330px #FFF; }
 @keyframes animStar {
+  from {
+    transform: translateY(0px); }
+  to {
+    transform: translateY(-2000px); } }
+@-webkit-keyframes animStar {
   from {
     transform: translateY(0px); }
   to {
@@ -920,7 +965,8 @@ button.opt {
     margin-top: 10px; }
 
 .fade-enter-active, .fade-leave-active {
-  transition: opacity .75s; }
+  transition: opacity .75s;
+  -webkit-transition: opacity .75s; }
 
 .fade-enter, .fade-leave-to {
   opacity: 0; }
@@ -932,6 +978,13 @@ button.opt {
   animation: bounce-in .5s reverse; }
 
 @keyframes bounce-in {
+  0% {
+    transform: scale(0); }
+  50% {
+    transform: scale(1.1); }
+  100% {
+    transform: scale(1); } }
+@-webkit-keyframes bounce-in {
   0% {
     transform: scale(0); }
   50% {
@@ -1019,13 +1072,23 @@ button.opt {
   perspective: 1000px; }
 
 #ballanswer, .magic-triangle {
-  transition: all .5s ease-in; }
+  transition: all .5s ease-in;
+  -webkit-transition: all .5s ease-in; }
   #ballanswer.hide, .magic-triangle.hide {
     opacity: 0; }
   #ballanswer.show, .magic-triangle.show {
     opacity: 1; }
 
 @keyframes hardShake {
+  10%, 90% {
+    transform: translate3d(-4px, 4px, 0); }
+  20%, 80% {
+    transform: translate3d(-2px, -8px, 0); }
+  30%, 50%, 70% {
+    transform: translate3d(8px, -8px, 32px); }
+  40%, 60% {
+    transform: translate3d(-8px, 8px, 0); } }
+@-webkit-keyframes hardShake {
   10%, 90% {
     transform: translate3d(-4px, 4px, 0); }
   20%, 80% {
@@ -1041,6 +1104,15 @@ button.opt {
   perspective: 1000px; }
 
 @keyframes shake {
+  10%, 90% {
+    transform: translate3d(-1px, 0, 0); }
+  20%, 80% {
+    transform: translate3d(2px, 0, 0); }
+  30%, 50%, 70% {
+    transform: translate3d(-4px, 0, 0); }
+  40%, 60% {
+    transform: translate3d(4px, 0, 0); } }
+@-webkit-keyframes shake {
   10%, 90% {
     transform: translate3d(-1px, 0, 0); }
   20%, 80% {

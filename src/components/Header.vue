@@ -258,7 +258,8 @@
 <style>
   .top-logo:hover g {
     animation: topspin 1.5s ease-in-out 1 alternate .25s;
-    transform-origin: 50% 50%;
+    -webkit-transform-origin: 173.4px 169.1px;
+    -webkit-transform-origin: 173.4px 169.1px;
   }
   .header .marquee3k {
     color: white;
@@ -293,6 +294,7 @@
 
   .panel1 {
     transform: translateZ( 15px );
+    -webkit-
     z-index: 1;
     position: absolute;
     transition: transform 0.25s ease-in-out;

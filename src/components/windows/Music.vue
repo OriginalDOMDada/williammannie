@@ -80,7 +80,7 @@
                 </div>
               </div>
               <div class="currentsong">
-                <div v-for="(track, index) in trackList" class="titlemarq marquee3k" v-if="track.title === currentTitle" :key="track.id" data-speed="0.25" data-pausable="bool">
+                <div v-for="(track, index) in trackList" v-if="track.title === currentTitle" :key="track.id" data-speed="0.25" data-pausable="bool">
                   <span>
                     <span class='info-title'>{{currentTitle}}</span>
                     <span class='info-artist'>{{currentName}}</span>
@@ -100,7 +100,6 @@
   import appData from '../../appData.json'
   import '../../compiled-icons'
   import SoundcloudWidget from 'soundcloud-widget'
-  import Marquee3k from 'marquee3000'
 
   export default {
     name: 'Music',
@@ -247,9 +246,6 @@
         this.widget.seekTo(0)
         activelistitem.classList.remove('activeTrack')
         event.target.classList.add('activeTrack')
-        Marquee3k.init({
-          selector: 'titlemarq'
-        })
       },
       nextTrack: function (event) {
         this.widget.seekTo(0)
@@ -369,14 +365,7 @@
   #loader {
     height: 100%;
     width: 100%;
-    background: #0000ff; /* Old browsers */
-    background: -moz-linear-gradient(left,  #ff0080 0%, #0000ff 50%,#ff0080 100%); /* FF3.6+ */
-    background: -webkit-gradient(linear, left top, right top, color-stop(0%,#ff0080),color-stop(50%,#0000ff), color-stop(100%,#ff0080)); /* Chrome,Safari4+ */
-    background: -webkit-linear-gradient(left,  #ff0080 0%, #0000ff 50%,#ff0080 100%); /* Chrome10+,Safari5.1+ */
-    background: -o-linear-gradient(left,  #ff0080 0%, #0000ff 50%,#ff0080 100%); /* Opera 11.10+ */
-    background: -ms-linear-gradient(left,  #ff0080 0%, #0000ff 50%,#ff0080 100%); /* IE10+ */
-    background: linear-gradient(to right,  #ff0080 0%,#0000ff 50%,#ff0080 100%); /* W3C */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ff0080', endColorstr='#ff0080',GradientType=1 ); /* IE6-9 */
+    background: rgba(0,0,0,.8);
     background-size: 50vw 50vh;
 
     -webkit-animation: slide 15s linear infinite;
@@ -396,7 +385,9 @@
     top: calc(50% - 50px);
     left: calc(50% - 50px);
     transform-origin: 50% 50%;
+    -webkit-transform-origin: 50% 50%;
     animation: spinloading 1.25s linear infinite;
+    -webkit-animation: spinloading 1.25s linear infinite;
   }
 
   @keyframes spinloading {
@@ -405,6 +396,14 @@
     }
     to {
       transform: rotate(360deg);
+    }
+  }
+  @-webkit-keyframes spinloading {
+    from {
+      -webkit-transform: rotate(0deg);
+    }
+    to {
+      -webkit-transform: rotate(360deg);
     }
   }
 
@@ -441,6 +440,7 @@
     border-radius: 0;
     outline: none;
     transition: all linear .5s;
+    -webkit-transition: all linear .5s;
   }
   .ui.button:first-child, .ui.button:nth-child(2), .ui.button:nth-child(3)  {
     border-right: 2px solid #0000ff;
@@ -876,6 +876,7 @@
       background-color: rgba(255, 255, 255, .25);
       font-weight: bold;
       transition: all linear .25s;
+      -webkit-transition: all linear .25s;
       position: relative;
     }
 
@@ -891,6 +892,7 @@
       background-color: black;
       background-image: url('/static/link.svg');
       transition: all linear .25s;
+      -webkit-transition: all linear .25s;
     }
 
     .tracklist li.activeTrack:before {
@@ -903,6 +905,7 @@
       position: absolute;
       left: 15px;
       transition: all linear .25s;
+      -webkit-transition: all linear .25s;
     }
 
     .disco li.activeTrack:not(:hover) {
@@ -914,6 +917,7 @@
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       animation: shine 5s linear infinite alternate-reverse .25s;
+      -webkit-animation: shine 5s linear infinite alternate-reverse .25s;
       z-index: 2;
     }
     .tracklist ol {
@@ -937,6 +941,7 @@
       background-color: yellow !important;
       background-image: url('/static/link3.svg');
       transition: none;
+      -webkit-transition: none;
     }
     .tracklist li:not(:last-child) {
       border-bottom: 2px solid black;
@@ -944,16 +949,24 @@
 
     .soundStart {
       transform-origin: 50% 50%;
+      -webkit-transform-origin: 50% 50%;
       animation: spinsong infinite 30s linear .25s forwards;
+      -webkit-animation: spinsong infinite 30s linear .25s forwards;
     }
 
     .soundStart.paused {
       animation-play-state: paused;
+      -webkit-animation-play-state: paused;
     }
 
     @keyframes spinsong {
       to {
         transform: rotate(359.9deg);
+      }
+    }
+    @-webkit-keyframes spinsong {
+      to {
+        -webkit-transform: rotate(359.9deg);
       }
     }
 

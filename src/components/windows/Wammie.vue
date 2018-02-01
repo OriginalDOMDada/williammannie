@@ -403,33 +403,51 @@ export default {
   .zombieman.scream .zombie-first {
     visibility: hidden;
     opacity: 0;
+    -webkit-transform-origin: 50% 50%;
+    transform-origin: 50% 50%;
     animation: zombiescream ease-in-out .15s backwards;
+    -webkit-animation: zombiescream ease-in-out .15s backwards;
   }
   .zombieman.scream .zombie-scream  {
     visibility: visible;
     opacity: 1;
+    -webkit-transform-origin: 50% 50%;
+    transform-origin: 50% 50%;
     animation: zombiescream ease-in-out .15s forwards;
+    -webkit-animation: zombiescream ease-in-out .15s forwards;
   }
 
   .zombie-first {
     transform-origin: 50% 50%;
+    -webkit-transform-origin: 50% 50%;
     transform: translateY(500px);
+    -webkit-transform: translateY(500px);
   }
 
   .zombie.active .zombie-first {
+    -webkit-transform-origin: 50% 50%;
+    transform-origin: 50% 50%;
     animation: zombiemove ease-in-out .15s forwards;
+    -webkit-animation: zombiemove ease-in-out .15s forwards;
   }
   .zombieman.wacked .zombie-first {
     visibility: hidden;
     opacity: 0 !important;
     display: none !important;
+    -webkit-transform-origin: 50% 50%;
+    transform-origin: 50% 50%;
     transform: translateY(500px);
+    -webkit-transform: translateY(500px);
     animation: vanish linear 0s forwards;
+    -webkit-animation: vanish linear 0s forwards;
   }
   .zombieman.wacked .zombie-hit {
     visibility: visible;
     opacity: 1;
+    -webkit-transform-origin: 50% 50%;
+    transform-origin: 50% 50%;
     animation: zombiewacked ease-in-out .25s forwards;
+    -webkit-animation: zombiewacked ease-in-out .25s forwards;
   }
 
 
@@ -439,6 +457,15 @@ export default {
     }
     100% {
       transform: translateY(0px);
+    }
+  }
+
+  @-webkit-keyframes zombiemove {
+    0% {
+      -webkit-transform: translateY(500px);
+    }
+    100% {
+      -webkit-transform: translateY(0px);
     }
   }
 
@@ -453,6 +480,14 @@ export default {
     }
   }
 
+  @-webkit-keyframes zombiescream {
+    to% {
+      visibility: visible;
+      opacity: 1;
+      -webkit-transform: translateY(0px);
+    }
+  }
+
   @keyframes zombiewacked {
     to% {
       visibility: visible;
@@ -461,11 +496,27 @@ export default {
     }
   }
 
+  @-webkit-keyframes zombiewacked {
+    to% {
+      visibility: visible;
+      opacity: 1;
+      -webkit-transform: translateY(0px);
+    }
+  }
+
   @keyframes  vanish {
     to% {
       visibility: visible;
       opacity: 1;
       transform: translateY(0px);
+    }
+  }
+
+  @-webkit-keyframes  vanish {
+    to% {
+      visibility: visible;
+      opacity: 1;
+      -webkit-transform: translateY(0px);
     }
   }
 
@@ -480,6 +531,7 @@ export default {
   #wammie .main-grid {
     cursor: url('/static/hammer-default.svg') 32 32, auto;
     transition: all ease .5s;
+    -webkit-transition: all ease .5s;
   }
 
   #wammie .main-grid.swing {
@@ -493,6 +545,7 @@ export default {
 
   .app-content.flash {
     animation: flashHit linear .2s forwards;
+    -webkit-animation: flashHit linear .2s forwards;
   }
   @keyframes flashHit {
     0% {
