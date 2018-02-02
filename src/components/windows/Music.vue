@@ -806,7 +806,7 @@
       mix-blend-mode: normal;
       position:absolute;
       opacity: 1;
-      background-image: url('http://localhost:8080/static/cd.svg');
+      background-image: url('/static/cd.svg');
     }
     #sound-image-wrap .soundImage::after {
       content: "";

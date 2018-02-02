@@ -2,8 +2,6 @@
 	<transition name="slide-fade">
 		<div id="loading" v-if="isLoading" class="container">
 			<svgicon class="intro-logo" name="logo" height="150" width="150" :original="true"></svgicon>
-			<h2>WilliamMannie.com</h2>
-			<p>Version Alpha 1.2</p>
 			<div class="loadtech">
 				<div class="blinkers">
 					<div class="blinker red"></div>

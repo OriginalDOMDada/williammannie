@@ -1,7 +1,7 @@
 <template>
    <div class="my-applications">
       <vue-draggable-resizable :resizable="false" :w="w" :h="h" :z="200" class="application" v-for="(app, name) in appData.applications" :x="app.x" :y="app.y" v-bind:id="name" :key="app.id" :parent="true" :grid="[25,25]">
-        <div tabindex="0" class="desktop" @dblclick="openSesemie" @click="topActive" v-touch:tap="openSesemie">
+        <div tabindex="0" class="desktop" @dblclick="openSesemie" @click="topActive" v-touch="touch">
           <svgicon v-for="(icon, iconName) in icons" v-if="iconName === name" v-bind:class="app.classname" width="50" height="50" :original="true"  v-bind:id="name" v-bind:name="name" :key="app.id"></svgicon>
           <div class="nest">
             <p class="name">{{app.text}}</p>
@@ -25,52 +25,62 @@
           aboutme: {
             svg: require('../assets/svg/icons-01.svg'),
             x: 0,
-            y: 0
+            y: 0,
+            clicks: 0
           },
           eightball: {
             svg: require('../assets/svg/icons-02.svg'),
             x: 0,
-            y: 117
+            y: 117,
+            clicks: 0
           },
           solitare: {
             svg: require('../assets/svg/icons-03.svg'),
             x: 0,
-            y: 234
+            y: 234,
+            clicks: 0
           },
           skills: {
             svg: require('../assets/svg/icons-04.svg'),
             x: 0,
-            y: 351
+            y: 351,
+            clicks: 0
           },
           resume: {
             svg: require('../assets/svg/icons-05.svg'),
             x: 0,
-            y: 468
+            y: 468,
+            clicks: 0
           },
           email: {
             svg: require('../assets/svg/icons-06.svg'),
             x: 100,
-            y: 0
+            y: 0,
+            clicks: 0
           },
           threedee: {
             svg: require('../assets/svg/icons-07.svg'),
             x: 100,
-            y: 117
+            y: 117,
+            clicks: 0
           },
           video: {
             svg: require('../assets/svg/icons-08.svg'),
             x: 100,
-            y: 351
+            y: 351,
+            clicks: 0
           },
           music: {
             svg: require('../assets/svg/icons-09.svg'),
             x: 100,
-            y: 234
+            y: 234,
+            clicks: 0
           },
           wammie: {
             svg: require('../assets/svg/icons-09.svg'),
             x: 100,
-            y: 351
+            y: 351,
+            clicks: 0
           }
         }
       }
