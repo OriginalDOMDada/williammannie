@@ -153,7 +153,7 @@
       },
       mounted () {
         var config2 = {
-          'profile': {'screenName': 'tripleogstatus'},
+          'profile': {'screenName': 'TechCrunch'},
           'domId': 'example2',
           'maxTweets': 3,
           'enableLinks': true,
@@ -178,6 +178,41 @@
           }
         }
         initmarkee()
+        function doDate () {
+          var str = ''
+          var lat = ''
+          var long = ''
+          var days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
+          var now = new Date()
+          var hours = now.getHours()
+          var minutes = now.getMinutes()
+          var ampm = hours >= 12 ? 'PM' : 'AM'
+          hours = hours % 12
+          if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(showPosition)
+          } else {
+            console.log('Geolocation is not supported by this browser.')
+          }
+          if (hours === 0) {
+            hours = 12
+          }
+          minutes = minutes < 10 ? '0' + minutes : minutes
+          str += days[now.getDay()] + ' ' + hours + ':' + minutes + ' ' + ampm
+          document.getElementById('todaysDate').innerHTML = str
+          function showPosition (position) {
+            lat = position.coords.latitude
+            long = position.coords.longitude
+            var times = SunCalc.getTimes(new Date(), lat, long)
+            if ((times.dawn.getTime() <= now.getTime()) && (times.night.getTime() >= now.getTime())) {
+              document.getElementById('todaysDate').classList.add('day')
+              document.getElementById('todaysDate').classList.remove('night')
+            } else {
+              document.getElementById('todaysDate').classList.add('night')
+              document.getElementById('todaysDate').classList.remove('day')
+            }
+          }
+        }
+        setInterval(doDate, 1000)
       },
       methods: {
         appState (event) {
@@ -193,6 +228,9 @@
               document.querySelector('.float-wrap').classList.add('paused')
               document.querySelector('.box').classList.add('open')
             }, 500)
+            setTimeout(function () {
+              document.querySelector('.box').classList.add('done')
+            }, 1500)
           } else {
             document.querySelector('.box').classList.remove('open')
             document.querySelector('.float-wrap').classList.remove('paused')
@@ -201,6 +239,7 @@
               element.querySelector('.section').classList.remove('open')
             })
             document.querySelector('.stage').classList.remove('open')
+            document.querySelector('.box').classList.remove('done')
           }
         },
         boxspin: function () {
@@ -218,41 +257,6 @@
         }
       }
     }
-    function doDate () {
-      var str = ''
-      var lat = ''
-      var long = ''
-      var days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
-      var now = new Date()
-      var hours = now.getHours()
-      var minutes = now.getMinutes()
-      var ampm = hours >= 12 ? 'PM' : 'AM'
-      hours = hours % 12
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(showPosition)
-      } else {
-        console.log('Geolocation is not supported by this browser.')
-      }
-      if (hours === 0) {
-        hours = 12
-      }
-      minutes = minutes < 10 ? '0' + minutes : minutes
-      str += days[now.getDay()] + ' ' + hours + ':' + minutes + ' ' + ampm
-      document.getElementById('todaysDate').innerHTML = str
-      function showPosition (position) {
-        lat = position.coords.latitude
-        long = position.coords.longitude
-        var times = SunCalc.getTimes(new Date(), lat, long)
-        if ((times.dawn.getTime() <= now.getTime()) && (times.night.getTime() >= now.getTime())) {
-          document.getElementById('todaysDate').classList.add('day')
-          document.getElementById('todaysDate').classList.remove('night')
-        } else {
-          document.getElementById('todaysDate').classList.add('night')
-          document.getElementById('todaysDate').classList.remove('day')
-        }
-      }
-    }
-    setInterval(doDate, 1000)
 </script>
 
 <style>
@@ -294,7 +298,7 @@
 
   .panel1 {
     transform: translateZ( 15px );
-    -webkit-
+    -webkit-transform: translateZ( 15px );
     z-index: 1;
     position: absolute;
     transition: transform 0.25s ease-in-out;
@@ -451,10 +455,10 @@
     transform-origin: 50% 50%;
   }
   .box.open {
-    -webkit-transform: rotate(45deg);
     transform: rotate(45deg);
-    -webkit-animation: rotation 20s infinite linear;
-     animation: rotation 20s infinite linear;
+    -webkit-transform: rotate(45deg);
+    animation: rotation 20s infinite linear forwards;
+    -webkit-animation: rotation 20s infinite linear forwards;
      width: 100px;
      height: 100px;
   }
@@ -514,6 +518,26 @@
     display: block;
   }
 
+  .box:not(.open) {
+    -webkit-animation: closedrotation 20s linear infinite .2s;
+    animation: closedrotation 20s linear infinite .2s;
+  }
+
+  @keyframes closedrotation {
+    0% {
+      -webkit-transform: rotateX(180deg) rotateY(360deg) rotateZ(270deg) translate3d(0px, 0px, 0px);
+              transform: rotateX(180deg) rotateY(360deg) rotateZ(270deg) translate3d(0px, 0px, 0px);
+    }
+    50% {
+      -webkit-transform: rotateX(180deg) rotateY(0deg) rotateZ(0deg)  translate3d(0px, 0px, 0px);
+              transform: rotateX(180deg) rotateY(0deg) rotateZ(0deg) translate3d(0px, 0px, 0px);
+    }
+    100% {
+      -webkit-transform: rotateX(180deg) rotateY(-360deg) rotateZ(-270deg) translate3d(0px, 0px, 0px);
+              transform: rotateX(180deg) rotateY(-360deg) rotateZ(-270deg) translate3d(0px, 0px, 0px);
+    }
+  }
+
 
   .section a, .section a svg {
     display: none;
@@ -556,43 +580,48 @@
      left: unset;
      top: unset;
      bottom: unset;
-    transition: all 1.5s ease-in-out alternate forwards;
   }
 
   .box > div.pane.open.f{
     bottom: -60px;
     left: -110px;
     transform: rotate(0deg);
+    transition: all 1.5s ease-in-out forwards 1s;
   }
 
   .box > div.pane.open.r {
     top: -60px;
     left: -110px;
     transform: rotate(0deg);
+    transition: all 1.5s ease-in-out forwards 1s;
   }
 
   .box > div.pane.open.u {
     left: 10px;
     bottom: 145px;
     transform: rotate(0deg);
+    transition: all 1.5s ease-in-out forwards 1s;
   }
 
   .box > div.pane.open.l {
     top: -60px;
     right: -110px;
     transform: rotate(0deg);
+    transition: all 1.5s ease-in-out forwards 1s;
   }
 
   .box > div.pane.open.t {
     bottom: -60px;
     right: -110px;
     transform: rotate(0deg);
+    transition: all 1.5s ease-in-out forwards 1s;
   }
 
   .box > div.pane.open.b {
     left: 10px;
     top: 145px;
     transform: rotate(0deg);
+    transition: all 1.5s ease-in-out forwards 1s;
   }
 
 
@@ -600,21 +629,17 @@
   @-webkit-keyframes rotation {
     from {
       -webkit-transform: rotate(0deg);
-              transform: rotate(0deg);
     }
     to {
       -webkit-transform: rotate(360deg);
-              transform: rotate(360deg);
     }
   }
   @keyframes rotation {
     from {
-      -webkit-transform: rotate(0deg);
-              transform: rotate(0deg);
+      transform: rotate(0deg);
     }
     to {
-      -webkit-transform: rotate(360deg);
-              transform: rotate(360deg);
+      transform: rotate(360deg);
     }
   }
 
@@ -749,12 +774,15 @@
     -webkit-animation: scadivng 20s infinite linear;
             animation: scadivng 20s infinite linear;
     transition: all 1s linear;
+    -webkit-transition: all 1s linear;
   }
 
 
-  .box.open:hover, .box.open:hover div, .box.open:hover .section{
-      -webkit-animation-play-state: paused !important;
-      animation-play-state: paused !important;
+  .box.done:hover,
+  .box.done:hover div,
+  .box.done:hover .section{
+      -webkit-animation-play-state: paused;
+      animation-play-state: paused;
   }
 
   .spinning-circle-wrapper {

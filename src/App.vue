@@ -2,7 +2,7 @@
     <div id="app">
       <router-view name="loadingscreen"></router-view>
       <router-view name="header"></router-view>
-      <div class="panel">
+      <div class="panel" id="og">
         <router-view name="appicons"></router-view>
         <div class="windows">
           <router-view name="aboutme"></router-view>
@@ -17,7 +17,7 @@
           <router-view name="wammie"></router-view>
         </div>
         <img class="computer-bounce" src="./assets/svg/dummy.svg">
-        <div class="hello-wrap" data-tilt data-tilt-reset="false" data-tilt-reverse="true">
+        <div class="hello-wrap" data-tilt data-tilt-reset="false" data-tilt-reverse="true" id="oghello">
           <svgicon class="hello" name="Untitled" height="400" width="400" :original="true"></svgicon>
         </div>
       </div>

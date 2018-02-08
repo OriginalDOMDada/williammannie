@@ -1,13 +1,11 @@
 <template>
-   <div class="my-applications">
-      <vue-draggable-resizable :resizable="false" :w="w" :h="h" :z="200" class="application" v-for="(app, name) in appData.applications" :x="app.x" :y="app.y" v-bind:id="name" :key="app.id" :parent="true" :grid="[25,25]">
-        <div tabindex="0" class="desktop" @dblclick="openSesemie" @click="topActive" v-touch="touch">
+   <div class="my-applications" id="graph" v-bind="graphPos">
+        <div tabindex="0" v-for="(app, name) in appData.applications" v-bind:id="name" :key="app.id" class="desktop application" @click="topActive" v-on:click="doubleup" @mousedown="startMove" @touchstart="startMove" v-bind:style="{ left: icons[name].x + 'px', top: icons[name].y + 'px' }">
           <svgicon v-for="(icon, iconName) in icons" v-if="iconName === name" v-bind:class="app.classname" width="50" height="50" :original="true"  v-bind:id="name" v-bind:name="name" :key="app.id"></svgicon>
           <div class="nest">
             <p class="name">{{app.text}}</p>
           </div>
         </div>
-      </vue-draggable-resizable>
    </div>
 </template>
 
@@ -18,6 +16,10 @@
     name: 'AppIcons',
     data () {
       return {
+        appPos: {
+          left: 0,
+          top: 0
+        },
         appData,
         h: 90,
         w: 60,
@@ -79,13 +81,59 @@
           wammie: {
             svg: require('../assets/svg/icons-09.svg'),
             x: 100,
-            y: 351,
+            y: 468,
             clicks: 0
-          }
+          },
+          graphHeight: '',
+          graphWidth: ''
+        }
+      }
+    },
+    computed: {
+      graphPos () {
+        var $this = this
+        $this.graphHeight = window.innerHeight
+        $this.graphWidth = window.innerWidth
+        var sizeHeight = this.graphHeight
+        var sizeWidth = this.graphWidth
+        return {
+          width: sizeWidth,
+          height: sizeHeight
         }
       }
     },
     methods: {
+      startMove: function (event) {
+        var $this = this
+        const touch = event.type === 'touchstart'
+        if (!touch && event.button !== 0) return
+        const events = touch ? {move: 'touchmove', stop: 'touchend'} : {move: 'mousemove', stop: 'mouseup'}
+        var dragApp = event.target.closest('.application').id
+        const point = {
+          x: event.clientX || event.touches[0].clientX,
+          y: event.clientY || event.touches[0].clientY
+        }
+        var appPos = $this.icons[dragApp]
+        const getPos = touch ? getTouchPos : getMousePos
+        var moving = true
+        const updateFn = () => {
+          if (moving) {
+            requestAnimationFrame(updateFn)
+            appPos.x = point.x - 57
+            appPos.y = point.y - 100
+          }
+        }
+        const moveFn = event => getPos(event, point)
+        const stopFn = event => {
+          moving = false
+          window.removeEventListener(events.move, moveFn)
+          window.removeEventListener(events.stop, stopFn)
+        }
+        requestAnimationFrame(updateFn)
+        moveFn(events)
+        window.addEventListener(events.move, moveFn)
+        window.addEventListener(events.stop, stopFn)
+      },
       openSesemie: function (event) {
         var highApp = event.target.closest('.application').id
         if (highApp === 'email') {
@@ -95,6 +143,26 @@
             appData.applications[highApp].openApp = true
           }
           this.topActive()
+        }
+      },
+      doubleup: function (event) {
+        var highApp = event.target.closest('.application').id
+        var $this = this
+        this.icons[highApp].clicks = this.icons[highApp].clicks + 1
+        if (this.icons[highApp].clicks === 2) {
+          if (highApp === 'email') {
+            window.location.href = 'mailto:willmannie@gmail.com'
+          } else {
+            if (appData.applications[highApp].openApp === false) {
+              appData.applications[highApp].openApp = true
+            }
+            this.icons[highApp].clicks = 0
+            this.topActive()
+          }
+        } else {
+          setTimeout(function () {
+            $this.icons[highApp].clicks = 0
+          }, 500)
         }
       },
       topActive: function () {
@@ -115,10 +183,25 @@
       }
     }
   }
-</script>
+  function getMousePos (mouseEvent, point) {
+    point.x = mouseEvent.clientX
+    point.y = mouseEvent.clientY
+  }
+  function getTouchPos (touchEvent, point) {
+    point.x = event.touches[0].clientX
+    point.y = event.touches[0].clientY
+  }
+  </script>
 
 
 <style>
+  .wild {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    display: block;
+    background-color: white;
+  }
   svg#music:hover .spinner {
     transform-origin: 37.879px 37.4px;
     -webkit-transform-origin: 37.879px 37.4px;

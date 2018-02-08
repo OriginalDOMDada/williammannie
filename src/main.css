@@ -542,7 +542,8 @@ button.opt {
   width: 100%;
   display: block; }
   .my-applications .application {
-    padding: 15px 25px; }
+    padding: 15px 25px;
+    position: absolute; }
 
 .desktop {
   width: auto;
@@ -661,8 +662,9 @@ button.opt {
         background-color: blue;
         color: white !important;
         padding: 0 5px;
-        transition: all .2s;
-        -webkit-transition: all .2s; }
+        margin: 0 -5px;
+        transition: all linear;
+        -webkit-transition: all linear; }
 
 #eightball .wrappa-da-rappa {
   background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
@@ -1130,5 +1132,16 @@ button.opt {
     position: absolute;
     top: 100%;
     left: 0; } }
+@media only screen and (max-width: 700px) {
+  .social {
+    z-index: 2; }
+
+  .header .scrollwrap {
+    display: none !important; }
+
+  svg.hello {
+    width: 250px !important;
+    height: 250px !important;
+    margin-top: 175px; } }
 
 /*# sourceMappingURL=main.css.map */
