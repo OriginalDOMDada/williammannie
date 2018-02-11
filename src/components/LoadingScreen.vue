@@ -113,7 +113,7 @@ export default {
 	 color: #FFFF00;
 	}
 	#loading {
-		position: absolute;
+		position: fixed;
 		height: 100vh;
 		width: 100vw;
 		z-index: 1000;

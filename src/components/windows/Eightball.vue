@@ -1,7 +1,7 @@
 <template>
 <div style="height: 100vw; width: 100vw; position: absolute;" v-bind:class="{windowOpen :appData.applications.eightball.openApp}">
 <transition-group name="fade"  tag="div" class="windows">
-<div v-if="appData.applications.eightball.openApp" v-bind:name="appData.applications.eightball.text" v-bind:open="appData.applications.eightball.openApp" v-bind:key="1" id="eightball" class="box-md app" @mousedown="high" v-bind:style="{ left: x + 'px', top: y + 'px', height: height + 'px', width: width + 'px', 'z-index': z }">
+<div v-if="appData.applications.eightball.openApp" v-bind:name="appData.applications.eightball.text" v-bind:open="appData.applications.eightball.openApp" v-bind:key="3" id="eightball" class="box-md app" @mousedown="high" v-bind:style="{ left: x + 'px', top: y + 'px', height: height + 'px', width: width + 'px', 'z-index': z }">
 <div class="big-rap">
 <div class="box-header" @mousedown.prevent="startMove" @touchstart.prevent="startMove">
     <div class="title-box">
@@ -10,7 +10,7 @@
       </div>
       <div class="button-section">
         <button v-touch:tap.prevent="explode" v-on:click.prevent="explode" class="opt red" type="button" name="expand"><svgicon v-on:click="appData.applications.eightball.openApp = false" name="close" height="6" width="6" :original="true"></svgicon></button>
-        <button class="opt green" type="button" name="fullSize" v-touch:tap="fullSize" v-on:click="fullSize"  @mouseleave="parentOff"><svgicon name="open" height="6" width="6" :original="true" v-on:click="fullSize"></svgicon></button>
+        <button class="opt green" type="button" name="fullSize" v-touch:tap.prevent="fullSize" v-on:click.prevent="fullSize"  @mouseleave="parentOff"><svgicon name="open" height="6" width="6" :original="true" v-on:click="fullSize"></svgicon></button>
       </div>
     </div>
   </div>
@@ -126,11 +126,13 @@ export default {
       }
       const getPos = touch ? getTouchPos : getMousePos
       var moving = true
+      var differenceX = $this.x - point.x
+      var differenceY = $this.y - point.y
       const updateFn = () => {
         if (moving) {
           requestAnimationFrame(updateFn)
-          $this.x = point.x - 200
-          $this.y = point.y - 75
+          $this.x = point.x - Math.abs(differenceX)
+          $this.y = point.y - Math.abs(differenceY)
         }
       }
       const moveFn = event => getPos(event, point)
@@ -190,7 +192,6 @@ export default {
   }
 }
 function getMousePos (mouseEvent, point) {
-  console.log(point)
   point.x = mouseEvent.clientX
   point.y = mouseEvent.clientY
 }

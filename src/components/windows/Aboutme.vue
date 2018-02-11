@@ -83,11 +83,13 @@ export default {
       }
       const getPos = touch ? getTouchPos : getMousePos
       var moving = true
+      var differenceX = $this.x - point.x
+      var differenceY = $this.y - point.y
       const updateFn = () => {
         if (moving) {
           requestAnimationFrame(updateFn)
-          $this.x = point.x - 200
-          $this.y = point.y - 75
+          $this.x = point.x - Math.abs(differenceX)
+          $this.y = point.y - Math.abs(differenceY)
         }
       }
       const moveFn = event => getPos(event, point)
@@ -265,7 +267,6 @@ export default {
   }
 }
 function getMousePos (mouseEvent, point) {
-  console.log(point)
   point.x = mouseEvent.clientX
   point.y = mouseEvent.clientY
 }

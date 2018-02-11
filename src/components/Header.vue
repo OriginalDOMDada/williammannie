@@ -428,7 +428,7 @@
   }
 
   .stage {
-    position: absolute;
+    position: fixed;
     bottom: 25px;
     right: 35px;
     width: 100px;

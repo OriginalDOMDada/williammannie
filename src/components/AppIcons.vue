@@ -1,6 +1,6 @@
 <template>
    <div class="my-applications" id="graph" v-bind="graphPos">
-        <div tabindex="0" v-for="(app, name) in appData.applications" v-bind:id="name" :key="app.id" class="desktop application" @click="topActive" v-on:click="doubleup" @mousedown="startMove" @touchstart="startMove" v-bind:style="{ left: icons[name].x + 'px', top: icons[name].y + 'px' }">
+        <div tabindex="0" v-for="(app, name) in appData.applications" v-bind:id="name" :key="app.id" class="desktop application" v-on:click="doubleup" @mousedown="startMove" @touchstart="startMove" v-bind:style="{ left: icons[name].x + 'px', top: icons[name].y + 'px' }">
           <svgicon v-for="(icon, iconName) in icons" v-if="iconName === name" v-bind:class="app.classname" width="50" height="50" :original="true"  v-bind:id="name" v-bind:name="name" :key="app.id"></svgicon>
           <div class="nest">
             <p class="name">{{app.text}}</p>
@@ -116,11 +116,16 @@
         var appPos = $this.icons[dragApp]
         const getPos = touch ? getTouchPos : getMousePos
         var moving = true
+        var differenceX = Math.abs(appPos.x - point.x)
+        var differenceY = Math.abs(appPos.y - point.y)
         const updateFn = () => {
-          if (moving) {
+          if (moving && !isNaN(differenceY)) {
             requestAnimationFrame(updateFn)
-            appPos.x = point.x - 57
-            appPos.y = point.y - 100
+            appPos.x = point.x - Math.abs(differenceX)
+            appPos.y = point.y - Math.abs(differenceY)
+          } else {
+            appPos.x = parseInt(document.getElementById(dragApp).style.left, 10)
+            appPos.y = parseInt(document.getElementById(dragApp).style.top, 10)
           }
         }
         const moveFn = event => getPos(event, point)
@@ -191,6 +196,12 @@
     point.x = event.touches[0].clientX
     point.y = event.touches[0].clientY
   }
+  document.addEventListener('touchmove', function (event) {
+    event = event.originalEvent || event
+    if (event.scale !== 1) {
+      event.preventDefault()
+    }
+  }, false)
   </script>
 
 

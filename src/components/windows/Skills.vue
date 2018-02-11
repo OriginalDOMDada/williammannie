@@ -1,9 +1,9 @@
 <template>
 <div style="height: 100vw; width: 100vw; position: absolute;" v-bind:class="{windowOpen :appData.applications.skills.openApp}">
 <transition-group name="fade" tag="div" class="windows">
-<vue-draggable-resizable :x.sync="x" :y.sync="y" :active="true" :draggable="dragState" @activated="high" :maximize="true" :z.sync="appData.applications.skills.z" :parent="parent" :resizing="true" :h="400" :w="400" :minh="400" :minw="400" v-if="appData.applications.skills.openApp" v-bind:name="appData.applications.skills.text" v-bind:open="appData.applications.skills.openApp" v-bind:key="1" id="skills" class="box-md app">
+<div v-if="appData.applications.skills.openApp" v-bind:name="appData.applications.skills.text" v-bind:open="appData.applications.skills.openApp" v-bind:key="3" id="skills" class="box-md app" @mousedown="high" v-bind:style="{ left: x + 'px', top: y + 'px', height: height + 'px', width: width + 'px', 'z-index': z }">
 <div class="big-rap">
-<div class="box-header" @mouseover="dragOn" @mouseleave="dragOff">
+<div class="box-header" @mousedown.prevent="startMove" @touchstart.prevent="startMove">
     <div class="title-box">
       <div class="subtitle fancy">
       <span><h2>{{appData.applications.skills.text}}</h2></span>
@@ -55,7 +55,7 @@
         </div>
       </div>
   </div>
-</vue-draggable-resizable>
+</div>
 </transition-group>
 </div>
 </template>
@@ -72,6 +72,10 @@ export default {
       parent: false,
       x: 0,
       y: 0,
+      height: 400,
+      width: 400,
+      z: 200,
+      count: 0,
       skilltitle: false,
       photoshop: false,
       illustrator: false,
@@ -95,29 +99,70 @@ export default {
       wordpress: false
     }
   },
-  beforeUpdate () {
-    var initalWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth
-    var initalX = (initalWidth / 2) - 200
-    var initalY = 50
-    var activeApps = document.getElementsByClassName('app')
-    var appArray = []
-    for (var i = 0; i < activeApps.length; i++) {
-      var eachActive = activeApps[i]
-      appArray.push(eachActive)
+  updated () {
+    if (this.count === 0) {
+      this.startup()
+      this.count = 1
     }
-    initalY = 50 + (50 * appArray.length)
-    initalX = initalX + (50 * appArray.length)
-    this.x = initalX
-    this.y = initalY
   },
   methods: {
-    fullSize: function () {
-      this.parent = true
-      var doubleClickEvent = document.createEvent('MouseEvents')
-      doubleClickEvent.initEvent('dblclick', true, true)
-      for (var i = 0; i < 1000; i++) {
-        this.$el.querySelector('#skills').dispatchEvent(doubleClickEvent)
+    startup: function () {
+      var initalWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth
+      var initalX = (initalWidth / 2) - 200
+      var initalY = 50
+      var activeApps = document.getElementsByClassName('app')
+      var appArray = []
+      for (var i = 0; i < activeApps.length; i++) {
+        var eachActive = activeApps[i]
+        appArray.push(eachActive)
       }
+      initalY = 50 + (50 * appArray.length)
+      initalX = initalX + (50 * appArray.length)
+      this.x = initalX
+      this.y = initalY
+    },
+    fullSize: function () {
+      this.height = window.innerHeight
+      this.width = window.innerWidth
+      this.x = 0
+      this.y = 0
+    },
+    startMove: function (event) {
+      var $this = this
+      const touch = event.type === 'touchstart'
+      if (!touch && event.button !== 0) return
+      const events = touch ? {move: 'touchmove', stop: 'touchend'} : {move: 'mousemove', stop: 'mouseup'}
+      const point = {
+        x: event.clientX || event.touches[0].clientX,
+        y: event.clientY || event.touches[0].clientY
+      }
+      const getPos = touch ? getTouchPos : getMousePos
+      var moving = true
+      var differenceX = $this.x - point.x
+      var differenceY = $this.y - point.y
+      const updateFn = () => {
+        if (moving) {
+          requestAnimationFrame(updateFn)
+          $this.x = point.x - Math.abs(differenceX)
+          $this.y = point.y - Math.abs(differenceY)
+        }
+      }
+      const moveFn = event => getPos(event, point)
+      const stopFn = event => {
+        moving = false
+        window.removeEventListener(events.move, moveFn)
+        window.removeEventListener(events.stop, stopFn)
+      }
+      requestAnimationFrame(updateFn)
+      moveFn(events)
+      window.addEventListener(events.move, moveFn)
+      window.addEventListener(events.stop, stopFn)
+    },
+    buttonpress: function () {
+      this.isActive = true
+    },
+    buttonup: function () {
+      this.isActive = false
     },
     dragOn: function () {
       this.dragState = true
@@ -141,7 +186,7 @@ export default {
       }
       var largest = Math.max.apply(Math, zIndexs)
       if (initalHi <= largest) {
-        appData.applications.skills.z = largest + 1
+        this.z = largest + 1
       }
     },
     explode: function () {
@@ -149,6 +194,7 @@ export default {
       document.getElementsByClassName('panel')['0'].style.backgroundImage = `url(${require('../../assets/gifs/explode.gif')})`
       document.getElementsByClassName('panel')['0'].style.backgroundSize = '100% 100%'
       this.appData.applications.skills.openApp = false
+      this.count = 0
       setTimeout(function () {
         document.getElementsByClassName('panel')['0'].style.WebkitAnimation = 'inherit'
         document.getElementsByClassName('panel')['0'].style.backgroundImage = ''
@@ -177,5 +223,13 @@ export default {
       this.wordpress = false
     }
   }
+}
+function getMousePos (mouseEvent, point) {
+  point.x = mouseEvent.clientX
+  point.y = mouseEvent.clientY
+}
+function getTouchPos (touchEvent, point) {
+  point.x = event.touches[0].clientX
+  point.y = event.touches[0].clientY
 }
 </script>

@@ -2,6 +2,15 @@
   margin: 0;
 }
 
+html {
+  -webkit-text-size-adjust: none
+}
+
+body {
+  overflow: hidden;
+  -webkit-overflow-scrolling: auto;
+}
+
 .hello-wrap {
   width: 100vw;
   height: 100vh;
@@ -203,7 +212,7 @@ a {
   width: 100%;
   background-color: black;
   height: auto;
-  position: absolute;
+  position: fixed;
   z-index: 500;
   -webkit-box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
   -moz-box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
@@ -313,7 +322,7 @@ a {
 
   width: 100%;
   height: calc(100vh - 50px);
-  position: relative;
+  position: fixed;
   overflow: hidden;
   margin: 0;
   padding: 0;
@@ -346,7 +355,7 @@ a {
 
 .social {
   display: block;
-  position: absolute;
+  position: fixed;
   right: 40px;
   bottom: calc(50% - 120px);
   z-index: 888;
@@ -772,13 +781,16 @@ button.opt {
 }
 
 .my-applications {
-  position: absolute;
+  position: fixed;
   height: 100%;
   width: 100%;
   display: block;
+  z-index: 100;
   .application {
     padding: 15px 25px;
     position: absolute;
+    overflow: hidden;
+    -webkit-overflow-scrolling: touch;
   }
 }
 
