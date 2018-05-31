@@ -2,12 +2,20 @@
 <div>
   <div class='header'>
     <div class='dropdown'>
+      <button v-on:click.stop='expand' class='dropbtn' id='window'>
       <svgicon class="top-logo" name="top_logo" height="30" width="30" :original="true"></svgicon>
-      <button v-on:click='expand' class='dropbtn' id='window'>William <b>Mannie</b></button>
+      <span class="top-text">William <b>Mannie</b></span></button>
       <div id='myDropdown' class='dropdown-content' style="display:none;">
-        <a href='#'>Link 1</a>
-        <a href='#'>Link 2</a>
-        <a href='#'>Link 3</a>
+        <a href='#' v-on:click="appData.applications.aboutme.openApp = true">Info</a>
+        <a href='#' >Email</a>
+        <a href='#' v-on:click="appData.applications.eightball.openApp = true">Maybe...</a>
+        <a href='#' v-on:click="appData.applications.threedee.openApp = true">3-D</a>
+        <a href='#' v-on:click="appData.applications.solitare.openApp = true">Solitare</a>
+        <a href='#' v-on:click="appData.applications.music.openApp = true">Music</a>
+        <a href='#' v-on:click="appData.applications.skills.openApp = true">Skills</a>
+        <a href='#' v-on:click="appData.applications.video.openApp = true">Video</a>
+        <a href='#' v-on:click="appData.applications.resume.openApp = true">Resume</a>
+        <a href='#' v-on:click="appData.applications.wammie.openApp = true">Wammie</a>
       </div>
     </div>
     <div class="scrollwrap">
@@ -20,7 +28,7 @@
     <div class="twitter smcube">
       <div class="smpanel panel1"></div>
       <div class="smpanel panel2">
-        <a target="_blank" href="https://twitter.com/tripleOGstatus">
+        <a v-tooltip="'Mannie\'s Twitter'" target="_blank" href="https://twitter.com/tripleOGstatus">
           <svgicon height="28" width="28" name="twitter"></svgicon>
         </a>
       </div>
@@ -28,7 +36,7 @@
     <div class="dribble smcube">
       <div class="smpanel panel1"></div>
       <div class="smpanel panel2">
-        <a target="_blank" href="https://dribbble.com/tripleOGstatus">
+        <a v-tooltip="'Mannie\'s Dribbe'" target="_blank" href="https://dribbble.com/tripleOGstatus">
           <svgicon height="28" width="28" name="dribble"></svgicon>
         </a>
       </div>
@@ -36,7 +44,7 @@
     <div class="instagram smcube">
       <div class="smpanel panel1"></div>
       <div class="smpanel panel2">
-        <a target="_blank" href="https://www.instagram.com/manfordthagreat/">
+        <a v-tooltip="'Mannie\'s Instagram'" target="_blank" href="https://www.instagram.com/manfordthagreat/">
           <svgicon height="28" width="28" name="instagram"></svgicon>
         </a>
       </div>
@@ -44,7 +52,7 @@
     <div class="facebook smcube">
       <div class="smpanel panel1"></div>
       <div class="smpanel panel2">
-        <a target="_blank" href="https://www.facebook.com/crankdatmannie">
+        <a v-tooltip="'Mannie\'s LinkedIn'" target="_blank" href="https://www.facebook.com/crankdatmannie">
           <svgicon height="28" width="28" name="facebook"></svgicon>
         </a>
       </div>
@@ -52,7 +60,7 @@
     <div class="github smcube">
       <div class="smpanel panel1"></div>
       <div class="smpanel panel2">
-        <a target="_blank" href="https://github.com/chieflotsadoe">
+        <a v-tooltip="'Mannie\'s GitHub'" target="_blank" href="https://github.com/chieflotsadoe">
           <svgicon height="28" width="28" name="github"></svgicon>
         </a>
       </div>
@@ -68,7 +76,7 @@
     <div class="pocket smcube">
       <div class="smpanel panel1"></div>
       <div class="smpanel panel2">
-        <a target="_blank" href="https://getpocket.com/@fR4TbA2agqK0xp7a2dd117fdf8p7gn0Z06dG93i8f7Q314f943b63as7Ba9yY2d4">
+        <a v-tooltip="'Mannie\'s Pocket'" target="_blank" href="https://getpocket.com/@fR4TbA2agqK0xp7a2dd117fdf8p7gn0Z06dG93i8f7Q314f943b63as7Ba9yY2d4">
           <svgicon height="28" width="28" name="pocket"></svgicon>
         </a>
       </div>
@@ -76,7 +84,7 @@
     <div class="soundcloud smcube">
       <div class="smpanel panel1"></div>
       <div class="smpanel panel2">
-        <a target="_blank" href="https://soundcloud.com/william-e-mannie">
+        <a v-tooltip="'Mannie\'s SoundCloud'" target="_blank" href="https://soundcloud.com/william-e-mannie">
           <svgicon height="28" width="28" name="soundcloud"></svgicon>
         </a>
       </div>
@@ -86,7 +94,7 @@
     <div class="spinning-circle-wrapper">
       <svgicon name="spintext" height="100" width="100" :original="true"></svgicon>
     </div>
-    <div class="float-wrap">
+    <div class="float-wrap" v-tooltip="'Click,Share,Like! Make Me Famous'">
       <div class="box">
           <div class="f pane">
             <div class="section"data-id="1">
@@ -142,6 +150,7 @@
     import Marquee3k from 'marquee3000'
     import SunCalc from 'suncalc'
     import twitterFetcher from 'twitter-fetcher'
+    // import VanillaTilt from 'vanilla-tilt'
     export default {
       data () {
         return {
@@ -150,6 +159,9 @@
           isflipped: false,
           topLogo: require('../assets/svg/top_logo.svg')
         }
+      },
+      beforeUpdate () {
+
       },
       mounted () {
         var config2 = {
@@ -246,7 +258,7 @@
           this.isflipped = true
         },
         expand (event) {
-          var x = document.getElementById(event.target.id)
+          var x = this.$el.querySelector('#window')
           if (x.nextSibling.nextSibling.style.display === 'none') {
             x.style.backgroundColor = '#0000FF'
             x.nextSibling.nextSibling.style.display = 'block'
@@ -513,9 +525,45 @@
     width: 100%;
     height: 100%;
     background: white;
-    border: 1px solid black;
-    cursor: pointer;
+    border: 1.25px solid rgba(0,0,255,1);
+    cursor: url("../../static/cursor/cursor-16-01.svg"), auto;
     display: block;
+    animation: clickme .25s infinite ease-in-out;
+    @keyframes clickme{
+      0%{
+        cursor: url("../../static/cursor/cursor-16-06.svg"), auto;
+      }
+      25%{
+        cursor: url("../../static/cursor/cursor-16-02.svg"), auto;
+      }
+      50%{
+        cursor: url("../../static/cursor/cursor-16-03.svg"), auto;
+      }
+      75%{
+        cursor: url("../../static/cursor/cursor-16-04.svg"), auto;
+      }
+      100%{
+        cursor: url("../../static/cursor/cursor-16-05.svg"), auto;
+      }
+    }
+
+    @-webkit-keyframes clickme{
+      0%{
+        cursor: url("../../static/cursor/cursor-16-06.svg"), auto;
+      }
+      25%{
+        cursor: url("../../static/cursor/cursor-16-02.svg"), auto;
+      }
+      50%{
+        cursor: url("../../static/cursor/cursor-16-03.svg"), auto;
+      }
+      75%{
+        cursor: url("../../static/cursor/cursor-16-04.svg"), auto;
+      }
+      100%{
+        cursor: url("../../static/cursor/cursor-16-05.svg"), auto;
+      }
+    }
   }
 
   .box:not(.open) {
@@ -557,15 +605,29 @@
   .section.current {
     cursor: default;
   }
-  .section.current:hover {
-    background: #fff;
-  }
   .section:hover {
-    background: #ff0;
+    background: yellow;
+    transition: all .5s linear;
+    animation: none;
+    /* border-color: white !important; */
   }
 
+  .box.open .section.current:hover {
+    background: #fff;
+  }
+
+  .box.open .section.open:hover {
+    background: rgba(0,0,255,1);
+    border: 2px solid white !important;
+  }
+  .section:hover svg.svg-icon {
+    fill: white;
+  }
+  .section .svg-icon {
+    fill: rgba(0,0,255,1);
+  }
   .box.open .section {
-    border: 2px solid black !important;
+    border: 2px solid rgba(0,0,255,1) !important;
   }
 
   .box > div.pane.open {
@@ -725,17 +787,63 @@
     transform-origin: 50% 50%;
     bottom: 0;
     right: 0;
-    background-color: rgba(0,0,0,0);
-    animation: bgfade 1s ease-in-out forwards .5s;
+    animation: bgfade 1s ease-in-out forwards .25;
   }
 
   @keyframes bgfade {
-    from {
-      background-color: rgba(0,0,0,0);
+    0% {
+      background: linear-gradient(to right,  rgba(255,0,128,0) 0%, rgba(0,0,255,0) 50%,rgba(255,0,128,0) 100%);
     }
-    to {
-      background-color: rgba(0,0,0,.4);
+    90% {
+      background: linear-gradient(to right,  rgba(255,0,128,.5) 0%, rgba(0,0,255,.5) 50%,rgba(255,0,128,.5) 100%);
     }
+    100% {
+      background: linear-gradient(to right,  rgba(255,0,128,1) 0%, rgba(0,0,255,1) 50%,rgba(255,0,128,1) 100%);
+    }
+  }
+
+  .stage.open::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: .0;
+    z-index: -1;
+    background: #0000ff; /* Old browsers */
+    background: -moz-linear-gradient(left,  #ff0080 0%, #0000ff 50%,#ff0080 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, right top, color-stop(0%,#ff0080),color-stop(50%,#0000ff), color-stop(100%,#ff0080)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(left,  #ff0080 0%, #0000ff 50%,#ff0080 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(left,  #ff0080 0%, #0000ff 50%,#ff0080 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(left,  #ff0080 0%, #0000ff 50%,#ff0080 100%); /* IE10+ */
+    background: linear-gradient(to right,  #ff0080 0%,#0000ff 50%,#ff0080 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ff0080', endColorstr='#ff0080',GradientType=1 ); /* IE6-9 */
+    background-size: 200vh 200vw;
+    animation: fade, slide 15s linear infinite 2s;
+    -webkit-animation: fade, slide 15s linear infinite .5s;
+    -moz-animation: fade, slide 15s linear infinite .5s;
+    -o-animation: fade, slide 15s linear infinite .5s;
+  }
+
+  @keyframes slide {
+      from{
+          background-position:0px;
+          opacity: .9;
+      }
+      to{
+          background-position:200vw;
+          opacity: .9;
+      }
+  }
+
+  @-webkit-keyframes slide {
+      from{
+          background-position:0px;
+      }
+      to{
+          background-position:100vw;
+      }
   }
 
 

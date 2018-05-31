@@ -13,6 +13,7 @@ import Video from '@/components/windows/Video'
 import Music from '@/components/windows/Music'
 import Wammie from '@/components/windows/Wammie'
 import LoadingScreen from '@/components/LoadingScreen'
+import Blog from '@/components/Blog'
 
 import VueDraggableResizable from 'vue-draggable-resizable'
 Vue.component('vue-draggable-resizable', VueDraggableResizable)
@@ -20,25 +21,41 @@ Vue.component('vue-draggable-resizable', VueDraggableResizable)
 Vue.use(Router)
 
 export default new Router({
-  routes: [
-    {
-      path: '/',
-      name: 'appicons',
-      components: {
-        loadingscreen: LoadingScreen,
-        header: Header,
-        appicons: AppIcons,
-        aboutme: Aboutme,
-        eightball: Eightball,
-        solitare: Solitare,
-        skills: Skills,
-        resume: Resume,
-        email: Email,
-        threedee: Threedee,
-        video: Video,
-        music: Music,
-        wammie: Wammie
-      }
+  mode: 'history',
+  linkActiveClass: 'active',
+  routes: [{
+    path: '/',
+    name: 'home',
+    components: {
+      loadingscreen: LoadingScreen,
+      header: Header,
+      appicons: AppIcons,
+      aboutme: Aboutme,
+      eightball: Eightball,
+      solitare: Solitare,
+      skills: Skills,
+      resume: Resume,
+      email: Email,
+      threedee: Threedee,
+      video: Video,
+      music: Music,
+      wammie: Wammie
     }
-  ]
+  }, {
+    path: '/blog',
+    name: 'feed',
+    components: {
+      blog: Blog
+    }
+  }, {
+    path: '/by/:author',
+    name: 'author',
+    props: true,
+    component: Blog
+  }, {
+    path: '/read/:post',
+    name: 'post',
+    props: true,
+    component: Blog
+  }]
 })

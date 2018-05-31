@@ -25,6 +25,7 @@
         </div>
       </div>
   </div>
+    <div class="resize bottom-right" @touchstart.prevent='resizebottomright' @mousedown.prevent='resizebottomright'></div>
 </div>
 </transition-group>
 </div>
@@ -113,7 +114,7 @@
         this.y = initalY
       },
       fullSize: function () {
-        this.height = window.innerHeight
+        this.height = window.innerHeight - 55
         this.width = window.innerWidth
         this.x = 0
         this.y = 0
@@ -136,6 +137,37 @@
             requestAnimationFrame(updateFn)
             $this.x = point.x - Math.abs(differenceX)
             $this.y = point.y - Math.abs(differenceY)
+          }
+        }
+        const moveFn = event => getPos(event, point)
+        const stopFn = event => {
+          moving = false
+          window.removeEventListener(events.move, moveFn)
+          window.removeEventListener(events.stop, stopFn)
+        }
+        requestAnimationFrame(updateFn)
+        moveFn(events)
+        window.addEventListener(events.move, moveFn)
+        window.addEventListener(events.stop, stopFn)
+      },
+      resizebottomright: function (event) {
+        var $this = this
+        const touch = event.type === 'touchstart'
+        if (!touch && event.button !== 0) return
+        const events = touch ? {move: 'touchmove', stop: 'touchend'} : {move: 'mousemove', stop: 'mouseup'}
+        const point = {
+          x: event.clientX || event.touches[0].clientX,
+          y: event.clientY || event.touches[0].clientY
+        }
+        const getPos = touch ? getTouchPos : getMousePos
+        var moving = true
+        const updateFn = () => {
+          if (moving) {
+            requestAnimationFrame(updateFn)
+            $this.width = Math.abs($this.x - point.x)
+            var height = Math.abs($this.y - point.y) - 55
+            $this.height = height
+            // $this.y = point.y - Math.abs(differenceY)
           }
         }
         const moveFn = event => getPos(event, point)
@@ -186,6 +218,8 @@
         document.getElementsByClassName('panel')['0'].style.backgroundSize = '100% 100%'
         this.appData.applications.solitare.openApp = false
         this.count = 0
+        this.height = 400
+        this.width = 400
         setTimeout(function () {
           document.getElementsByClassName('panel')['0'].style.WebkitAnimation = 'inherit'
           document.getElementsByClassName('panel')['0'].style.backgroundImage = ''

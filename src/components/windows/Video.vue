@@ -1,7 +1,7 @@
 <template>
 <div style="height: 100vw; width: 100vw; position: absolute;" v-bind:class="{windowOpen :appData.applications.video.openApp}">
 <transition-group name="fade" tag="div" class="windows">
-<div v-if="appData.applications.video.openApp" v-bind:name="appData.applications.video.text" v-bind:open="appData.applications.video.openApp" v-bind:key="3" id="skills" class="box-md app" @mousedown="high" v-bind:style="{ left: x + 'px', top: y + 'px', height: height + 'px', width: width + 'px', 'z-index': z }">
+<div v-if="appData.applications.video.openApp" v-bind:name="appData.applications.video.text" v-bind:open="appData.applications.video.openApp" v-bind:key="3" id="video" class="box-md app" @mousedown="high" v-bind:style="{ left: x + 'px', top: y + 'px', height: height + 'px', width: width + 'px', 'z-index': z }">
 <div class="big-rap">
 <div class="box-header" @mousedown="startMove" @touchstart="startMove">
     <div class="title-box">
@@ -22,6 +22,7 @@
       </div>
       </div>
   </div>
+    <div class="resize bottom-right" @touchstart.prevent='resizebottomright' @mousedown.prevent='resizebottomright'></div>
 </div>
 </transition-group>
 </div>
@@ -67,7 +68,7 @@ export default {
       this.y = initalY
     },
     fullSize: function () {
-      this.height = window.innerHeight
+      this.height = window.innerHeight - 55
       this.width = window.innerWidth
       this.x = 0
       this.y = 0
@@ -90,6 +91,37 @@ export default {
           requestAnimationFrame(updateFn)
           $this.x = point.x - Math.abs(differenceX)
           $this.y = point.y - Math.abs(differenceY)
+        }
+      }
+      const moveFn = event => getPos(event, point)
+      const stopFn = event => {
+        moving = false
+        window.removeEventListener(events.move, moveFn)
+        window.removeEventListener(events.stop, stopFn)
+      }
+      requestAnimationFrame(updateFn)
+      moveFn(events)
+      window.addEventListener(events.move, moveFn)
+      window.addEventListener(events.stop, stopFn)
+    },
+    resizebottomright: function (event) {
+      var $this = this
+      const touch = event.type === 'touchstart'
+      if (!touch && event.button !== 0) return
+      const events = touch ? {move: 'touchmove', stop: 'touchend'} : {move: 'mousemove', stop: 'mouseup'}
+      const point = {
+        x: event.clientX || event.touches[0].clientX,
+        y: event.clientY || event.touches[0].clientY
+      }
+      const getPos = touch ? getTouchPos : getMousePos
+      var moving = true
+      const updateFn = () => {
+        if (moving) {
+          requestAnimationFrame(updateFn)
+          $this.width = Math.abs($this.x - point.x)
+          var height = Math.abs($this.y - point.y) - 55
+          $this.height = height
+          // $this.y = point.y - Math.abs(differenceY)
         }
       }
       const moveFn = event => getPos(event, point)
@@ -127,6 +159,8 @@ export default {
       document.getElementsByClassName('panel')['0'].style.backgroundSize = '100% 100%'
       this.appData.applications.video.openApp = false
       this.count = 0
+      this.height = 400
+      this.width = 400
       setTimeout(function () {
         document.getElementsByClassName('panel')['0'].style.WebkitAnimation = 'inherit'
         document.getElementsByClassName('panel')['0'].style.backgroundImage = ''
@@ -143,7 +177,7 @@ export default {
       }
       var largest = Math.max.apply(Math, zIndexs)
       if (initalHi <= largest) {
-        appData.applications.video.z = largest + 1
+        this.z = largest + 1
       }
     }
   }

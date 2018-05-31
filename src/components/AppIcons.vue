@@ -1,17 +1,23 @@
 <template>
+  <div>
    <div class="my-applications" id="graph" v-bind="graphPos">
-        <div tabindex="0" v-for="(app, name) in appData.applications" v-bind:id="name" :key="app.id" class="desktop application" v-on:click="doubleup" @mousedown="startMove" @touchstart="startMove" v-bind:style="{ left: icons[name].x + 'px', top: icons[name].y + 'px' }">
-          <svgicon v-for="(icon, iconName) in icons" v-if="iconName === name" v-bind:class="app.classname" width="50" height="50" :original="true"  v-bind:id="name" v-bind:name="name" :key="app.id"></svgicon>
+        <div v-tooltip="name" tabindex="0" v-for="(app, name) in appData.applications" v-bind:id="name" :key="app.id" class="desktop application" v-on:click="doubleup" @mousedown="startMove" @touchstart="startMove" v-bind:style="{ left: icons[name].x + 'px', top: icons[name].y + 'px' }">
+          <svgicon v-for="(icon, iconName) in icons" v-if="iconName === name" v-bind:class="app.classname" :height="appHeight" :width="appWidth" :original="true"  v-bind:id="name" v-bind:name="name" :key="app.id"></svgicon>
           <div class="nest">
             <p class="name">{{app.text}}</p>
           </div>
         </div>
    </div>
+   <div class="hello-wrap" data-tilt data-tilt-reset="false" data-tilt-reverse="true" id="oghello">
+     <svgicon class="hello" name="Untitled" height="400" width="400" :original="true"></svgicon>
+   </div>
+ </div>
 </template>
 
 <script>
   import appData from '../appData.json'
   import '../compiled-icons'
+  import VanillaTilt from 'vanilla-tilt'
   export default {
     name: 'AppIcons',
     data () {
@@ -20,6 +26,9 @@
           left: 0,
           top: 0
         },
+        windowHeight: 0,
+        appHeight: '50',
+        appWidth: '50',
         appData,
         h: 90,
         w: 60,
@@ -27,61 +36,61 @@
           aboutme: {
             svg: require('../assets/svg/icons-01.svg'),
             x: 0,
-            y: 0,
+            y: 50,
             clicks: 0
           },
           eightball: {
             svg: require('../assets/svg/icons-02.svg'),
             x: 0,
-            y: 117,
+            y: 167,
             clicks: 0
           },
           solitare: {
             svg: require('../assets/svg/icons-03.svg'),
             x: 0,
-            y: 234,
+            y: 284,
             clicks: 0
           },
           skills: {
             svg: require('../assets/svg/icons-04.svg'),
             x: 0,
-            y: 351,
+            y: 401,
             clicks: 0
           },
           resume: {
             svg: require('../assets/svg/icons-05.svg'),
             x: 0,
-            y: 468,
+            y: 518,
             clicks: 0
           },
           email: {
             svg: require('../assets/svg/icons-06.svg'),
             x: 100,
-            y: 0,
+            y: 50,
             clicks: 0
           },
           threedee: {
             svg: require('../assets/svg/icons-07.svg'),
             x: 100,
-            y: 117,
+            y: 167,
             clicks: 0
           },
           video: {
             svg: require('../assets/svg/icons-08.svg'),
             x: 100,
-            y: 351,
+            y: 401,
             clicks: 0
           },
           music: {
             svg: require('../assets/svg/icons-09.svg'),
             x: 100,
-            y: 234,
+            y: 284,
             clicks: 0
           },
           wammie: {
             svg: require('../assets/svg/icons-09.svg'),
             x: 100,
-            y: 468,
+            y: 518,
             clicks: 0
           },
           graphHeight: '',
@@ -102,13 +111,74 @@
         }
       }
     },
+    mounted () {
+      this.$nextTick(function () {
+        window.addEventListener('resize', this.iconsize)
+        this.iconsize()
+      })
+      if (document.documentElement.clientHeight < 600) {
+        for (var i = 0; i < this.$el.querySelectorAll('.application').length; i++) {
+          this.$el.querySelectorAll('.application')[i].classList.add('mobileapp')
+        }
+      } else {
+        for (var n = 0; n < this.$el.querySelectorAll('.application').length; n++) {
+          this.$el.querySelectorAll('.application')[n].classList.remove('mobileapp')
+        }
+      }
+      const element = document.querySelector('.hello-wrap')
+
+      if (window.innerWidth > 1000) {
+        VanillaTilt.init(element, {
+          max: 35,
+          speed: 1000,
+          reverse: true,
+          scale: 0.97,
+          perspective: 500,
+          reset: true
+        })
+      }
+      function myScript (event) {
+      /* eslint-disable */
+        var windowMafW = (((window.innerWidth / 2) - event.clientX) / (window.innerWidth / 2)) * 6
+        var windowMafH = (((window.innerHeight / 2) - event.clientY) / (window.innerHeight / 2)) * 1.25
+        var shift = document.getElementById('shifter').getElementsByTagName('g')
+        var shifter = []
+        for (let i = 0; i < shift.length; i++) {
+          shifter.push(shift[i])
+        }
+        shifter.reverse()
+        for (let i = 0; i < shifter.length; i++) {
+          shifter[i].style.transform = 'translate3d(' + windowMafW * i + 'px, ' + windowMafH * i + 'px, 20px)'
+        }
+
+      }
+      document.addEventListener('mousemove', myScript)
+    },
     methods: {
+      iconsize: function (event) {
+        var $this = this
+        $this.windowHeight = document.documentElement.clientHeight
+        if ($this.windowHeight < 550) {
+          $this.appHeight = '35'
+          $this.appWidth = '35'
+        } else if ($this.windowHeight < 600) {
+          $this.appHeight = '40'
+          $this.appWidth = '40'
+        } else if ($this.windowHeight < 650) {
+          $this.appHeight = '45'
+          $this.appWidth = '45'
+        } else {
+          $this.appWidth = '50'
+          $this.appHeight = '50'
+        }
+      },
       startMove: function (event) {
         var $this = this
         const touch = event.type === 'touchstart'
         if (!touch && event.button !== 0) return
         const events = touch ? {move: 'touchmove', stop: 'touchend'} : {move: 'mousemove', stop: 'mouseup'}
         var dragApp = event.target.closest('.application').id
+        document.getElementById(dragApp).classList.add('dragging')
         const point = {
           x: event.clientX || event.touches[0].clientX,
           y: event.clientY || event.touches[0].clientY
@@ -133,6 +203,7 @@
           moving = false
           window.removeEventListener(events.move, moveFn)
           window.removeEventListener(events.stop, stopFn)
+          document.getElementById(dragApp).classList.remove('dragging')
         }
         requestAnimationFrame(updateFn)
         moveFn(events)
@@ -206,6 +277,14 @@
 
 
 <style>
+  .mobileapp {
+    transform-origin: 50% 50%;
+    transform: translate(0,-30px);
+    padding: 2px 0px 0px 10px !important;
+  }
+  .mobileapp:nth-child(6), .mobileapp:first-child {
+    transform: translate(0,0px);
+  }
   .wild {
     position: absolute;
     width: 100px;
@@ -482,7 +561,6 @@
       fill: #00FF80;
     }
     50%{
-  /*     opacity: .1; */
       fill: #FFFFFF;
     }
     100%{
@@ -497,7 +575,6 @@
       fill: #FF0080;
     }
     50%{
-  /*     opacity: .1; */
       fill: #FFFFFF;
     }
     100%{
@@ -512,7 +589,6 @@
       fill: #FF0080;
     }
     50%{
-  /*     opacity: .1; */
       fill: #FFFFFF;
     }
     100%{
@@ -527,7 +603,6 @@
       fill: #0000FF;
     }
     50%{
-  /*     opacity: .1; */
       fill: #FFFFFF;
     }
     100%{
@@ -542,7 +617,6 @@
       fill: #0000FF;
     }
     50%{
-  /*     opacity: .1; */
       fill: #FFFFFF;
     }
     100%{
