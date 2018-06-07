@@ -2,20 +2,53 @@
 <div>
   <div class='header'>
     <div class='dropdown'>
-      <button v-on:click.stop='expand' class='dropbtn' id='window'>
+      <button tabindex="1" v-on:click.stop='expand' class='dropbtn' id='window'>
       <svgicon class="top-logo" name="top_logo" height="30" width="30" :original="true"></svgicon>
       <span class="top-text">William <b>Mannie</b></span></button>
       <div id='myDropdown' class='dropdown-content' style="display:none;">
-        <a href='#' v-on:click="appData.applications.aboutme.openApp = true">Info</a>
-        <a href='#' >Email</a>
-        <a href='#' v-on:click="appData.applications.eightball.openApp = true">Maybe...</a>
-        <a href='#' v-on:click="appData.applications.threedee.openApp = true">3-D</a>
-        <a href='#' v-on:click="appData.applications.solitare.openApp = true">Solitare</a>
-        <a href='#' v-on:click="appData.applications.music.openApp = true">Music</a>
-        <a href='#' v-on:click="appData.applications.skills.openApp = true">Skills</a>
-        <a href='#' v-on:click="appData.applications.video.openApp = true">Video</a>
-        <a href='#' v-on:click="appData.applications.resume.openApp = true">Resume</a>
-        <a href='#' v-on:click="appData.applications.wammie.openApp = true">Wammie</a>
+        <span class="nest nest-one">
+          <button class="nest nest-two" tabindex="0" v-on:click.prevent="expandNest">About Mannie<span class="menu-arrow">&#9658;</span></button>
+          <div style="display: none;" class="nest nest-two-final">
+            <button tabindex="0" v-on:click="appData.applications.aboutme.openApp = true" class="nest">Info</button>
+            <button tabindex="0" v-on:click="appData.applications.skills.openApp = true" class="nest">Skills</button>
+            <button tabindex="0" v-on:click="appData.applications.resume.openApp = true" class="nest">Resume</button>
+          </div>
+        </span>
+        <span class="nest nest-one">
+          <button class="nest nest-two" tabindex="0" v-on:click="appData.applications.skills.openApp = true">System Preferences</button>
+        </span>
+        <span class="nest nest-one">
+          <button tabindex="0" class="nest nest-two" v-on:click.prevent="expandNest">
+            Applications<span class="menu-arrow">&#9658;</span>
+          </button>
+          <div style="display: none;" class="nest nest-two-final">
+            <button tabindex="0" v-on:click="appData.applications.eightball.openApp = true" class="nest">Magical 8-Ball</button>
+            <button tabindex="0" v-on:click="appData.applications.threedee.openApp = true" class="nest">3-D</button>
+            <button tabindex="0" v-on:click="appData.applications.solitare.openApp = true" class="nest">Solitare</button>
+            <button tabindex="0" v-on:click="appData.applications.music.openApp = true" class="nest">Music</button>
+            <button tabindex="0" v-on:click="appData.applications.video.openApp = true" class="nest">Video</button>
+            <button tabindex="0" v-on:click="appData.applications.wammie.openApp = true" class="nest">Wammie</button>
+          </div>
+        </span>
+        <span class="nest nest-one">
+          <button tabindex="0" class="nest nest-two" v-on:click.prevent="expandNest">
+          Share<span class="menu-arrow">&#9658;</span>
+          </button>
+          <div style="display: none;" class="nest nest-two-final">
+            <button tabindex="0" class="nest"><a target="_blank" href="https://twitter.com/home?status=williammannie.com">Twitter</a></button>
+            <button tabindex="0" class="nest"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=williammannie.com">Facebook</a></button>
+            <button tabindex="0" class="nest"><a target="_blank" href="https://www.linkedin.com/shareArticle?mini=true&url=williammannie.com&title=&summary=&source=">LinkedIn</a></button>
+            <button tabindex="0" class="nest"><a target="_blank" href="https://plus.google.com/share?url=williammannie.com">Google +</a></button>
+            <button tabindex="0" class="nest"><a target="_blank" href="mailto:?&body=williammannie.com">Email</a></button>
+            <button tabindex="0" class="nest"><a target="_blank" href="sms:?&body=https://www.williammannie.com">SMS</a></button>
+          </div>
+        </span>
+        <span class="nest nest-one">
+          <button class="nest nest-two" tabindex="0"><a href="mailto:williammannie@gmail.com">Contact</a></button>
+        </span>
+        <span class="nest nest-one">
+          <button class="nest nest-two" tabindex="0"><a href="/">Restart</a></button>
+        </span>
       </div>
     </div>
     <div class="scrollwrap">
@@ -24,7 +57,7 @@
     </div>
     <div id='todaysDate'></div>
   </div>
-  <div class="social" @mouseover="boxspin" v-bind:class="{ active: isflipped }" @mouseout="isflipped = false" >
+  <div class="social" @mouseover.prevent="boxspin" v-bind:class="{ active: isflipped }" @mouseout.prevent="flipout">
     <div class="twitter smcube">
       <div class="smpanel panel1"></div>
       <div class="smpanel panel2">
@@ -227,6 +260,9 @@
         setInterval(doDate, 1000)
       },
       methods: {
+        flipout: function () {
+          this.isflipped = false
+        },
         appState (event) {
           if (event.target.closest('.box')) {
             document.querySelector('.stage').classList.add('open')
@@ -259,12 +295,32 @@
         },
         expand (event) {
           var x = this.$el.querySelector('#window')
+          // var $event = event
           if (x.nextSibling.nextSibling.style.display === 'none') {
             x.style.backgroundColor = '#0000FF'
             x.nextSibling.nextSibling.style.display = 'block'
+            document.addEventListener('click', function (event) {
+              if (event.target.classList[1] !== 'nest-two') {
+                x.nextSibling.nextSibling.style.display = 'none'
+                x.style.backgroundColor = 'black'
+                // document.remoEventListener('click')
+              }
+            })
           } else {
             x.style.backgroundColor = 'black'
             x.nextSibling.nextSibling.style.display = 'none'
+          }
+        },
+        expandNest (event) {
+          if (window.innerWidth < 900) {
+            var x = event.srcElement
+            if (x.nextSibling.nextElementSibling.style.display === 'none') {
+              x.style.backgroundColor = '#0000FF'
+              x.nextSibling.nextElementSibling.style.display = 'block'
+            } else {
+              x.style.backgroundColor = 'black'
+              x.nextSibling.nextElementSibling.style.display = 'none'
+            }
           }
         }
       }
@@ -586,6 +642,21 @@
     }
   }
 
+  @-webkit-keyframes closedrotation {
+    0% {
+      -webkit-transform: rotateX(180deg) rotateY(360deg) rotateZ(270deg) translate3d(0px, 0px, 0px);
+              transform: rotateX(180deg) rotateY(360deg) rotateZ(270deg) translate3d(0px, 0px, 0px);
+    }
+    50% {
+      -webkit-transform: rotateX(180deg) rotateY(0deg) rotateZ(0deg)  translate3d(0px, 0px, 0px);
+              transform: rotateX(180deg) rotateY(0deg) rotateZ(0deg) translate3d(0px, 0px, 0px);
+    }
+    100% {
+      -webkit-transform: rotateX(180deg) rotateY(-360deg) rotateZ(-270deg) translate3d(0px, 0px, 0px);
+              transform: rotateX(180deg) rotateY(-360deg) rotateZ(-270deg) translate3d(0px, 0px, 0px);
+    }
+  }
+
 
   .section a, .section a svg {
     display: none;
@@ -774,6 +845,18 @@
     }
   }
 
+  @-webkit-keyframes floatshare {
+    0% {
+      -webkit-transform: translateY(0%);
+    }
+    50% {
+      -webkit-transform: translateY(20%);
+    }
+      0% {
+      -webkit-transform: translateY(0%);
+    }
+  }
+
   .float-wrap.paused {
     animation-play-state: paused;
     position: relative;
@@ -791,6 +874,18 @@
   }
 
   @keyframes bgfade {
+    0% {
+      background: linear-gradient(to right,  rgba(255,0,128,0) 0%, rgba(0,0,255,0) 50%,rgba(255,0,128,0) 100%);
+    }
+    90% {
+      background: linear-gradient(to right,  rgba(255,0,128,.5) 0%, rgba(0,0,255,.5) 50%,rgba(255,0,128,.5) 100%);
+    }
+    100% {
+      background: linear-gradient(to right,  rgba(255,0,128,1) 0%, rgba(0,0,255,1) 50%,rgba(255,0,128,1) 100%);
+    }
+  }
+
+  @-webkit-keyframes bgfade {
     0% {
       background: linear-gradient(to right,  rgba(255,0,128,0) 0%, rgba(0,0,255,0) 50%,rgba(255,0,128,0) 100%);
     }
@@ -839,10 +934,12 @@
 
   @-webkit-keyframes slide {
       from{
-          background-position:0px;
+        background-position:200vw;
+        opacity: .9;
       }
       to{
-          background-position:100vw;
+        background-position:200vw;
+        opacity: .9;
       }
   }
 
@@ -939,6 +1036,14 @@
     }
     to {
       transform: rotate(360deg);
+    }
+  }
+  @-webkit-keyframes spinning {
+    from {
+      -webkit-transform: rotate(0deg);
+    }
+    to {
+      -webkit-transform: rotate(360deg);
     }
   }
 

@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import GyroNorm from 'gyronorm'
+// import GyroNorm from 'gyronorm'
 // var GyroNorm = require('../libs/gyronorm.complete.js')
 // import Fulltilt from '@hughsk/fulltilt'
 export default {
@@ -53,12 +53,15 @@ export default {
     //
     // }
     // document.addEventListener('mousemove', myScript)
-    var gn = new GyroNorm()
-    console.log(gn)
-    var ongnReady = function () {
-      console.log(this)
-    }
-    gn.init().then(ongnReady)
+    //
+    // here
+    // comment out
+    // var gn = new GyroNorm()
+    // console.log(gn)
+    // var ongnReady = function () {
+    //   console.log(this)
+    // }
+    // gn.init().then(ongnReady)
     // var ongnReady = function () {
     //   console.log(this)
     // }

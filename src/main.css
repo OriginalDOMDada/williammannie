@@ -64,8 +64,6 @@ button {
   cursor: url("/static/cursor/cursor-16-01.svg"), auto; }
   button.red {
     cursor: url("/static/cursor/da-bomb.svg"), auto; }
-  button.green {
-    cursor: url("/static/cursor/expand.svg"), auto; }
   button svg {
     pointer-events: none; }
 
@@ -174,7 +172,8 @@ a {
   -webkit-border-radius: 0px;
   border-radius: 0px;
   border-left: 2px solid black;
-  background-clip: content-box; }
+  background-clip: content-box;
+  background-color: white; }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
@@ -275,7 +274,7 @@ a {
 .social {
   display: block;
   position: fixed;
-  right: 40px;
+  right: 25px;
   bottom: calc(50% - 120px);
   z-index: 888;
   border: 1px solid rgba(0, 0, 0, 0.15);
@@ -369,13 +368,13 @@ a {
   .social.active .dribble .smpanel,
   .social.active .github .smpanel,
   .social.active .linkedin .smpanel {
-    animation: boxinwhite .5s ease-in-out both; }
+    animation: boxinwhite .5s ease-in-out forwards; }
   .social.active .pocket .smpanel,
   .social.active .facebook .smpanel,
   .social.active .instagram .smpanel {
-    animation: boxinblack .5s ease-in-out both; }
+    animation: boxinblack .5s ease-in-out forwards; }
   .social.active .soundcloud .smpanel {
-    animation: boxinblue .5s ease-in-out both; }
+    animation: boxinblue .5s ease-in-out forwards; }
   .social:not(.active) a {
     background-color: transparent;
     border: 2px solid transparent; }
@@ -1082,8 +1081,9 @@ button.opt {
   border: none;
   cursor: url("/static/cursor/cursor-16-01.svg"), auto;
   font-family: Arial;
+  margin-left: 10px;
   font-size: 16px;
-  padding: 10px 20px 10px 30px;
+  padding: 10px 20px 10px 20px;
   -webkit-touch-callout: none;
   /* iOS Safari */
   -webkit-user-select: none;
@@ -1096,12 +1096,17 @@ button.opt {
   /* Internet Explorer/Edge */
   user-select: none; }
 
+.dropbtn.dropbtn-nest {
+  padding: 0;
+  width: auto;
+  height: 100%; }
+
 .dropdown.one .dropbtn {
   font-weight: bold; }
 
 /* Dropdown button on hover & focus */
-.dropbtn:active {
-  background-color: #0000FF; }
+.dropbtn:active, .dropbtn:focus {
+  background-color: #0000FF !important; }
 
 /* The container <div> - needed to position the dropdown content */
 .dropdown {
@@ -1127,19 +1132,75 @@ button.opt {
   background-color: black;
   width: 100%;
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-  z-index: 1; }
+  z-index: 1;
+  margin-left: 10px; }
 
 /* Links inside the dropdown */
-.dropdown-content a {
+.dropdown-content .nest {
   color: white;
-  padding: 12px 16px;
   text-decoration: none;
   display: block;
   font-family: Arial;
-  font-size: 20px; }
+  font-size: 16px;
+  width: auto;
+  overflow: visible;
+  background-color: black;
+  position: relative; }
+
+button.nest {
+  padding: 12px 16px;
+  width: 100% !important;
+  display: block;
+  text-align: left;
+  border: none !important; }
+
+button.nest:hover, button.nest:focus {
+  background-color: blue !important; }
+
+.nest-one:hover > .nest-two-final {
+  display: block !important; }
+
+.nest-one:hover > button.nest {
+  background-color: blue !important; }
+
+.nest > a {
+  display: block;
+  height: 100%;
+  width: 100%;
+  color: white;
+  text-decoration: none; }
+
+.dropdown-content .nest.nest-two-final {
+  position: absolute;
+  top: 0;
+  left: 100%;
+  padding: 0;
+  width: 100%;
+  transition: all .5s ease-in; }
+
+.dropdown-content .nest-two:hover .nest-two-final, .dropdown-content .nest-two:focus .nest-two-final {
+  display: block !important;
+  opacity: 1 !important; }
+
+.dropdown-content .nest.nest-two-final > .nest {
+  width: 100% !important; }
+
+.dropdown-content > .nest:last-child, .dropdown-content > .nest:nth-child(4) {
+  border-top: solid 2px rgba(255, 255, 255, 0.7); }
+
+.nest-two:hover + .nest-two-final {
+  display: block !important; }
+
+.menu-arrow {
+  position: relative;
+  float: right;
+  font-size: 10px !important;
+  margin-right: -10px;
+  padding-top: 2.5px;
+  opacity: .9; }
 
 /* Change color of dropdown links on hover */
-.dropdown-content a:hover {
+.dropdown-content span:hover, .dropdown-content span:focus {
   background-color: #0000FF; }
 
 /* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
@@ -1215,6 +1276,20 @@ button.opt {
     top: 100%;
     left: 0; } }
 @media only screen and (max-width: 700px) {
+  .social {
+    right: 5px;
+    transform-origin: 50% 50%;
+    transform: scale(0.75); }
+
+  div.stage {
+    right: -5px;
+    bottom: -5px;
+    transform: scale(0.75);
+    transform-origin: 50% 50%; }
+
+  div.stage.open {
+    transform: scale(1); }
+
   .header .scrollwrap {
     display: none !important; }
 

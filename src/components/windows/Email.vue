@@ -37,7 +37,7 @@ export default {
   beforeUpdate () {
     var initalWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth
     var initalX = (initalWidth / 2) - 200
-    var initalY = 50
+    var initalY = 25
     var activeApps = document.getElementsByClassName('app')
     var appArray = []
     for (var i = 0; i < activeApps.length; i++) {

@@ -238,6 +238,12 @@
         } else {
           setTimeout(function () {
             $this.icons[highApp].clicks = 0
+            document.addEventListener('click', function (event) {
+              var nextEl = event.path.indexOf(document.getElementById(highApp))
+              if (nextEl < 0) {
+                document.getElementById(highApp).blur()
+              }
+            })
           }, 500)
         }
       },
@@ -1046,6 +1052,74 @@
     }
     100% {
       -webkit-transform: rotate(0deg) translate(0,0);
+    }
+  }
+  svg#wammie:hover {
+    animation: hammertime 1.25s ease-out forwards;
+    -webkit-animation: hammertime 1.25s ease-out forwards;
+    transform-origin: 50% 50%;
+    /* background-size: 1000px 1000px; */
+  }
+  @keyframes hammertime {
+    0%{
+      transform: translate(0px,0px);
+    }
+    20%{
+      transform: translate(10px,-10px) scale(1.05) rotate(30deg);
+    }
+    25%{
+      transform: translate(0px,-5px) scale(1) rotate(-10deg);
+      background: transparent;
+    }
+    27%{
+      transform: translate(-5px,0px) scale(.95) rotate(0deg);
+      background: rgba(255,255,255,.25);
+    }
+    30% {
+      transform: translate(0px,0px) scale(.9) rotate(-15deg);
+      background: rgba(0,0,255,.2);
+      background-size: 250px 250px;
+    }
+    40%{
+      transform: translate(-5px,0px) scale(1) rotate(-.5deg);
+      background: transparent;
+    }
+    60%{
+      transform: translate(0px,-1px) scale(1) rotate(0deg);
+    }
+    100%{
+      transform: translate(0px,0px) rotate(0deg);
+    }
+  }
+  @-webkit-keyframes hammertime {
+    0%{
+      -webkit-transform: translate(0px,0px);
+    }
+    20%{
+      -webkit-transform: translate(10px,-10px) scale(1.05) rotate(30deg);
+    }
+    25%{
+      -webkit-transform: translate(0px,-5px) scale(1) rotate(-10deg);
+      background: transparent;
+    }
+    27%{
+      -webkit-transform: translate(-5px,0px) scale(.95) rotate(0deg);
+      background: rgba(255,255,255,.25);
+    }
+    30% {
+      -webkit-transform: translate(0px,0px) scale(.9) rotate(-15deg);
+      background: rgba(0,0,255,.2);
+      background-size: 250px 250px;
+    }
+    40%{
+      transform: translate(-5px,0px) scale(1) rotate(-.5deg);
+      background: transparent;
+    }
+    60%{
+      transform: translate(0px,-1px) scale(1) rotate(0deg);
+    }
+    100%{
+      transform: translate(0px,0px) rotate(0deg);
     }
   }
 </style>

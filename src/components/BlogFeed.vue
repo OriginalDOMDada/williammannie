@@ -1,7 +1,11 @@
 <template>
   <transition-group tag="ul" :name="transition"  class="blog__feed">
     <li v-for="post in feed" class="preview" :key="post.id">
-      <figure class="preview__figure" :class="figureClass" :style="getBgImg(post.image)">
+      <figure class="preview__figure" :class="figureClass">
+        <div class="post-image-wrap">
+          <svgicon class="post-top-logo" name="logo" height="15" width="15" :original="true"></svgicon>
+          <img class="post-image" v-bind:src="post.image" alt="" height="150" width="150">
+        </div>
         <transition name="v--fade">
           <figcaption v-if="!reading || $device.phone" class="preview__details">
             <router-link class="preview__title"
@@ -21,6 +25,12 @@
                 {{ post.author }}
               </router-link>
             </div>
+
+            <span class="blog-share">
+              <svgicon height="20" width="20" name="twitter"></svgicon>
+              <svgicon height="20" width="20" name="facebook"></svgicon>
+              <svgicon height="20" width="20" name="pocket"></svgicon>
+            </span>
           </figcaption>
         </transition>
       </figure>
@@ -106,3 +116,91 @@ export default {
   }
 }
 </script>
+
+<style>
+  .preview {
+    padding: 10px;
+    position: relative;
+    display: block;
+  }
+  .preview__figure {
+    float: left;
+  }
+  .preview__figure, .post-image {
+    display: inline-block;
+  }
+  .preview__title {
+    font-size: 2em;
+    font-family: Georgia;
+    font-weight: bold;
+    color: blue;
+    text-transform: capitalize;
+    /* float: right; */
+    /* font-style: italic; */
+    text-decoration: none;
+    display: block;
+  }
+  .preview__title:hover {
+    text-decoration: underline;
+  }
+  .preview__published {
+    color: blue;
+  }
+  .preview__details {
+    /* width: auto; */
+    display: inline-block;
+    padding: 20px;
+    width: auto;
+    /* float: right; */
+  }
+  .preview__meta {
+    /* float: right; */
+    width: auto;
+    display: block;
+  }
+  .preview__author {
+    display: block;
+    /* text-align: right; */
+  }
+  .post-image {
+    position: relative;
+    filter: grayscale(1);
+    z-index: 1;
+  }
+  .post-image-wrap {
+    display: inline-block;
+    height: 150px;
+    width: 150px;
+    background: white;
+    border: 2px solid black;
+    position: relative;
+    float: left;
+    margin: 10px;
+    mix-blend-mode: hard-light;
+  }
+  .post-image-wrap::before {
+    content: '';
+    display: block;
+    height: 150px;
+    width: 150px;
+    position: absolute;
+    background-color: rgba(0,0,255,.5);
+    z-index: 2;
+    mix-blend-mode: normal;
+  }
+  .post-top-logo {
+    position: absolute;
+    display: block;
+    top: 0;
+    left: 0;
+    z-index: 5;
+    padding: 5px;
+    opacity: .75;
+  }
+  .blog-share {
+    position: absolute;
+    display: block;
+    bottom: 10px;
+    right: 20px;
+  }
+</style>

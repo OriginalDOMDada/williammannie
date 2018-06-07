@@ -138,8 +138,8 @@ export default {
   methods: {
     startup: function () {
       var initalWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth
-      var initalX = (initalWidth / 2) - 200
-      var initalY = 50
+      var initalX = (initalWidth / 2) - 302
+      var initalY = 10
       var activeApps = document.getElementsByClassName('app')
       var appArray = []
       for (var i = 0; i < activeApps.length; i++) {
@@ -180,6 +180,20 @@ export default {
       const moveFn = event => getPos(event, point)
       const stopFn = event => {
         moving = false
+        var initalWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth
+        var initalHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight
+        if ($this.x < -$this.width / 2) {
+          $this.x = -$this.width / 2
+        }
+        if ($this.x > (initalWidth - ($this.width / 2))) {
+          $this.x = initalWidth - ($this.width / 2)
+        }
+        if ($this.y < -50) {
+          $this.y = 0
+        }
+        if ($this.y > (initalHeight - 75)) {
+          $this.y = initalHeight - 100
+        }
         window.removeEventListener(events.move, moveFn)
         window.removeEventListener(events.stop, stopFn)
       }
