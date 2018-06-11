@@ -57,7 +57,7 @@
     </div>
     <div id='todaysDate'></div>
   </div>
-  <div class="social" @mouseover.prevent="boxspin" v-bind:class="{ active: isflipped }" @mouseout.prevent="flipout">
+  <div class="social" @mouseover.prevent="boxspin" v-bind:class="{ active: isflipped }">
     <div class="twitter smcube">
       <div class="smpanel panel1"></div>
       <div class="smpanel panel2">
@@ -260,9 +260,6 @@
         setInterval(doDate, 1000)
       },
       methods: {
-        flipout: function () {
-          this.isflipped = false
-        },
         appState (event) {
           if (event.target.closest('.box')) {
             document.querySelector('.stage').classList.add('open')
@@ -291,7 +288,14 @@
           }
         },
         boxspin: function () {
-          this.isflipped = true
+          var $this = this
+          $this.isflipped = true
+          var flipout = function (event) {
+            if (event.type === 'click') {
+              $this.isflipped = false
+            }
+          }
+          window.addEventListener('click', flipout, false)
         },
         expand (event) {
           var x = this.$el.querySelector('#window')
@@ -305,6 +309,9 @@
                 x.style.backgroundColor = 'black'
                 // document.remoEventListener('click')
               }
+              // if (event.target.classList[1] === 'dropbtn') {
+              //   x.style.backgroundColor = 'black'
+              // }
             })
           } else {
             x.style.backgroundColor = 'black'

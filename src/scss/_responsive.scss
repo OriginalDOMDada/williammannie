@@ -1,0 +1,36 @@
+// @media screen and (min-width: 320px) and (max-width: 767px) and (orientation: landscape) {
+//   html {
+//     transform: rotate(-90deg);
+//     transform-origin: left top;
+//     width: 100vh;
+//     overflow-x: hidden;
+//     position: absolute;
+//     top: 100%;
+//     left: 0;
+//   }
+// }
+
+@media only screen and (max-width: 700px) {
+    .social {
+      right: 5px;
+      transform-origin: 50% 50%;
+      transform: scale(.75);
+    }
+    div.stage {
+      right: -5px;
+      bottom: -5px;
+      transform: scale(.75);
+      transform-origin: 50% 50%;
+    }
+    div.stage.open {
+      transform: scale(1);
+    }
+    .header .scrollwrap {
+      display: none !important;
+    }
+    svg.hello {
+      width: 250px !important;
+      height: 250px !important;
+      margin-top: 50px;
+    }
+}

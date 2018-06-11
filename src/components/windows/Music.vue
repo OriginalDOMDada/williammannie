@@ -92,6 +92,9 @@
         </div>
     </div>
       <div class="resize bottom-right" @touchstart.prevent='resizebottomright' @mousedown.prevent='resizebottomright'></div>
+      <div class="resize top-right" @touchstart='resizetopright' @mousedown='resizetopright'></div>
+      <div class="resize bottom-left" @touchstart.prevent='resizebottomleft' @mousedown.prevent='resizebottomleft'></div>
+      <div class="resize top-left" @touchstart.prevent='resizetopleft' @mousedown.prevent='resizetopleft'></div>
   </div>
   </transition-group>
   </div>
@@ -343,6 +346,106 @@
             var height = Math.abs($this.y - point.y) - 55
             $this.height = height
             // $this.y = point.y - Math.abs(differenceY)
+          }
+        }
+        const moveFn = event => getPos(event, point)
+        const stopFn = event => {
+          moving = false
+          window.removeEventListener(events.move, moveFn)
+          window.removeEventListener(events.stop, stopFn)
+        }
+        requestAnimationFrame(updateFn)
+        moveFn(events)
+        window.addEventListener(events.move, moveFn)
+        window.addEventListener(events.stop, stopFn)
+      },
+      resizebottomleft: function (event) {
+        var $this = this
+        const touch = event.type === 'touchstart'
+        if (!touch && event.button !== 0) return
+        const events = touch ? {move: 'touchmove', stop: 'touchend'} : {move: 'mousemove', stop: 'mouseup'}
+        const point = {
+          x: event.clientX || event.touches[0].clientX,
+          y: event.clientY || event.touches[0].clientY
+        }
+        const getPos = touch ? getTouchPos : getMousePos
+        var moving = true
+        const updateFn = () => {
+          if (moving) {
+            requestAnimationFrame(updateFn)
+            $this.width = ($this.x - point.x) + parseInt($this.$el.querySelector('#music').style.width, 10)
+            $this.x = point.x
+            var height = Math.abs($this.y - point.y) - 55
+            $this.height = height
+          }
+        }
+        const moveFn = event => getPos(event, point)
+        const stopFn = event => {
+          moving = false
+          window.removeEventListener(events.move, moveFn)
+          window.removeEventListener(events.stop, stopFn)
+        }
+        requestAnimationFrame(updateFn)
+        moveFn(events)
+        window.addEventListener(events.move, moveFn)
+        window.addEventListener(events.stop, stopFn)
+      },
+      resizetopright: function (event) {
+        var $this = this
+        const touch = event.type === 'touchstart'
+        if (!touch && event.button !== 0) return
+        const events = touch ? {move: 'touchmove', stop: 'touchend'} : {move: 'mousemove', stop: 'mouseup'}
+        const point = {
+          x: event.clientX || event.touches[0].clientX,
+          y: event.clientY || event.touches[0].clientY
+        }
+        const getPos = touch ? getTouchPos : getMousePos
+        var moving = true
+        const updateFn = () => {
+          if (moving) {
+            requestAnimationFrame(updateFn)
+            $this.width = Math.abs($this.x - point.x)
+            var heightchange = ($this.y - point.y) + 55
+            if (isNaN(heightchange)) {
+              heightchange = 0
+            }
+            $this.height = $this.height + heightchange
+            $this.y = point.y - 55
+          }
+        }
+        const moveFn = event => getPos(event, point)
+        const stopFn = event => {
+          moving = false
+          window.removeEventListener(events.move, moveFn)
+          window.removeEventListener(events.stop, stopFn)
+        }
+        requestAnimationFrame(updateFn)
+        moveFn(events)
+        window.addEventListener(events.move, moveFn)
+        window.addEventListener(events.stop, stopFn)
+      },
+      resizetopleft: function (event) {
+        var $this = this
+        const touch = event.type === 'touchstart'
+        if (!touch && event.button !== 0) return
+        const events = touch ? {move: 'touchmove', stop: 'touchend'} : {move: 'mousemove', stop: 'mouseup'}
+        const point = {
+          x: event.clientX || event.touches[0].clientX,
+          y: event.clientY || event.touches[0].clientY
+        }
+        const getPos = touch ? getTouchPos : getMousePos
+        var moving = true
+        const updateFn = () => {
+          if (moving) {
+            requestAnimationFrame(updateFn)
+            $this.width = ($this.x - point.x) + parseInt($this.$el.querySelector('#music').style.width, 10)
+            $this.x = point.x
+            var heightchange = ($this.y - point.y) + 55
+            if (isNaN(heightchange)) {
+              heightchange = 0
+            }
+            $this.height = $this.height + heightchange
+            $this.y = point.y - 55
           }
         }
         const moveFn = event => getPos(event, point)

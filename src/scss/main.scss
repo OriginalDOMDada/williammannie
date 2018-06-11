@@ -1,14 +1,7 @@
-* {
-  margin: 0;
-}
-
-body {
-  position: fixed;
-}
-
-button:focus {
-  outline: none;
-}
+@import 'variables';
+@import 'globalOverides';
+@import 'header';
+@import 'social';
 
 .hello-wrap {
   width: 400px;
@@ -25,16 +18,16 @@ button:focus {
 }
 
 .intro-heading {
-  color: blue;
+  color: $blue;
   float: left;
-  font-family: Georgia;
+  font-family: $Georgia;
   font-size: 50px;
   line-height: 50px;
   padding-top: 4px;
   padding-right: 8px;
   padding-left: 3px;
   text-transform: uppercase;
-  background-color: white;
+  background-color: $white;
   padding: 10px;
   margin-right: 10px;
   margin-top: 5px;
@@ -44,28 +37,8 @@ button:focus {
 .hello {
   position: relative;
   display: inline-block;
-  // margin:auto 0;
   width: 400px;
   height: auto;
-  // transform: translateZ(20px);
-}
-
-button, svg, {
-  padding: 0;
-}
-
-p::-moz-selection, a::-moz-selection {
-  background: #0000ff;
-  color: white;
-}
-p::selection, a::selection {
-  background: #0000ff;
-  color: white;
-}
-
-body {
-  overflow-x:hidden;
-  cursor:url('/static/colorwave-1.svg'), auto !important;
 }
 
 .draggable {
@@ -83,14 +56,6 @@ button {
   svg {
     pointer-events: none;
   }
-}
-
-.day {
-  cursor:url('/static/day.svg'), auto !important;
-}
-
-.night {
-  cursor:url('/static/night.svg'), auto !important;
 }
 
 
@@ -163,19 +128,19 @@ a {
   position: absolute;
   height: 20px;
   width: 20px;
-  background-color: white;
+  background-color: $white;
   border: 2px solid black;
   z-index: -1;
 }
 .resize:hover {
-  background: #0000ff; /* Old browsers */
-  background: -moz-linear-gradient(left,  #ff0080 0%, #0000ff 50%,#ff0080 100%); /* FF3.6+ */
-  background: -webkit-gradient(linear, left top, right top, color-stop(0%,#ff0080),color-stop(50%,#0000ff), color-stop(100%,#ff0080)); /* Chrome,Safari4+ */
-  background: -webkit-linear-gradient(left,  #ff0080 0%, #0000ff 50%,#ff0080 100%); /* Chrome10+,Safari5.1+ */
-  background: -o-linear-gradient(left,  #ff0080 0%, #0000ff 50%,#ff0080 100%); /* Opera 11.10+ */
-  background: -ms-linear-gradient(left,  #ff0080 0%, #0000ff 50%,#ff0080 100%); /* IE10+ */
-  background: linear-gradient(to right,  #ff0080 0%,#0000ff 50%,#ff0080 100%); /* W3C */
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ff0080', endColorstr='#ff0080',GradientType=1 ); /* IE6-9 */
+  background: $blue; /* Old browsers */
+  background: -moz-linear-gradient(left,  $red 0%, $blue 50%,$red 100%); /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, right top, color-stop(0%,$red),color-stop(50%,$blue), color-stop(100%,$red)); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(left,  $red 0%, $blue 50%,$red 100%); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(left,  $red 0%, $blue 50%,$red 100%); /* Opera 11.10+ */
+  background: -ms-linear-gradient(left,  $red 0%, $blue 50%,$red 100%); /* IE10+ */
+  background: linear-gradient(to right,  $red 0%,$blue 50%,$red 100%); /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='$red', endColorstr='$red',GradientType=1 ); /* IE6-9 */
   background-size: 100px 100px;
   -webkit-animation: slide 15s linear infinite;
   -moz-animation: slide 15s linear infinite;
@@ -184,33 +149,23 @@ a {
 .top-left {
   top: -10px;
   left: -10px;
+  cursor: url("/static/cursor/cursor-16-01.svg"), auto;
 }
 .top-right {
   top: -10px;
   right: -10px;
+  cursor: url("/static/cursor/cursor-16-01.svg"), auto;
 }
 .bottom-left {
   bottom: -10px;
   left: -10px;
+  cursor: url("/static/cursor/cursor-16-01.svg"), auto;
 }
 .bottom-right {
   bottom: -10px;
   right: -10px;
   cursor: url("/static/cursor/cursor-16-01.svg"), auto;
 }
-
-// .disco {
-//   animation: disco 1s infinite ease-in-out;
-// }
-//
-// @keyframes disco {
-//   from{
-//     cursor: url("/static/cursor/disco-1.svg"), auto;
-//   }
-//   to{
-//     cursor: url("/static/cursor/disco-2.svg"), auto;
-//   }
-// }
 
 /* Let's get this party started */
 ::-webkit-scrollbar {
@@ -224,7 +179,7 @@ a {
     border-radius: 0px;
     border-left: 2px solid black;
     background-clip: content-box;
-    background-color: white;
+    background-color: $white;
 }
 /* Handle */
 ::-webkit-scrollbar-thumb {
@@ -271,359 +226,62 @@ a {
     }
 }
 
-#app{
-  height: 100%;
-  width: 100%;
-}
-
-.header {
-  width: 100%;
-  background-color: black;
-  height: auto;
-  position: fixed;
-  z-index: 500;
-  -webkit-box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
-  -moz-box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
-  box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
-  -webkit-background-clip: padding-box;
-  -moz-background-clip: padding-box;
-  background-clip: padding-box;
-  display: inline-block;
-  height: 52px;
-  .top-logo {
-    height: 30px;
-    // padding: 10px 10px 10px 30px;
-    float: left;
-  }
-  .top-text {
-    padding: 7.5px 10px 0 15px;
-    display: inline-block;
-  }
-  #todaysDate {
-    color: white;
-    font-family: "Arial", sans-serif;
-    font-size: 16px;
-    padding: 16px 30px 16px 20px;
-    font-weight: bold;
-    top: 0;
-    right: 0;
-    background: black;
-    position: absolute;
-    -webkit-touch-callout: none; /* iOS Safari */
-    -webkit-user-select: none; /* Safari */
-     -khtml-user-select: none; /* Konqueror HTML */
-       -moz-user-select: none; /* Firefox */
-        -ms-user-select: none; /* Internet Explorer/Edge */
-            user-select: none;
-  }
-}
-
-// .share {
-//   position: absolute;
-//   bottom: 30px;
-//   right: 30px;
-//   z-index: 888;
-//   height: 100px;
-//   width: 175px;
-//   border: 2px solid white;
-//   -webkit-box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
-//   -moz-box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
-//   box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
-//   -webkit-background-clip: padding-box;
-//   -moz-background-clip: padding-box;
-//   background-clip: padding-box;
-//   background-image: url("/static/half.jpg");
-//   background-position: center -125px;
-//   background-size: 125%;
-//   background-repeat: no-repeat;
-//   .bink-text {
-//     text-align: center;
-//     font-size: 20px;
-//     width: 100%;
-//     display: inline-block;
-//     font-family: Arial;
-//     font-weight: bold;
-//     color: #ff0080;
-//     z-index: 10000;
-//     padding-top: 25px;
-//     opacity: 0;
-//   }
-  // .under-blink {
-  //   text-align: center;
-  //   font-size: 10px;
-  //   width: 100%;
-  //   display: inline-block;
-  //   font-family: Arial;
-  //   font-weight: bold;
-  //   color: #ff0080;
-  //   opacity: 0;
-  // }
-  // @-webkit-keyframes shareblink {
-  //   0%{ opacity: 0; }
-  //   50%{ opacity: 0; }
-  //   50.01%{ opacity: 1; }
-  //   100% { opacity: 1; }
-  // }
-  // &:after {
-  //   content: "";
-  //   background-image: url("/static/box.jpg");
-  //   // background-color: #00ff80;
-  //   opacity: .7;
-  //   background-blend-mode: multiply;
-  //   background-size: cover;
-  //   top: 0;
-  //   left: 0;
-  //   bottom: 0;
-  //   right: 0;
-  //   position: absolute;
-  //   z-index: 999;
-  // }
-//   &:hover {
-//     background-image: url("/static/half2.jpg");
-//     .bink-text {
-//       -webkit-animation: shareblink 0.7s infinite linear alternate;
-//       animation: shareblink 0.7s infinite linear alternate;
-//     }
-//     .under-blink {
-//       opacity: 1;
-//     }
-//   }
-// }
-
-// .tilt-wrap {
-//   overflow: hidden;
-//   position: fixed;
-//   z-index: 2;
-//   height: 100vh;
-//   width: 100%;
-// }
-
 .panel {
-  // position: fixed;
   margin: 0;
   padding: 0;
   overflow: hidden;
-  // -webkit-overflow-scrolling: scoll;
   z-index: 3;
   height: 100vh;
-  // z-index: 10;
   background-color: #CCC;
-	background-image: linear-gradient(45deg, white 25%, transparent 25%, transparent 75%, white 75%, white),
-					  linear-gradient(45deg, white 25%, transparent 25%, transparent 75%, white 75%, white);
+	background-image: linear-gradient(45deg, $white 25%, transparent 25%, transparent 75%, $white 75%, $white),
+					  linear-gradient(45deg, $white 25%, transparent 25%, transparent 75%, $white 75%, $white);
 	background-size: 10px 10px;
 	background-position:0px 0px, 5px 5px;
-  // transition: background-image .2s ease-out;
-  // -webkit-transition: background-image .2s ease-out;
-
   &>.windows {
     padding-top: 50px;
     z-index: 101;
   }
 }
 
-.social {
-  display: block;
-  position: fixed;
-  right: 25px;
-  bottom: calc(50% - 120px);
-  z-index: 888;
-  border: 1px solid rgba(0,0,0,.15);
-  -webkit-box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
-  -moz-box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
-  box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
-  -webkit-background-clip: padding-box;
-  -moz-background-clip: padding-box;
-  background-clip: padding-box;
-  .smpanel {
-    height: 28px;
-    width: 28px;
-    display: block;
-    a {
-      display: block;
-      height: 100%;
-      width: 100%;
-      border: 2px solid blue;
-      margin: -8px;
-      background-color: white;
-    }
-    svg path {
-      fill: white;
-      transition: all 1s linear both;
-      -webkit-transition: all 1s linear both;
-    }
-  }
-  .twitter .smpanel {
-    border: 2px solid #0000ff;
-    background: #0000ff;
-    &:hover {
-      svg path {
-        fill: white;
-      }
-      a {
-        background-color: blue !important;
-        border: 2px solid white;
-      }
-    }
-  }
-  .dribble .smpanel {
-    border: 2px solid #ff0080;
-    background: #ff0080;
-    &:hover {
-      svg path {
-        fill: white;
-      }
-      a {
-        background-color: blue !important;
-        border: 2px solid white;
-      }
-    }
-  }
-  .instagram .smpanel {
-    border: 2px solid #ffff00;
-    background: #ffff00;
-    &:hover {
-      svg path {
-        fill: white;
-      }
-      a {
-        background-color: blue !important;
-        border: 2px solid white;
-      }
-    }
-  }
-  .facebook .smpanel {
-    border: 2px solid #00ff80;
-    background: #00ff80;
-    &:hover {
-      svg path {
-        fill: white;
-      }
-      a {
-        background-color: blue !important;
-        border: 2px solid white;
-      }
-    }
-  }
-  .github .smpanel {
-    border: 2px solid black;
-    background: black;
-    &:hover {
-      svg path {
-        fill: white;
-      }
-      a {
-        background-color: blue !important;
-        border: 2px solid white;
-      }
-    }
-  }
-  .linkedin .smpanel {
-    border: 2px solid #5D5D5D;
-    background: #5D5D5D;
-    &:hover {
-      svg path {
-        fill: white;
-      }
-      a {
-        background-color: blue !important;
-      }
-    }
-  }
-  .pocket .smpanel {
-    border: 2px solid #DEDEDE;
-    background: #DEDEDE;
-    &:hover {
-      svg path {
-        fill: white;
-      }
-      a {
-        background-color: blue !important;
-        border: 2px solid white;
-      }
-    }
-  }
-  .soundcloud .smpanel {
-    border: 2px solid white;
-    background: white;
-    &:hover {
-      svg path {
-        fill: white;
-      }
-      a {
-        background-color: blue !important;
-        border: 2px solid white;
-      }
-    }
-  }
-  &.active {
-    svg path {
-      fill: blue;
-    }
-    .twitter,
-    .dribble,
-    .github,
-    .linkedin {
-      .smpanel {
-        animation: boxinwhite .5s ease-in-out forwards;
-      }
-    }
-    .pocket,
-    .facebook,
-    .instagram {
-      .smpanel {
-        animation: boxinblack .5s ease-in-out forwards;
-      }
-    }
-    .soundcloud {
-      .smpanel {
-        animation: boxinblue .5s ease-in-out forwards;
-      }
-    }
-  }
-  &:not(.active) a {
-    background-color: transparent;
-    border: 2px solid transparent;
-  }
-}
 
 @keyframes boxinwhite {
   100% {
-    border-color: blue;
-    background-color: blue;
+    border-color: $blue;
+    background-color: $blue;
   }
 }
 @-webkit-keyframes boxinwhite {
   100% {
-    border-color: blue;
-    background-color: blue;
+    border-color: $blue;
+    background-color: $blue;
   }
 }
 
 @keyframes boxinblack {
   100% {
-    border-color: blue;
-    background-color: blue;
+    border-color: $blue;
+    background-color: $blue;
   }
 }
 
 @-webkit-keyframes boxinblack {
   100% {
-    border-color: blue;
-    background-color: blue;
+    border-color: $blue;
+    background-color: $blue;
   }
 }
 
 @keyframes boxinblue {
   100% {
-    border-color: blue;
-    background-color: blue;
+    border-color: $blue;
+    background-color: $blue;
   }
 }
 
 @-webkit-keyframes boxinblue {
   100% {
-    border-color: blue;
-    background-color: blue;
+    border-color: $blue;
+    background-color: $blue;
   }
 }
 
@@ -674,7 +332,7 @@ a {
   cursor: url("/static/cursor/cursor-16-01.svg"), auto;
     h2 {
       text-align: center;
-      font-family: "Arial", sans-serif;
+      font-family: $Arial;
       -webkit-touch-callout: none;
       -webkit-user-select: none;
        -khtml-user-select: none;
@@ -739,10 +397,10 @@ a {
     user-select: none;
   button:hover {
     &.green{
-      background-color: #00FF80;
+      background-color: $green;
     }
     &.red {
-      background-color: #FF0080;
+      background-color: $red;
     }
     svg {
       visibility: visible;
@@ -782,10 +440,10 @@ button.opt {
 
 .active {
     button.green{
-    background-color: #00FF80;
+    background-color: $green;
   }
   button.red {
-    background-color: #FF0080;
+    background-color: $red;
   }
 }
 
@@ -794,51 +452,14 @@ button.opt {
   max-width: 700px;
   width: 100%;
   background-color: #CCC;
-	background-image: linear-gradient(45deg, white 25%, transparent 25%, transparent 75%, white 75%, white),
-	linear-gradient(45deg, white 25%, transparent 25%, transparent 75%, white 75%, white);
+	background-image: linear-gradient(45deg, $white 25%, transparent 25%, transparent 75%, $white 75%, $white),
+	linear-gradient(45deg, $white 25%, transparent 25%, transparent 75%, $white 75%, $white);
 	background-size:20px 20px;
 	background-position:0px 0px, 10px 10px;
   top: 200px;
   margin: 0 auto;
   position: relative;
   z-index: 100;
-}
-
-.computer-bounce {
-  display: none;
-  z-index: 100;
-  width: 100px;
-  height: 100px;
-  position: absolute;
-  -webkit-animation: moveX 6.1s linear 0s infinite alternate, moveY 6.8s linear 0s infinite alternate;
-  -moz-animation: moveX 6.1s linear 0s infinite alternate, moveY 6.8s linear 0s infinite alternate;
-  -o-animation: moveX 6.1s linear 0s infinite alternate, moveY 6.8s linear 0s infinite alternate;
-  animation: moveX 6.1s linear 0s infinite alternate, moveY 6.8s linear 0s infinite alternate;
-}
-
-@-webkit-keyframes moveX {
-  from { left: 0; } to { left: calc(100vw - 100px); }
-}
-@-moz-keyframes moveX {
-  from { left: 0; } to { left: calc(100vw - 100px); }
-}
-@-o-keyframes moveX {
-  from { left: 0; } to { left: calc(100vw - 100px); }
-}
-@keyframes moveX {
-  from { left: 0; } to { left: calc(100vw - 100px); }
-}
-@-webkit-keyframes moveY {
-  from { top: 0; } to { top: 500px; }
-}
-@-moz-keyframes moveY {
-  from { top: 0; } to { top: 500px; }
-}
-@-o-keyframes moveY {
-  from { top: 0; } to { top: 500px; }
-}
-@keyframes moveY {
-  from { top: 0; } to { top: 500px; }
 }
 
 .logo {
@@ -936,28 +557,28 @@ button.opt {
     padding: 0px 5px;
     font-weight: bold;
     font-style: italic;
-    font-family: "Arial", sans-serif;
+    font-family: $Arial;
     font-size: 14px;
   }
   &:focus {
     outline: 0;
     .desktop-icon {
       background-color: rgba(0,0,255,.7);
-      border: 1.5px dashed white;
+      border: 1.5px dashed $white;
     }
     .nest {
       background-color: rgba(0,0,255,.7);
-      border: 1.5px dashed white;
+      border: 1.5px dashed $white;
       p {
-        color: white;
+        color: $white;
       }
     }
   }
   &:hover {
     p {
-      background: linear-gradient(to right, #FF0080 20%, #0000ff 40%, #0000ff 60%, #FF0080 80%);
+      background: linear-gradient(to right, $red 20%, $blue 40%, $blue 60%, $red 80%);
       background-size: 200% auto;
-      color: #0000ff;
+      color: $blue;
       background-clip: text;
       text-fill-color: transparent;
       -webkit-background-clip: text;
@@ -1006,10 +627,10 @@ button.opt {
       user-select: none;
       a {
         text-decoration: none;
-        color: #0000ff !important;
+        color: $blue !important;
         &:hover {
-          background-color: blue;
-          color: white !important;
+          background-color: $blue;
+          color: $white !important;
           padding: 0 5px;
           margin: 0 -5px;
           transition: all linear;
@@ -1118,8 +739,8 @@ button.opt {
         content: "";
         width: 92px;
         height: 42px;
-        background-color: #0000ff;
-        border: 4px solid #0000ff;
+        background-color: $blue;
+        border: 4px solid $blue;
         position: absolute;
         z-index: -99;
         bottom: -4px;
@@ -1130,27 +751,27 @@ button.opt {
       width: 100px;
       height: 50px;
       display: block;
-      background-color: white;
-      border: 4px solid #0000ff;
+      background-color: $white;
+      border: 4px solid $blue;
       font-size: 16px;
-      font-family: Arial;
+      font-family: $Arial;
       font-weight: bold;
-      color: #0000ff;
+      color: $blue;
       outline: none;
       position: absolute;
       bottom: 4px;
       left: -4px;
       &:hover {
-        background-color: #0000ff;
-        border: 4px solid white;
-        color: white;
+        background-color: $blue;
+        border: 4px solid $white;
+        color: $white;
         bottom: 0px;
         left: 0px;
       }
       &.active:hover {
-        background-color: #00ff80;
-        border: 4px solid #0000ff;
-        color: #0000ff;
+        background-color: $green;
+        border: 4px solid $blue;
+        color: $blue;
         bottom: -4px;
         left: 4px;
       }
@@ -1160,14 +781,14 @@ button.opt {
       width: 250px;
       background-color: black;
       border-radius: 50%;
-      border: 5px solid white;
+      border: 5px solid $white;
       margin: 0 auto;
       position: relative;
       margin-top: 25px;
       .da-blue {
         height: 100px;
         width: 100px;
-        background-color: #0000ff;
+        background-color: $blue;
         border-radius: 50%;
         position: absolute;
         top: 70px;
@@ -1183,10 +804,10 @@ button.opt {
           margin-top: 25px;
           position: relative;
           p.da-answer {
-            color: white;
+            color: $white;
             display: block;
             font-size: 5px;
-            font-family: Arial;
+            font-family: $Arial;
             padding: 0;
             position: absolute;
             top: -50px;
@@ -1257,8 +878,8 @@ button.opt {
            content: "";
            width: 142px;
            height: 42px;
-           background-color: #0000ff;
-           border: 4px solid #0000ff;
+           background-color: $blue;
+           border: 4px solid $blue;
            position: absolute;
            z-index: -99;
            bottom: -4px;
@@ -1269,27 +890,27 @@ button.opt {
          width: 150px;
          height: 50px;
          display: block;
-         background-color: white;
-         border: 4px solid #0000ff;
+         background-color: $white;
+         border: 4px solid $blue;
          font-size: 16px;
-         font-family: Arial;
+         font-family: $Arial;
          font-weight: bold;
-         color: #0000ff;
+         color: $blue;
          outline: none;
          position: absolute;
          bottom: 4px;
          left: -4px;
          &:hover {
-           background-color: #0000ff;
-           border: 4px solid white;
-           color: white;
+           background-color: $blue;
+           border: 4px solid $white;
+           color: $white;
            bottom: 0px;
            left: 0px;
          }
          &.active:hover {
-           background-color: #00ff80;
-           border: 4px solid #0000ff;
-           color: #0000ff;
+           background-color: $green;
+           border: 4px solid $blue;
+           color: $blue;
            bottom: -4px;
            left: 4px;
          }
@@ -1301,7 +922,7 @@ button.opt {
     .app-content {
       background: rgba(35,31,32,.8);
       font-family: 'Inconsolata', monospace;
-      color: #00ff80;
+      color: $green;
       height: calc(100% - 60px);
       margin-top: 50px;
       display: inline-block;
@@ -1309,13 +930,13 @@ button.opt {
       padding-top: 10px;
       overflow-x: hidden;
       .skills-wrapper {
-        border: 1px solid #00ff80;
+        border: 1px solid $green;
         margin: 5px auto;
         width: calc(100% - 75px);
         height: 120%;
       }
       span {
-        color: #00ff80;
+        color: $green;
       }
       .skilltitle {
         padding-top: 10px;
@@ -1331,12 +952,6 @@ button.opt {
         }
         li {
           padding-left: 10px;
-          // text-indent: -5px;
-          &:before {
-            // content: "-";
-            // text-indent: -5px;
-            // padding-right: 5px;
-          }
         }
       }
     }
@@ -1358,8 +973,8 @@ button.opt {
           content: "";
           width: 142px;
           height: 42px;
-          background-color: #0000ff;
-          border: 4px solid #0000ff;
+          background-color: $blue;
+          border: 4px solid $blue;
           position: absolute;
           z-index: -99;
           bottom: -4px;
@@ -1367,23 +982,19 @@ button.opt {
         }
       }
       .play, .pause {
-        // width: 150px;
         height: 50px;
         display: inline-block;
-        background-color: white;
-        border: 4px solid #0000ff;
+        background-color: $white;
+        border: 4px solid $blue;
         font-size: 16px;
-        font-family: Arial;
+        font-family: $Arial;
         font-weight: bold;
-        color: #0000ff;
+        color: $blue;
         outline: none;
-        // position: absolute;
-        // bottom: 4px;
-        // left: -4px;
         &:hover {
-          background-color: #0000ff;
-          border: 4px solid white;
-          color: white;
+          background-color: $blue;
+          border: 4px solid $white;
+          color: $white;
           bottom: 0px;
           left: 0px;
         }
@@ -1440,151 +1051,6 @@ button.opt {
     transform: scale(1);
   }
 }
-
-
-// dropdown
-
-
-
-/* Dropdown Button */
-.dropbtn {
-    background-color: black;
-    color: white;
-    border: none;
-    cursor: url("/static/cursor/cursor-16-01.svg"), auto;
-    font-family: Arial;
-    // font-weight: bold;
-    margin-left: 10px;
-    font-size: 16px;
-    padding: 10px 20px 10px 20px;
-    -webkit-touch-callout: none; /* iOS Safari */
-    -webkit-user-select: none; /* Safari */
-     -khtml-user-select: none; /* Konqueror HTML */
-       -moz-user-select: none; /* Firefox */
-        -ms-user-select: none; /* Internet Explorer/Edge */
-            user-select: none;
-}
-.dropbtn.dropbtn-nest {
-  padding: 0;
-  width: auto;
-  height: 100%;
-}
-.dropdown.one .dropbtn {
-  font-weight: bold;
-}
-
-/* Dropdown button on hover & focus */
-.dropbtn:active, .dropbtn:focus  {
-    background-color: #0000FF !important;
-}
-
-/* The container <div> - needed to position the dropdown content */
-.dropdown {
-  position: absolute;
-  display: inline-block;
-  float: left;
-  background-color: black;
-  z-index: 500;
-  &:after {
-    content: "";
-    width: 10px;
-    height: 52px;
-    position: absolute;
-    top: 0;
-    right: -10px;
-    // color: black;
-    display: inline-block;
-    background: linear-gradient(to right, rgba(0,0,0,1), rgba(0,0,0,0));
-  }
-}
-/* Dropdown Content (Hidden by Default) */
-.dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: black;
-    width: 100%;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 1;
-    margin-left: 10px;
-}
-
-/* Links inside the dropdown */
-.dropdown-content .nest {
-    color: white;
-    // padding: 12px 16px;
-    text-decoration: none;
-    display: block;
-    font-family: Arial;
-    font-size: 16px;
-    width: auto;
-    overflow: visible;
-    background-color: black;
-    position: relative;
-}
-button.nest {
-    padding: 12px 16px;
-    width: 100% !important;
-    display: block;
-    text-align: left;
-    border: none !important;
-}
-button.nest:hover, button.nest:focus  {
-  background-color: blue !important;
-}
-.nest-one:hover > .nest-two-final {
-  display: block !important;
-}
-.nest-one:hover > button.nest {
-  background-color: blue !important;
-}
-
-.nest > a {
-  display: block;
-  height: 100%;
-  width: 100%;
-  color: white;
-  text-decoration: none;
-}
-
-.dropdown-content .nest.nest-two-final {
-  position: absolute;
-  top: 0;
-  left: 100%;
-  padding: 0;
-  width: 100%;
-  // display: none;
-  // opacity: 0;
-  transition: all .5s ease-in;
-}
-.dropdown-content .nest-two:hover .nest-two-final, .dropdown-content .nest-two:focus .nest-two-final {
-  display: block !important;
-  opacity: 1 !important;
-}
-
-.dropdown-content .nest.nest-two-final > .nest {
-  width: 100% !important;
-}
-
-.dropdown-content > .nest:last-child, .dropdown-content > .nest:nth-child(4) {
-  border-top: solid 2px rgba(255,255,255,.7);
-}
-
-.nest-two:hover + .nest-two-final {
-  display: block !important;
-}
-
-.menu-arrow {
-  position: relative;
-  float: right;
-  font-size: 10px !important;
-  margin-right: -10px;
-  padding-top: 2.5px;
-  opacity: .9;
-  // top: 0;
-}
-
-/* Change color of dropdown links on hover */
-.dropdown-content span:hover,.dropdown-content span:focus  {background-color: #0000FF}
 
 /* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
 .answerShake {
@@ -1695,152 +1161,6 @@ button.nest:hover, button.nest:focus  {
   }
 }
 
-@media screen and (min-width: 320px) and (max-width: 767px) and (orientation: landscape) {
-  html {
-    transform: rotate(-90deg);
-    transform-origin: left top;
-    width: 100vh;
-    overflow-x: hidden;
-    position: absolute;
-    top: 100%;
-    left: 0;
-  }
-}
-
-@media only screen and (max-width: 700px) {
-    .social {
-      right: 5px;
-      transform-origin: 50% 50%;
-      transform: scale(.75);
-    }
-    div.stage {
-      right: -5px;
-      bottom: -5px;
-      transform: scale(.75);
-      transform-origin: 50% 50%;
-    }
-    div.stage.open {
-      transform: scale(1);
-    }
-    .header .scrollwrap {
-      display: none !important;
-    }
-    svg.hello {
-      width: 250px !important;
-      height: 250px !important;
-      margin-top: 50px;
-    }
-}
-
-
-.tooltip {
-  display: block !important;
-  z-index: 10000;
-
-  .tooltip-inner {
-    background: rgba(0,0,255,.7);
-    color: white;
-    border: dashed 1px white;
-    padding: 5px 10px 4px;
-    text-transform: capitalize;
-  }
-
-  .tooltip-arrow {
-    width: 0;
-    height: 0;
-    border-style: solid;
-    position: absolute;
-    margin: 5px;
-    border-color: black;
-    z-index: 1;
-    display: none;
-  }
-
-  &[x-placement^="top"] {
-    margin-bottom: 5px;
-
-    .tooltip-arrow {
-      border-width: 5px 5px 0 5px;
-      border-left-color: transparent !important;
-      border-right-color: transparent !important;
-      border-bottom-color: transparent !important;
-      bottom: -5px;
-      left: calc(50% - 5px);
-      margin-top: 0;
-      margin-bottom: 0;
-    }
-  }
-
-  &[x-placement^="bottom"] {
-    margin-top: 5px;
-
-    .tooltip-arrow {
-      border-width: 0 5px 5px 5px;
-      border-left-color: transparent !important;
-      border-right-color: transparent !important;
-      border-top-color: transparent !important;
-      top: -5px;
-      left: calc(50% - 5px);
-      margin-top: 0;
-      margin-bottom: 0;
-    }
-  }
-
-  &[x-placement^="right"] {
-    margin-left: 5px;
-
-    .tooltip-arrow {
-      border-width: 5px 5px 5px 0;
-      border-left-color: transparent !important;
-      border-top-color: transparent !important;
-      border-bottom-color: transparent !important;
-      left: -5px;
-      top: calc(50% - 5px);
-      margin-left: 0;
-      margin-right: 0;
-    }
-  }
-
-  &[x-placement^="left"] {
-    margin-right: 5px;
-
-    .tooltip-arrow {
-      border-width: 5px 0 5px 5px;
-      border-top-color: transparent !important;
-      border-right-color: transparent !important;
-      border-bottom-color: transparent !important;
-      right: -5px;
-      top: calc(50% - 5px);
-      margin-left: 0;
-      margin-right: 0;
-    }
-  }
-
-  &.popover {
-    $color: #f9f9f9;
-
-    .popover-inner {
-      background: $color;
-      color: black;
-      padding: 24px;
-      border-radius: 5px;
-      box-shadow: 0 5px 30px rgba(black, .1);
-    }
-
-    .popover-arrow {
-      border-color: $color;
-    }
-  }
-
-  &[aria-hidden='true'] {
-    visibility: hidden;
-    opacity: 0;
-    transition: opacity .15s, visibility .15s;
-  }
-
-  &[aria-hidden='false'] {
-    visibility: visible;
-    opacity: 1;
-    transition: opacity .15s;
-  }
-}
+@import 'tooltip';
+@import 'responsive';
+@import 'bouncingbot';

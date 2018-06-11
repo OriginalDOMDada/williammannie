@@ -298,6 +298,9 @@
     display: block;
     background-color: white;
   }
+  svg#music {
+    overflow: visible;
+  }
   svg#music:hover .spinner {
     transform-origin: 37.879px 37.4px;
     -webkit-transform-origin: 37.879px 37.4px;
@@ -1054,12 +1057,22 @@
       -webkit-transform: rotate(0deg) translate(0,0);
     }
   }
-  svg#wammie:hover {
+  svg#wammie {
+    overflow: visible;
+  }
+  svg#wammie:hover #hammer {
     animation: hammertime 1.25s ease-out forwards;
     -webkit-animation: hammertime 1.25s ease-out forwards;
     transform-origin: 50% 50%;
-    /* background-size: 1000px 1000px; */
+    background-size: 100%;
   }
+  svg#wammie:hover {
+    animation: hammertimebg 1.25s ease-out forwards;
+    -webkit-animation: hammertimebg 1.25s ease-out forwards;
+    transform-origin: 50% 50%;
+    background-size: 100%;
+  }
+
   @keyframes hammertime {
     0%{
       transform: translate(0px,0px);
@@ -1120,6 +1133,36 @@
     }
     100%{
       transform: translate(0px,0px) rotate(0deg);
+    }
+  }
+  @keyframes hammertimebg {
+    25%{
+      background: transparent;
+    }
+    27%{
+      background: rgba(255,255,255,.25);
+    }
+    30% {
+      background: rgba(0,0,255,.2);
+      background-size: 250px 250px;
+    }
+    40%{
+      background: transparent;
+    }
+  }
+  @-webkit-keyframes hammertimebg {
+    25%{
+      background: transparent;
+    }
+    27%{
+      background: rgba(255,255,255,.25);
+    }
+    30% {
+      background: rgba(0,0,255,.2);
+      background-size: 250px 250px;
+    }
+    40%{
+      background: transparent;
     }
   }
 </style>

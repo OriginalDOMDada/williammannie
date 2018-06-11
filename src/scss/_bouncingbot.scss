@@ -1,0 +1,39 @@
+.computer-bounce {
+  display: none;
+  z-index: 50;
+  width: 100px;
+  height: 100px;
+  position: absolute;
+  -webkit-animation: moveX 6.1s linear 0s infinite alternate, moveY 6.8s linear 0s infinite alternate;
+  -moz-animation: moveX 6.1s linear 0s infinite alternate, moveY 6.8s linear 0s infinite alternate;
+  -o-animation: moveX 6.1s linear 0s infinite alternate, moveY 6.8s linear 0s infinite alternate;
+  animation: moveX 6.1s linear 0s infinite alternate, moveY 6.8s linear 0s infinite alternate;
+  &:hover {
+    animation-play-state: paused;
+  }
+}
+
+@-webkit-keyframes moveX {
+  from { left: 0; } to { left: calc(100vw - 100px); }
+}
+@-moz-keyframes moveX {
+  from { left: 0; } to { left: calc(100vw - 100px); }
+}
+@-o-keyframes moveX {
+  from { left: 0; } to { left: calc(100vw - 100px); }
+}
+@keyframes moveX {
+  from { left: 0; } to { left: calc(100vw - 100px); }
+}
+@-webkit-keyframes moveY {
+  from { top: 0; } to { top: 500px; }
+}
+@-moz-keyframes moveY {
+  from { top: 0; } to { top: 500px; }
+}
+@-o-keyframes moveY {
+  from { top: 0; } to { top: 500px; }
+}
+@keyframes moveY {
+  from { top: 0; } to { top: 500px; }
+}

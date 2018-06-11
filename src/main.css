@@ -7,41 +7,6 @@ body {
 button:focus {
   outline: none; }
 
-.hello-wrap {
-  width: 400px;
-  height: 400px;
-  display: block;
-  text-align: center;
-  position: absolute;
-  overflow: hidden;
-  margin: 0 auto;
-  z-index: 50;
-  left: calc(50vw - 200px);
-  top: calc(50vh - 200px);
-  transform-style: preserve-3d; }
-
-.intro-heading {
-  color: blue;
-  float: left;
-  font-family: Georgia;
-  font-size: 50px;
-  line-height: 50px;
-  padding-top: 4px;
-  padding-right: 8px;
-  padding-left: 3px;
-  text-transform: uppercase;
-  background-color: white;
-  padding: 10px;
-  margin-right: 10px;
-  margin-top: 5px;
-  border: 2px solid black; }
-
-.hello {
-  position: relative;
-  display: inline-block;
-  width: 400px;
-  height: auto; }
-
 button, svg {
   padding: 0; }
 
@@ -57,6 +22,330 @@ body {
   overflow-x: hidden;
   cursor: url("/static/colorwave-1.svg"), auto !important; }
 
+#app {
+  height: 100%;
+  width: 100%; }
+
+.header {
+  width: 100%;
+  background-color: black;
+  height: auto;
+  position: fixed;
+  z-index: 500;
+  -webkit-box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+  -webkit-background-clip: padding-box;
+  -moz-background-clip: padding-box;
+  background-clip: padding-box;
+  display: inline-block;
+  height: 52px; }
+  .header .top-logo {
+    height: 30px;
+    float: left; }
+  .header .top-text {
+    padding: 7.5px 10px 0 15px;
+    display: inline-block; }
+  .header #todaysDate {
+    color: white;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    padding: 16px 30px 16px 20px;
+    font-weight: bold;
+    top: 0;
+    right: 0;
+    background: black;
+    position: absolute;
+    -webkit-touch-callout: none;
+    /* iOS Safari */
+    -webkit-user-select: none;
+    /* Safari */
+    -khtml-user-select: none;
+    /* Konqueror HTML */
+    -moz-user-select: none;
+    /* Firefox */
+    -ms-user-select: none;
+    /* Internet Explorer/Edge */
+    user-select: none; }
+
+/* Dropdown Button */
+.dropbtn {
+  background-color: black;
+  color: white;
+  border: none;
+  cursor: url("/static/cursor/cursor-16-01.svg"), auto;
+  font-family: Arial, sans-serif;
+  margin-left: 10px;
+  font-size: 16px;
+  padding: 10px 20px 10px 20px;
+  -webkit-touch-callout: none;
+  /* iOS Safari */
+  -webkit-user-select: none;
+  /* Safari */
+  -khtml-user-select: none;
+  /* Konqueror HTML */
+  -moz-user-select: none;
+  /* Firefox */
+  -ms-user-select: none;
+  /* Internet Explorer/Edge */
+  user-select: none; }
+
+.dropbtn.dropbtn-nest {
+  padding: 0;
+  width: auto;
+  height: 100%; }
+
+.dropdown.one .dropbtn {
+  font-weight: bold; }
+
+/* Dropdown button on hover & focus */
+.dropbtn:active, .dropbtn:focus {
+  background-color: #0000FF; }
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+  position: absolute;
+  display: inline-block;
+  float: left;
+  background-color: black;
+  z-index: 500; }
+  .dropdown:after {
+    content: "";
+    width: 10px;
+    height: 52px;
+    position: absolute;
+    top: 0;
+    right: -10px;
+    display: inline-block;
+    background: linear-gradient(to right, black, rgba(0, 0, 0, 0)); }
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: black;
+  width: 100%;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  margin-left: 10px; }
+
+/* Links inside the dropdown */
+.dropdown-content .nest {
+  color: white;
+  text-decoration: none;
+  display: block;
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+  width: auto;
+  overflow: visible;
+  background-color: black;
+  position: relative; }
+
+button.nest {
+  padding: 12px 16px;
+  width: 100% !important;
+  display: block;
+  text-align: left;
+  border: none !important; }
+
+button.nest:hover, button.nest:focus {
+  background-color: blue !important; }
+
+.nest-one:hover > .nest-two-final {
+  display: block !important; }
+
+.nest-one:hover > button.nest {
+  background-color: blue !important; }
+
+.nest > a {
+  display: block;
+  height: 100%;
+  width: 100%;
+  color: white;
+  text-decoration: none; }
+
+.dropdown-content .nest.nest-two-final {
+  position: absolute;
+  top: 0;
+  left: 100%;
+  padding: 0;
+  width: 100%;
+  transition: all .5s ease-in; }
+
+.dropdown-content .nest-two:hover .nest-two-final, .dropdown-content .nest-two:focus .nest-two-final {
+  display: block !important;
+  opacity: 1 !important; }
+
+.dropdown-content .nest.nest-two-final > .nest {
+  width: 100% !important; }
+
+.dropdown-content > .nest:last-child, .dropdown-content > .nest:nth-child(4) {
+  border-top: solid 2px rgba(255, 255, 255, 0.7); }
+
+.nest-two:hover + .nest-two-final {
+  display: block !important; }
+
+.menu-arrow {
+  position: relative;
+  float: right;
+  font-size: 10px !important;
+  margin-right: -10px;
+  padding-top: 2.5px;
+  opacity: .9; }
+
+/* Change color of dropdown links on hover */
+.dropdown-content span:hover, .dropdown-content span:focus {
+  background-color: #0000FF; }
+
+.day {
+  cursor: url("/static/day.svg"), auto !important; }
+
+.night {
+  cursor: url("/static/night.svg"), auto !important; }
+
+.social {
+  display: block;
+  position: fixed;
+  right: 25px;
+  bottom: calc(50% - 120px);
+  z-index: 888;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  -webkit-box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+  -webkit-background-clip: padding-box;
+  -moz-background-clip: padding-box;
+  background-clip: padding-box; }
+  .social .smpanel {
+    height: 28px;
+    width: 28px;
+    display: block; }
+    .social .smpanel a {
+      display: block;
+      height: 100%;
+      width: 100%;
+      border: 2px solid #0000ff;
+      margin: -8px;
+      background-color: #FFFFFF; }
+    .social .smpanel svg path {
+      fill: #FFFFFF;
+      transition: all 1s linear both;
+      -webkit-transition: all 1s linear both; }
+  .social .twitter .smpanel {
+    border: 2px solid #0000ff;
+    background: #0000ff; }
+    .social .twitter .smpanel:hover svg path {
+      fill: #FFFFFF; }
+    .social .twitter .smpanel:hover a {
+      background-color: #0000ff !important;
+      border: 2px solid #FFFFFF; }
+  .social .dribble .smpanel {
+    border: 2px solid #FF0080;
+    background: #FF0080; }
+    .social .dribble .smpanel:hover svg path {
+      fill: #FFFFFF; }
+    .social .dribble .smpanel:hover a {
+      background-color: #0000ff !important;
+      border: 2px solid #FFFFFF; }
+  .social .instagram .smpanel {
+    border: 2px solid #FFFF00;
+    background: #FFFF00; }
+    .social .instagram .smpanel:hover svg path {
+      fill: #FFFFFF; }
+    .social .instagram .smpanel:hover a {
+      background-color: #0000ff !important;
+      border: 2px solid #FFFFFF; }
+  .social .facebook .smpanel {
+    border: 2px solid #00FF80;
+    background: #00FF80; }
+    .social .facebook .smpanel:hover svg path {
+      fill: #FFFFFF; }
+    .social .facebook .smpanel:hover a {
+      background-color: #0000ff !important;
+      border: 2px solid white; }
+  .social .github .smpanel {
+    border: 2px solid #000000;
+    background: #000000; }
+    .social .github .smpanel:hover svg path {
+      fill: #FFFFFF; }
+    .social .github .smpanel:hover a {
+      background-color: #0000ff !important;
+      border: 2px solid #FFFFFF; }
+  .social .linkedin .smpanel {
+    border: 2px solid #5D5D5D;
+    background: #5D5D5D; }
+    .social .linkedin .smpanel:hover svg path {
+      fill: #FFFFFF; }
+    .social .linkedin .smpanel:hover a {
+      background-color: #0000ff !important; }
+  .social .pocket .smpanel {
+    border: 2px solid #DEDEDE;
+    background: #DEDEDE; }
+    .social .pocket .smpanel:hover svg path {
+      fill: #FFFFFF; }
+    .social .pocket .smpanel:hover a {
+      background-color: #0000ff !important;
+      border: 2px solid #FFFFFF; }
+  .social .soundcloud .smpanel {
+    border: 2px solid #FFFFFF;
+    background: #FFFFFF; }
+    .social .soundcloud .smpanel:hover svg path {
+      fill: #FFFFFF; }
+    .social .soundcloud .smpanel:hover a {
+      background-color: #0000ff !important;
+      border: 2px solid #FFFFFF; }
+  .social.active svg path {
+    fill: #0000ff; }
+  .social.active .twitter .smpanel,
+  .social.active .dribble .smpanel,
+  .social.active .github .smpanel,
+  .social.active .linkedin .smpanel {
+    animation: boxinwhite .5s ease-in-out forwards; }
+  .social.active .pocket .smpanel,
+  .social.active .facebook .smpanel,
+  .social.active .instagram .smpanel {
+    animation: boxinblack .5s ease-in-out forwards; }
+  .social.active .soundcloud .smpanel {
+    animation: boxinblue .5s ease-in-out forwards; }
+  .social:not(.active) a {
+    background-color: transparent;
+    border: 2px solid transparent; }
+
+.hello-wrap {
+  width: 400px;
+  height: 400px;
+  display: block;
+  text-align: center;
+  position: absolute;
+  overflow: hidden;
+  margin: 0 auto;
+  z-index: 50;
+  left: calc(50vw - 200px);
+  top: calc(50vh - 200px);
+  transform-style: preserve-3d; }
+
+.intro-heading {
+  color: #0000ff;
+  float: left;
+  font-family: Georgia, serif;
+  font-size: 50px;
+  line-height: 50px;
+  padding-top: 4px;
+  padding-right: 8px;
+  padding-left: 3px;
+  text-transform: uppercase;
+  background-color: #FFFFFF;
+  padding: 10px;
+  margin-right: 10px;
+  margin-top: 5px;
+  border: 2px solid black; }
+
+.hello {
+  position: relative;
+  display: inline-block;
+  width: 400px;
+  height: auto; }
+
 .draggable {
   cursor: url("/static/colorwave-1.svg"), auto !important; }
 
@@ -66,12 +355,6 @@ button {
     cursor: url("/static/cursor/da-bomb.svg"), auto; }
   button svg {
     pointer-events: none; }
-
-.day {
-  cursor: url("/static/day.svg"), auto !important; }
-
-.night {
-  cursor: url("/static/night.svg"), auto !important; }
 
 a {
   animation: animate .5s infinite ease-out alternate-reverse;
@@ -119,26 +402,26 @@ a {
   position: absolute;
   height: 20px;
   width: 20px;
-  background-color: white;
+  background-color: #FFFFFF;
   border: 2px solid black;
   z-index: -1; }
 
 .resize:hover {
   background: #0000ff;
   /* Old browsers */
-  background: -moz-linear-gradient(left, #ff0080 0%, #0000ff 50%, #ff0080 100%);
+  background: -moz-linear-gradient(left, #FF0080 0%, #0000ff 50%, #FF0080 100%);
   /* FF3.6+ */
-  background: -webkit-gradient(linear, left top, right top, color-stop(0%, #ff0080), color-stop(50%, #0000ff), color-stop(100%, #ff0080));
+  background: -webkit-gradient(linear, left top, right top, color-stop(0%, #FF0080), color-stop(50%, #0000ff), color-stop(100%, #FF0080));
   /* Chrome,Safari4+ */
-  background: -webkit-linear-gradient(left, #ff0080 0%, #0000ff 50%, #ff0080 100%);
+  background: -webkit-linear-gradient(left, #FF0080 0%, #0000ff 50%, #FF0080 100%);
   /* Chrome10+,Safari5.1+ */
-  background: -o-linear-gradient(left, #ff0080 0%, #0000ff 50%, #ff0080 100%);
+  background: -o-linear-gradient(left, #FF0080 0%, #0000ff 50%, #FF0080 100%);
   /* Opera 11.10+ */
-  background: -ms-linear-gradient(left, #ff0080 0%, #0000ff 50%, #ff0080 100%);
+  background: -ms-linear-gradient(left, #FF0080 0%, #0000ff 50%, #FF0080 100%);
   /* IE10+ */
-  background: linear-gradient(to right, #ff0080 0%, #0000ff 50%, #ff0080 100%);
+  background: linear-gradient(to right, #FF0080 0%, #0000ff 50%, #FF0080 100%);
   /* W3C */
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ff0080', endColorstr='#ff0080',GradientType=1 );
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='$red', endColorstr='$red',GradientType=1 );
   /* IE6-9 */
   background-size: 100px 100px;
   -webkit-animation: slide 15s linear infinite;
@@ -147,15 +430,18 @@ a {
 
 .top-left {
   top: -10px;
-  left: -10px; }
+  left: -10px;
+  cursor: url("/static/cursor/cursor-16-01.svg"), auto; }
 
 .top-right {
   top: -10px;
-  right: -10px; }
+  right: -10px;
+  cursor: url("/static/cursor/cursor-16-01.svg"), auto; }
 
 .bottom-left {
   bottom: -10px;
-  left: -10px; }
+  left: -10px;
+  cursor: url("/static/cursor/cursor-16-01.svg"), auto; }
 
 .bottom-right {
   bottom: -10px;
@@ -173,7 +459,7 @@ a {
   border-radius: 0px;
   border-left: 2px solid black;
   background-clip: content-box;
-  background-color: white; }
+  background-color: #FFFFFF; }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
@@ -211,52 +497,6 @@ a {
     background-position: 0px; }
   to {
     background-position: 100vw; } }
-#app {
-  height: 100%;
-  width: 100%; }
-
-.header {
-  width: 100%;
-  background-color: black;
-  height: auto;
-  position: fixed;
-  z-index: 500;
-  -webkit-box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
-  -moz-box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
-  box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
-  -webkit-background-clip: padding-box;
-  -moz-background-clip: padding-box;
-  background-clip: padding-box;
-  display: inline-block;
-  height: 52px; }
-  .header .top-logo {
-    height: 30px;
-    float: left; }
-  .header .top-text {
-    padding: 7.5px 10px 0 15px;
-    display: inline-block; }
-  .header #todaysDate {
-    color: white;
-    font-family: "Arial", sans-serif;
-    font-size: 16px;
-    padding: 16px 30px 16px 20px;
-    font-weight: bold;
-    top: 0;
-    right: 0;
-    background: black;
-    position: absolute;
-    -webkit-touch-callout: none;
-    /* iOS Safari */
-    -webkit-user-select: none;
-    /* Safari */
-    -khtml-user-select: none;
-    /* Konqueror HTML */
-    -moz-user-select: none;
-    /* Firefox */
-    -ms-user-select: none;
-    /* Internet Explorer/Edge */
-    user-select: none; }
-
 .panel {
   margin: 0;
   padding: 0;
@@ -264,145 +504,37 @@ a {
   z-index: 3;
   height: 100vh;
   background-color: #CCC;
-  background-image: linear-gradient(45deg, white 25%, transparent 25%, transparent 75%, white 75%, white), linear-gradient(45deg, white 25%, transparent 25%, transparent 75%, white 75%, white);
+  background-image: linear-gradient(45deg, #FFFFFF 25%, transparent 25%, transparent 75%, #FFFFFF 75%, #FFFFFF), linear-gradient(45deg, #FFFFFF 25%, transparent 25%, transparent 75%, #FFFFFF 75%, #FFFFFF);
   background-size: 10px 10px;
   background-position: 0px 0px, 5px 5px; }
   .panel > .windows {
     padding-top: 50px;
     z-index: 101; }
 
-.social {
-  display: block;
-  position: fixed;
-  right: 25px;
-  bottom: calc(50% - 120px);
-  z-index: 888;
-  border: 1px solid rgba(0, 0, 0, 0.15);
-  -webkit-box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
-  -moz-box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
-  box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
-  -webkit-background-clip: padding-box;
-  -moz-background-clip: padding-box;
-  background-clip: padding-box; }
-  .social .smpanel {
-    height: 28px;
-    width: 28px;
-    display: block; }
-    .social .smpanel a {
-      display: block;
-      height: 100%;
-      width: 100%;
-      border: 2px solid blue;
-      margin: -8px;
-      background-color: white; }
-    .social .smpanel svg path {
-      fill: white;
-      transition: all 1s linear both;
-      -webkit-transition: all 1s linear both; }
-  .social .twitter .smpanel {
-    border: 2px solid #0000ff;
-    background: #0000ff; }
-    .social .twitter .smpanel:hover svg path {
-      fill: white; }
-    .social .twitter .smpanel:hover a {
-      background-color: blue !important;
-      border: 2px solid white; }
-  .social .dribble .smpanel {
-    border: 2px solid #ff0080;
-    background: #ff0080; }
-    .social .dribble .smpanel:hover svg path {
-      fill: white; }
-    .social .dribble .smpanel:hover a {
-      background-color: blue !important;
-      border: 2px solid white; }
-  .social .instagram .smpanel {
-    border: 2px solid #ffff00;
-    background: #ffff00; }
-    .social .instagram .smpanel:hover svg path {
-      fill: white; }
-    .social .instagram .smpanel:hover a {
-      background-color: blue !important;
-      border: 2px solid white; }
-  .social .facebook .smpanel {
-    border: 2px solid #00ff80;
-    background: #00ff80; }
-    .social .facebook .smpanel:hover svg path {
-      fill: white; }
-    .social .facebook .smpanel:hover a {
-      background-color: blue !important;
-      border: 2px solid white; }
-  .social .github .smpanel {
-    border: 2px solid black;
-    background: black; }
-    .social .github .smpanel:hover svg path {
-      fill: white; }
-    .social .github .smpanel:hover a {
-      background-color: blue !important;
-      border: 2px solid white; }
-  .social .linkedin .smpanel {
-    border: 2px solid #5D5D5D;
-    background: #5D5D5D; }
-    .social .linkedin .smpanel:hover svg path {
-      fill: white; }
-    .social .linkedin .smpanel:hover a {
-      background-color: blue !important; }
-  .social .pocket .smpanel {
-    border: 2px solid #DEDEDE;
-    background: #DEDEDE; }
-    .social .pocket .smpanel:hover svg path {
-      fill: white; }
-    .social .pocket .smpanel:hover a {
-      background-color: blue !important;
-      border: 2px solid white; }
-  .social .soundcloud .smpanel {
-    border: 2px solid white;
-    background: white; }
-    .social .soundcloud .smpanel:hover svg path {
-      fill: white; }
-    .social .soundcloud .smpanel:hover a {
-      background-color: blue !important;
-      border: 2px solid white; }
-  .social.active svg path {
-    fill: blue; }
-  .social.active .twitter .smpanel,
-  .social.active .dribble .smpanel,
-  .social.active .github .smpanel,
-  .social.active .linkedin .smpanel {
-    animation: boxinwhite .5s ease-in-out forwards; }
-  .social.active .pocket .smpanel,
-  .social.active .facebook .smpanel,
-  .social.active .instagram .smpanel {
-    animation: boxinblack .5s ease-in-out forwards; }
-  .social.active .soundcloud .smpanel {
-    animation: boxinblue .5s ease-in-out forwards; }
-  .social:not(.active) a {
-    background-color: transparent;
-    border: 2px solid transparent; }
-
 @keyframes boxinwhite {
   100% {
-    border-color: blue;
-    background-color: blue; } }
+    border-color: #0000ff;
+    background-color: #0000ff; } }
 @-webkit-keyframes boxinwhite {
   100% {
-    border-color: blue;
-    background-color: blue; } }
+    border-color: #0000ff;
+    background-color: #0000ff; } }
 @keyframes boxinblack {
   100% {
-    border-color: blue;
-    background-color: blue; } }
+    border-color: #0000ff;
+    background-color: #0000ff; } }
 @-webkit-keyframes boxinblack {
   100% {
-    border-color: blue;
-    background-color: blue; } }
+    border-color: #0000ff;
+    background-color: #0000ff; } }
 @keyframes boxinblue {
   100% {
-    border-color: blue;
-    background-color: blue; } }
+    border-color: #0000ff;
+    background-color: #0000ff; } }
 @-webkit-keyframes boxinblue {
   100% {
-    border-color: blue;
-    background-color: blue; } }
+    border-color: #0000ff;
+    background-color: #0000ff; } }
 .social > div {
   display: block;
   height: 32px;
@@ -445,7 +577,7 @@ a {
   cursor: url("/static/cursor/cursor-16-01.svg"), auto; }
   .box-header h2 {
     text-align: center;
-    font-family: "Arial", sans-serif;
+    font-family: Arial, sans-serif;
     -webkit-touch-callout: none;
     -webkit-user-select: none;
     -khtml-user-select: none;
@@ -543,7 +675,7 @@ button.opt {
   max-width: 700px;
   width: 100%;
   background-color: #CCC;
-  background-image: linear-gradient(45deg, white 25%, transparent 25%, transparent 75%, white 75%, white), linear-gradient(45deg, white 25%, transparent 25%, transparent 75%, white 75%, white);
+  background-image: linear-gradient(45deg, #FFFFFF 25%, transparent 25%, transparent 75%, #FFFFFF 75%, #FFFFFF), linear-gradient(45deg, #FFFFFF 25%, transparent 25%, transparent 75%, #FFFFFF 75%, #FFFFFF);
   background-size: 20px 20px;
   background-position: 0px 0px, 10px 10px;
   top: 200px;
@@ -551,57 +683,6 @@ button.opt {
   position: relative;
   z-index: 100; }
 
-.computer-bounce {
-  display: none;
-  z-index: 100;
-  width: 100px;
-  height: 100px;
-  position: absolute;
-  -webkit-animation: moveX 6.1s linear 0s infinite alternate, moveY 6.8s linear 0s infinite alternate;
-  -moz-animation: moveX 6.1s linear 0s infinite alternate, moveY 6.8s linear 0s infinite alternate;
-  -o-animation: moveX 6.1s linear 0s infinite alternate, moveY 6.8s linear 0s infinite alternate;
-  animation: moveX 6.1s linear 0s infinite alternate, moveY 6.8s linear 0s infinite alternate; }
-
-@-webkit-keyframes moveX {
-  from {
-    left: 0; }
-  to {
-    left: calc(100vw - 100px); } }
-@-moz-keyframes moveX {
-  from {
-    left: 0; }
-  to {
-    left: calc(100vw - 100px); } }
-@-o-keyframes moveX {
-  from {
-    left: 0; }
-  to {
-    left: calc(100vw - 100px); } }
-@keyframes moveX {
-  from {
-    left: 0; }
-  to {
-    left: calc(100vw - 100px); } }
-@-webkit-keyframes moveY {
-  from {
-    top: 0; }
-  to {
-    top: 500px; } }
-@-moz-keyframes moveY {
-  from {
-    top: 0; }
-  to {
-    top: 500px; } }
-@-o-keyframes moveY {
-  from {
-    top: 0; }
-  to {
-    top: 500px; } }
-@keyframes moveY {
-  from {
-    top: 0; }
-  to {
-    top: 500px; } }
 .logo {
   height: 50px;
   width: 50px;
@@ -682,18 +763,18 @@ button.opt {
     padding: 0px 5px;
     font-weight: bold;
     font-style: italic;
-    font-family: "Arial", sans-serif;
+    font-family: Arial, sans-serif;
     font-size: 14px; }
   .desktop:focus {
     outline: 0; }
     .desktop:focus .desktop-icon {
       background-color: rgba(0, 0, 255, 0.7);
-      border: 1.5px dashed white; }
+      border: 1.5px dashed #FFFFFF; }
     .desktop:focus .nest {
       background-color: rgba(0, 0, 255, 0.7);
-      border: 1.5px dashed white; }
+      border: 1.5px dashed #FFFFFF; }
       .desktop:focus .nest p {
-        color: white; }
+        color: #FFFFFF; }
   .desktop:hover p {
     background: linear-gradient(to right, #FF0080 20%, #0000ff 40%, #0000ff 60%, #FF0080 80%);
     background-size: 200% auto;
@@ -739,8 +820,8 @@ button.opt {
       text-decoration: none;
       color: #0000ff !important; }
       #aboutme .app-content p a:hover, #eightball .app-content p a:hover {
-        background-color: blue;
-        color: white !important;
+        background-color: #0000ff;
+        color: #FFFFFF !important;
         padding: 0 5px;
         margin: 0 -5px;
         transition: all linear;
@@ -832,10 +913,10 @@ button.opt {
     width: 100px;
     height: 50px;
     display: block;
-    background-color: white;
+    background-color: #FFFFFF;
     border: 4px solid #0000ff;
     font-size: 16px;
-    font-family: Arial;
+    font-family: Arial, sans-serif;
     font-weight: bold;
     color: #0000ff;
     outline: none;
@@ -844,12 +925,12 @@ button.opt {
     left: -4px; }
     #eightball .app-content #answerButton:hover {
       background-color: #0000ff;
-      border: 4px solid white;
-      color: white;
+      border: 4px solid #FFFFFF;
+      color: #FFFFFF;
       bottom: 0px;
       left: 0px; }
     #eightball .app-content #answerButton.active:hover {
-      background-color: #00ff80;
+      background-color: #00FF80;
       border: 4px solid #0000ff;
       color: #0000ff;
       bottom: -4px;
@@ -859,7 +940,7 @@ button.opt {
     width: 250px;
     background-color: black;
     border-radius: 50%;
-    border: 5px solid white;
+    border: 5px solid #FFFFFF;
     margin: 0 auto;
     position: relative;
     margin-top: 25px; }
@@ -882,10 +963,10 @@ button.opt {
         margin-top: 25px;
         position: relative; }
         #eightball .app-content .magic-8-ball .da-blue .magic-triangle p.da-answer {
-          color: white;
+          color: #FFFFFF;
           display: block;
           font-size: 5px;
-          font-family: Arial;
+          font-family: Arial, sans-serif;
           padding: 0;
           position: absolute;
           top: -50px;
@@ -947,10 +1028,10 @@ button.opt {
       width: 150px;
       height: 50px;
       display: block;
-      background-color: white;
+      background-color: #FFFFFF;
       border: 4px solid #0000ff;
       font-size: 16px;
-      font-family: Arial;
+      font-family: Arial, sans-serif;
       font-weight: bold;
       color: #0000ff;
       outline: none;
@@ -959,12 +1040,12 @@ button.opt {
       left: -4px; }
       .windows #solitare .app-content #throwsum:hover {
         background-color: #0000ff;
-        border: 4px solid white;
-        color: white;
+        border: 4px solid #FFFFFF;
+        color: #FFFFFF;
         bottom: 0px;
         left: 0px; }
       .windows #solitare .app-content #throwsum.active:hover {
-        background-color: #00ff80;
+        background-color: #00FF80;
         border: 4px solid #0000ff;
         color: #0000ff;
         bottom: -4px;
@@ -972,7 +1053,7 @@ button.opt {
   .windows #skills .app-content {
     background: rgba(35, 31, 32, 0.8);
     font-family: 'Inconsolata', monospace;
-    color: #00ff80;
+    color: #00FF80;
     height: calc(100% - 60px);
     margin-top: 50px;
     display: inline-block;
@@ -980,12 +1061,12 @@ button.opt {
     padding-top: 10px;
     overflow-x: hidden; }
     .windows #skills .app-content .skills-wrapper {
-      border: 1px solid #00ff80;
+      border: 1px solid #00FF80;
       margin: 5px auto;
       width: calc(100% - 75px);
       height: 120%; }
     .windows #skills .app-content span {
-      color: #00ff80; }
+      color: #00FF80; }
     .windows #skills .app-content .skilltitle {
       padding-top: 10px;
       padding-left: 10px; }
@@ -1021,17 +1102,17 @@ button.opt {
   .windows #music .app-content .play, .windows #music .app-content .pause {
     height: 50px;
     display: inline-block;
-    background-color: white;
+    background-color: #FFFFFF;
     border: 4px solid #0000ff;
     font-size: 16px;
-    font-family: Arial;
+    font-family: Arial, sans-serif;
     font-weight: bold;
     color: #0000ff;
     outline: none; }
     .windows #music .app-content .play:hover, .windows #music .app-content .pause:hover {
       background-color: #0000ff;
-      border: 4px solid white;
-      color: white;
+      border: 4px solid #FFFFFF;
+      color: #FFFFFF;
       bottom: 0px;
       left: 0px; }
   .windows #music .titlemarq:before {
@@ -1074,135 +1155,6 @@ button.opt {
     transform: scale(1.1); }
   100% {
     transform: scale(1); } }
-/* Dropdown Button */
-.dropbtn {
-  background-color: black;
-  color: white;
-  border: none;
-  cursor: url("/static/cursor/cursor-16-01.svg"), auto;
-  font-family: Arial;
-  margin-left: 10px;
-  font-size: 16px;
-  padding: 10px 20px 10px 20px;
-  -webkit-touch-callout: none;
-  /* iOS Safari */
-  -webkit-user-select: none;
-  /* Safari */
-  -khtml-user-select: none;
-  /* Konqueror HTML */
-  -moz-user-select: none;
-  /* Firefox */
-  -ms-user-select: none;
-  /* Internet Explorer/Edge */
-  user-select: none; }
-
-.dropbtn.dropbtn-nest {
-  padding: 0;
-  width: auto;
-  height: 100%; }
-
-.dropdown.one .dropbtn {
-  font-weight: bold; }
-
-/* Dropdown button on hover & focus */
-.dropbtn:active, .dropbtn:focus {
-  background-color: #0000FF !important; }
-
-/* The container <div> - needed to position the dropdown content */
-.dropdown {
-  position: absolute;
-  display: inline-block;
-  float: left;
-  background-color: black;
-  z-index: 500; }
-  .dropdown:after {
-    content: "";
-    width: 10px;
-    height: 52px;
-    position: absolute;
-    top: 0;
-    right: -10px;
-    display: inline-block;
-    background: linear-gradient(to right, black, rgba(0, 0, 0, 0)); }
-
-/* Dropdown Content (Hidden by Default) */
-.dropdown-content {
-  display: none;
-  position: absolute;
-  background-color: black;
-  width: 100%;
-  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-  z-index: 1;
-  margin-left: 10px; }
-
-/* Links inside the dropdown */
-.dropdown-content .nest {
-  color: white;
-  text-decoration: none;
-  display: block;
-  font-family: Arial;
-  font-size: 16px;
-  width: auto;
-  overflow: visible;
-  background-color: black;
-  position: relative; }
-
-button.nest {
-  padding: 12px 16px;
-  width: 100% !important;
-  display: block;
-  text-align: left;
-  border: none !important; }
-
-button.nest:hover, button.nest:focus {
-  background-color: blue !important; }
-
-.nest-one:hover > .nest-two-final {
-  display: block !important; }
-
-.nest-one:hover > button.nest {
-  background-color: blue !important; }
-
-.nest > a {
-  display: block;
-  height: 100%;
-  width: 100%;
-  color: white;
-  text-decoration: none; }
-
-.dropdown-content .nest.nest-two-final {
-  position: absolute;
-  top: 0;
-  left: 100%;
-  padding: 0;
-  width: 100%;
-  transition: all .5s ease-in; }
-
-.dropdown-content .nest-two:hover .nest-two-final, .dropdown-content .nest-two:focus .nest-two-final {
-  display: block !important;
-  opacity: 1 !important; }
-
-.dropdown-content .nest.nest-two-final > .nest {
-  width: 100% !important; }
-
-.dropdown-content > .nest:last-child, .dropdown-content > .nest:nth-child(4) {
-  border-top: solid 2px rgba(255, 255, 255, 0.7); }
-
-.nest-two:hover + .nest-two-final {
-  display: block !important; }
-
-.menu-arrow {
-  position: relative;
-  float: right;
-  font-size: 10px !important;
-  margin-right: -10px;
-  padding-top: 2.5px;
-  opacity: .9; }
-
-/* Change color of dropdown links on hover */
-.dropdown-content span:hover, .dropdown-content span:focus {
-  background-color: #0000FF; }
-
 /* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
 .answerShake {
   animation: hardShake 1s cubic-bezier(0.36, 0.07, 0.19, 0.97) forwards;
@@ -1266,37 +1218,6 @@ button.nest:hover, button.nest:focus {
     transform: translate3d(-4px, 0, 0); }
   40%, 60% {
     transform: translate3d(4px, 0, 0); } }
-@media screen and (min-width: 320px) and (max-width: 767px) and (orientation: landscape) {
-  html {
-    transform: rotate(-90deg);
-    transform-origin: left top;
-    width: 100vh;
-    overflow-x: hidden;
-    position: absolute;
-    top: 100%;
-    left: 0; } }
-@media only screen and (max-width: 700px) {
-  .social {
-    right: 5px;
-    transform-origin: 50% 50%;
-    transform: scale(0.75); }
-
-  div.stage {
-    right: -5px;
-    bottom: -5px;
-    transform: scale(0.75);
-    transform-origin: 50% 50%; }
-
-  div.stage.open {
-    transform: scale(1); }
-
-  .header .scrollwrap {
-    display: none !important; }
-
-  svg.hello {
-    width: 250px !important;
-    height: 250px !important;
-    margin-top: 50px; } }
 .tooltip {
   display: block !important;
   z-index: 10000; }
@@ -1375,5 +1296,81 @@ button.nest:hover, button.nest:focus {
     visibility: visible;
     opacity: 1;
     transition: opacity .15s; }
+
+@media only screen and (max-width: 700px) {
+  .social {
+    right: 5px;
+    transform-origin: 50% 50%;
+    transform: scale(0.75); }
+
+  div.stage {
+    right: -5px;
+    bottom: -5px;
+    transform: scale(0.75);
+    transform-origin: 50% 50%; }
+
+  div.stage.open {
+    transform: scale(1); }
+
+  .header .scrollwrap {
+    display: none !important; }
+
+  svg.hello {
+    width: 250px !important;
+    height: 250px !important;
+    margin-top: 50px; } }
+.computer-bounce {
+  display: none;
+  z-index: 50;
+  width: 100px;
+  height: 100px;
+  position: absolute;
+  -webkit-animation: moveX 6.1s linear 0s infinite alternate, moveY 6.8s linear 0s infinite alternate;
+  -moz-animation: moveX 6.1s linear 0s infinite alternate, moveY 6.8s linear 0s infinite alternate;
+  -o-animation: moveX 6.1s linear 0s infinite alternate, moveY 6.8s linear 0s infinite alternate;
+  animation: moveX 6.1s linear 0s infinite alternate, moveY 6.8s linear 0s infinite alternate; }
+  .computer-bounce:hover {
+    animation-play-state: paused; }
+
+@-webkit-keyframes moveX {
+  from {
+    left: 0; }
+  to {
+    left: calc(100vw - 100px); } }
+@-moz-keyframes moveX {
+  from {
+    left: 0; }
+  to {
+    left: calc(100vw - 100px); } }
+@-o-keyframes moveX {
+  from {
+    left: 0; }
+  to {
+    left: calc(100vw - 100px); } }
+@keyframes moveX {
+  from {
+    left: 0; }
+  to {
+    left: calc(100vw - 100px); } }
+@-webkit-keyframes moveY {
+  from {
+    top: 0; }
+  to {
+    top: 500px; } }
+@-moz-keyframes moveY {
+  from {
+    top: 0; }
+  to {
+    top: 500px; } }
+@-o-keyframes moveY {
+  from {
+    top: 0; }
+  to {
+    top: 500px; } }
+@keyframes moveY {
+  from {
+    top: 0; }
+  to {
+    top: 500px; } }
 
 /*# sourceMappingURL=main.css.map */

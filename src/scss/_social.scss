@@ -1,0 +1,164 @@
+.social {
+  display: block;
+  position: fixed;
+  right: 25px;
+  bottom: calc(50% - 120px);
+  z-index: 888;
+  border: 1px solid rgba(0,0,0,.15);
+  -webkit-box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+  -webkit-background-clip: padding-box;
+  -moz-background-clip: padding-box;
+  background-clip: padding-box;
+  .smpanel {
+    height: 28px;
+    width: 28px;
+    display: block;
+    a {
+      display: block;
+      height: 100%;
+      width: 100%;
+      border: 2px solid $blue;
+      margin: -8px;
+      background-color: $white;
+    }
+    svg path {
+      fill: $white;
+      transition: all 1s linear both;
+      -webkit-transition: all 1s linear both;
+    }
+  }
+  .twitter .smpanel {
+    border: 2px solid $blue;
+    background: $blue;
+    &:hover {
+      svg path {
+        fill: $white;
+      }
+      a {
+        background-color: $blue !important;
+        border: 2px solid $white;
+      }
+    }
+  }
+  .dribble .smpanel {
+    border: 2px solid $red;
+    background: $red;
+    &:hover {
+      svg path {
+        fill: $white;
+      }
+      a {
+        background-color: $blue !important;
+        border: 2px solid $white;
+      }
+    }
+  }
+  .instagram .smpanel {
+    border: 2px solid $yellow;
+    background: $yellow;
+    &:hover {
+      svg path {
+        fill: $white;
+      }
+      a {
+        background-color: $blue !important;
+        border: 2px solid $white;
+      }
+    }
+  }
+  .facebook .smpanel {
+    border: 2px solid $green;
+    background: $green;
+    &:hover {
+      svg path {
+        fill: $white;
+      }
+      a {
+        background-color: $blue !important;
+        border: 2px solid white;
+      }
+    }
+  }
+  .github .smpanel {
+    border: 2px solid $black;
+    background: $black;
+    &:hover {
+      svg path {
+        fill: $white;
+      }
+      a {
+        background-color: $blue !important;
+        border: 2px solid $white;
+      }
+    }
+  }
+  .linkedin .smpanel {
+    border: 2px solid $darkGrey;
+    background: $darkGrey;
+    &:hover {
+      svg path {
+        fill: $white;
+      }
+      a {
+        background-color: $blue !important;
+      }
+    }
+  }
+  .pocket .smpanel {
+    border: 2px solid $lightGrey;
+    background: $lightGrey;
+    &:hover {
+      svg path {
+        fill: $white;
+      }
+      a {
+        background-color: $blue !important;
+        border: 2px solid $white;
+      }
+    }
+  }
+  .soundcloud .smpanel {
+    border: 2px solid $white;
+    background: $white;
+    &:hover {
+      svg path {
+        fill: $white;
+      }
+      a {
+        background-color: $blue !important;
+        border: 2px solid $white;
+      }
+    }
+  }
+  &.active {
+    svg path {
+      fill: $blue;
+    }
+    .twitter,
+    .dribble,
+    .github,
+    .linkedin {
+      .smpanel {
+        animation: boxinwhite .5s ease-in-out forwards;
+      }
+    }
+    .pocket,
+    .facebook,
+    .instagram {
+      .smpanel {
+        animation: boxinblack .5s ease-in-out forwards;
+      }
+    }
+    .soundcloud {
+      .smpanel {
+        animation: boxinblue .5s ease-in-out forwards;
+      }
+    }
+  }
+  &:not(.active) a {
+    background-color: transparent;
+    border: 2px solid transparent;
+  }
+}
